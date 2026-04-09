@@ -5,144 +5,373 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow Dojo | Master the Hidden Arts</title>
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;400;600;800;900&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,900;1,900&family=Noto+Sans+JP:wght@900&family=Dela+Gothic+One&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;400;600;800;900&family=Permanent+Marker&family=Noto+Sans+JP:wght@900&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --flame-orange: #ff6a2a;
-            --flame-orange-soft: #ff8a4d;
             --bg-black: #0a0a0a;
-            --bg-dark: #080808;
-            /* Unified with section start */
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
             --border-dark: rgba(255, 255, 255, 0.08);
             --ninja-red: #cc0000;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 20% 20%, rgba(255, 106, 42, 0.08), transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(255, 106, 42, 0.05), transparent 50%),
-                var(--bg-black);
+            background: var(--bg-black);
             color: var(--text-primary);
             overflow-x: hidden;
         }
 
-        .brush-font {
-            font-family: 'Permanent Marker', cursive;
+        .japan-font { font-family: 'Dela Gothic One', cursive; }
+        .cinzel-font { font-family: 'Cinzel', serif; }
+        .jp-font { font-family: 'Noto Sans JP', sans-serif; }
+
+        /* =====================================================
+           LOADING SCREEN — CINEMATIC PRELUDE
+           ===================================================== */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999999;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .japan-font {
-            font-family: 'Dela Gothic One', cursive;
+        #loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .cinzel-font {
-            font-family: 'Cinzel', serif;
-        }
-
-        .jp-font {
+        .loader-kanji {
             font-family: 'Noto Sans JP', sans-serif;
+            font-size: clamp(5rem, 15vw, 12rem);
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 106, 42, 0.3);
+            animation: kanjiPulse 2s ease-in-out infinite;
+            position: relative;
         }
 
-        /* Minimalist Header */
+        .loader-kanji::after {
+            content: '炎';
+            position: absolute;
+            inset: 0;
+            color: var(--flame-orange);
+            -webkit-text-stroke: 0;
+            clip-path: inset(100% 0 0 0);
+            animation: kanjiReveal 2.5s ease-out forwards;
+        }
+
+        @keyframes kanjiPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+        }
+
+        @keyframes kanjiReveal {
+            0% { clip-path: inset(100% 0 0 0); }
+            100% { clip-path: inset(0% 0 0 0); }
+        }
+
+        .loader-subtitle {
+            font-size: 10px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInSlow 1s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInSlow {
+            to { opacity: 1; }
+        }
+
+        /* Progress Bar */
+        .loader-progress-wrap {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--ninja-red), var(--flame-orange));
+            transition: width 0.1s linear;
+        }
+
+        .loader-percent {
+            font-size: 11px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* Loading particles */
+        #loader-canvas {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        /* Curtain Reveal Effect */
+        .curtain-left, .curtain-right {
+            position: fixed;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: #000;
+            z-index: 9999998;
+            transition: transform 1.2s cubic-bezier(0.87, 0, 0.13, 1);
+        }
+
+        .curtain-left { left: 0; transform-origin: left; }
+        .curtain-right { right: 0; transform-origin: right; }
+
+        .curtains-open .curtain-left { transform: translateX(-100%); }
+        .curtains-open .curtain-right { transform: translateX(100%); }
+
+        /* =====================================================
+           SCROLL PROGRESS INDICATOR
+           ===================================================== */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ninja-red), var(--flame-orange));
+            z-index: 99999;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* =====================================================
+           CHAPTER LABEL (Side)
+           ===================================================== */
+        .chapter-label {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+            z-index: 100;
+            transition: color 0.5s ease;
+            pointer-events: none;
+        }
+
+        .chapter-label span {
+            color: var(--flame-orange);
+            font-weight: 900;
+        }
+
+        /* =====================================================
+           GLOW CURSOR
+           ===================================================== */
+        #glow-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 106, 42, 0.12) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.4s ease, height 0.4s ease;
+            mix-blend-mode: screen;
+        }
+
+        #glow-cursor.hovering {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, transparent 60%);
+        }
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
         header {
             border-bottom: 1px solid var(--border-dark);
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
         }
 
-        /* Vertical Text Styling */
+        /* =====================================================
+           HERO SECTION
+           ===================================================== */
         .vertical-label {
             writing-mode: vertical-rl;
             text-orientation: upright;
             font-size: 0.85rem;
             letter-spacing: 0.4em;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.15);
             position: absolute;
             left: 40px;
             top: 35%;
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            z-index: 10;
         }
 
         .vertical-label::after {
             content: '';
+            display: block;
             width: 1px;
             height: 60px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            margin-top: 20px;
         }
 
-        /* Hero Text - Large & Centered */
         .hero-title {
-            font-size: clamp(2.2rem, 11vw, 4rem);
+            font-size: clamp(3rem, 12vw, 5rem);
             line-height: 0.9;
             color: var(--flame-orange);
             letter-spacing: -0.02em;
-            transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         @media (min-width: 768px) {
-            .hero-title {
-                font-size: clamp(6rem, 18vw, 15rem);
-            }
+            .hero-title { font-size: clamp(6rem, 18vw, 14rem); }
         }
 
-        /* The Katana / Hero Image Container */
         .hero-object-container {
             width: 100%;
             max-width: 1000px;
-            margin: -50px auto 0;
+            margin: -30px auto 0;
             position: relative;
             z-index: 10;
         }
 
-        /* Japanese Pattern Border (Asanoha) - Flame Tinted */
+        .katana-stand {
+            filter: drop-shadow(0 30px 80px rgba(255, 106, 42, 0.15));
+            will-change: transform;
+        }
+
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: skewX(-20deg);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+
         .pattern-border {
             height: 40px;
             width: 100%;
             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23ff6a2a' fill-opacity='0.03'/%3E%3C/svg%3E");
             background-repeat: repeat-x;
             position: absolute;
-            bottom: 0;
-            left: 0;
+            bottom: 0; left: 0;
             border-top: 1px solid rgba(255, 106, 42, 0.05);
         }
 
-        /* Stats Layout */
-        .stats-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            position: relative;
-            z-index: 20;
+        .fire-glow-overlay {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 40%;
+            background: radial-gradient(ellipse at bottom, rgba(255, 106, 42, 0.15), transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+            animation: fireFlicker 4s infinite ease-in-out;
         }
 
-        @media (min-width: 1024px) {
-            .stats-container {
-                grid-template-columns: repeat(12, 1fr);
-            }
-
-            .stats-info {
-                grid-column: span 5;
-            }
-
-            .stats-visuals {
-                grid-column: span 7;
-            }
+        @keyframes fireFlicker {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
+        /* Smoke Parallax */
+        .smoke-blend-wrap {
+            position: absolute;
+            bottom: -150px; left: 0;
+            width: 100%; height: 600px;
+            z-index: 5;
+            pointer-events: none;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .smoke-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(10, 10, 10, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: smokeDrift 15s infinite ease-in-out;
+        }
+
+        .smoke-1 { width: 600px; height: 600px; bottom: -200px; left: -100px; }
+        .smoke-2 { width: 700px; height: 700px; bottom: -250px; right: -50px; animation-delay: 5s; }
+        .smoke-3 { width: 500px; height: 500px; bottom: -150px; left: 40%; animation-delay: 10s; }
+
+        @keyframes smokeDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
+            30% { opacity: 0.5; }
+            70% { opacity: 0.3; }
+            100% { transform: translate(60px, -60px) scale(1.2); }
+        }
+
+        .blend-gradient-overlay {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(10, 10, 10, 0.3) 20%,
+                rgba(10, 10, 10, 0.7) 50%,
+                rgba(10, 10, 10, 0.95) 85%,
+                var(--bg-black) 100%);
+        }
+
+        /* CTA Button */
+        .btn-urgency {
+            background: #a80000;
+            color: #fff;
+            padding: 16px 45px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        }
+
+        .btn-urgency:hover {
+            background: #cc0000;
+            box-shadow: 0 15px 40px rgba(204, 0, 0, 0.5);
+        }
+
+        /* =====================================================
+           INTEL / STATS SECTION
+           ===================================================== */
         .stat-card {
             background: #0e0e0e;
             border: 1px solid var(--border-dark);
             padding: 20px;
             position: relative;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-            clip-path: none;
+            transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         @media (min-width: 768px) {
@@ -170,25 +399,10 @@
             display: block;
         }
 
-        .hero-stat .stat-value {
-            font-size: 2.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .hero-stat .stat-value {
-                font-size: 5rem;
-            }
-        }
-
-        .small-stat .stat-value {
-            font-size: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .small-stat .stat-value {
-                font-size: 2.5rem;
-            }
-        }
+        .hero-stat .stat-value { font-size: 2.5rem; }
+        @media (min-width: 768px) { .hero-stat .stat-value { font-size: 5rem; } }
+        .small-stat .stat-value { font-size: 1.5rem; }
+        @media (min-width: 768px) { .small-stat .stat-value { font-size: 2.5rem; } }
 
         .stat-label {
             font-size: 0.7rem;
@@ -198,24 +412,19 @@
             color: var(--text-secondary);
         }
 
-        /* Animated SVG Icons */
         .stat-icon svg {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             stroke: var(--ninja-red);
             stroke-width: 1.5;
             fill: none;
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            transition: stroke-dashoffset 2s ease-out;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 2s cubic-bezier(0.25, 1, 0.5, 1);
             margin-bottom: 20px;
         }
 
-        .stat-card.is-visible .stat-icon svg {
-            stroke-dashoffset: 0;
-        }
+        .stat-card.is-visible .stat-icon svg { stroke-dashoffset: 0; }
 
-        /* Clan Branding */
         .clan-badge {
             font-size: 0.75rem;
             font-weight: 900;
@@ -231,264 +440,45 @@
             background: rgba(255, 106, 42, 0.05);
         }
 
-        /* Patterns */
         .pattern-bg {
             position: absolute;
             inset: 0;
             opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 40c0-20 20-40 40-40s40 20 40 40' fill='none' stroke='%23ff6a2a' stroke-width='1'/%3E%3Cpath d='M0 35c0-17.5 17.5-35 35-35s35 17.5 35 35' fill='none' stroke='%23ff6a2a' stroke-width='0.5' opacity='0.5'/%3E%3Cpath d='M0 30c0-15 15-30 30-30s30 15 30 30' fill='none' stroke='%23ff6a2a' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 40c0-20 20-40 40-40s40 20 40 40' fill='none' stroke='%23ff6a2a' stroke-width='1'/%3E%3C/svg%3E");
             background-size: 60px 30px;
             pointer-events: none;
             z-index: 0;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
         }
 
         .corner-accent {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 35%;
-            height: 60%;
+            bottom: 0; right: 0;
+            width: 35%; height: 60%;
             background: linear-gradient(to top left, rgba(204, 0, 0, 0.03), transparent);
             clip-path: polygon(100% 0, 100% 100%, 0 100%);
             pointer-events: none;
             z-index: 1;
         }
 
-        /* Shadow Smoke Transition Blend Refinement */
-        .smoke-blend-wrap {
-            position: absolute;
-            bottom: -150px;
-            left: 0;
-            width: 100%;
-            height: 600px;
-            z-index: 5;
-            /* Behind Katana (z-index: 10) */
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .smoke-particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(10, 10, 10, 0.7) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(50px);
-            opacity: 0;
-            animation: smokeDrift 15s infinite ease-in-out;
-        }
-
-        .smoke-1 {
-            width: 600px;
-            height: 600px;
-            bottom: -200px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-
-        .smoke-2 {
-            width: 700px;
-            height: 700px;
-            bottom: -250px;
-            right: -50px;
-            animation-delay: 5s;
-        }
-
-        .smoke-3 {
-            width: 500px;
-            height: 500px;
-            bottom: -150px;
-            left: 40%;
-            animation-delay: 10s;
-        }
-
-        @keyframes smokeDrift {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0;
-            }
-
-            30% {
-                opacity: 0.4;
-            }
-
-            70% {
-                opacity: 0.3;
-            }
-
-            100% {
-                transform: translate(60px, -60px) scale(1.2);
-            }
-        }
-
-        .blend-gradient-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom,
-                    transparent 0%,
-                    rgba(10, 10, 10, 0.2) 20%,
-                    rgba(10, 10, 10, 0.6) 50%,
-                    rgba(10, 10, 10, 0.95) 85%,
-                    var(--bg-black) 100%);
-        }
-
-        /* Urgency Button - Screeenshot match */
-        .btn-urgency {
-            background: #a80000;
-            color: #ffffff;
-            padding: 16px 45px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            /* Angled bottom-right corner */
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-        }
-
-        .btn-urgency:hover {
-            background: #cc0000;
-            transform: translateY(-2px);
-        }
-
-        /* Atmospheric Flourishes */
-        .cloud-icon {
-            position: absolute;
-            top: 25%;
-            left: 5%;
-            width: 80px;
-            opacity: 0.05;
-            filter: grayscale(1) invert(1);
-            /* Inverted for dark mode */
-        }
-
-        .katana-stand {
-            filter: drop-shadow(0 30px 80px rgba(255, 106, 42, 0.15));
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .hero-section:hover .katana-stand {
-            transform: scale(1.02) translateY(-10px);
-        }
-
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-
-            100% {
-                left: 100%;
-            }
-        }
-
-        .shimmer-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: skewX(-20deg);
-            animation: shimmer 4s infinite;
-        }
-
-        /* LOAD ANIMATIONS */
-        .load-hidden {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        .header-hidden {
-            opacity: 0;
-            transform: translateY(-100%);
-        }
-
-        .fade-in-right {
-            opacity: 0;
-            transform: translateX(-40px);
-        }
-
-        .cloud-hidden {
-            opacity: 0;
-        }
-
-        .anim-fade-up {
-            animation: fadeUp 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-        }
-
-        .anim-slide-down {
-            animation: slideDown 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-        }
-
-        .anim-fade-right {
-            animation: fadeRight 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-        }
-
-        .anim-fade-in {
-            animation: fadeIn 2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 0.05;
-            }
-        }
-
-        #intel.is-visible {
-            border-top: 1px solid rgba(255, 106, 42, 0.15);
-        }
-
-        /* THE ARSENAL SECTION */
-        .arsenal-section {
-            background-color: var(--bg-black);
-            position: relative;
-            z-index: 10;
-        }
-
+        /* =====================================================
+           ARSENAL / WEAPON CARDS
+           ===================================================== */
         .arsenal-header {
             font-family: 'Cinzel', serif;
             font-weight: 900;
             letter-spacing: -2px;
-            position: relative;
-            display: inline-block;
         }
 
-        /* Removed multiple underlines in favor of single .arsenal-header-underline div */
+        .arsenal-header-underline {
+            width: 140px;
+            height: 4px;
+            background: var(--ninja-red);
+            margin-top: 10px;
+        }
 
-        /* Bento Grid */
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: 1fr;
             gap: 20px;
             grid-auto-rows: minmax(280px, auto);
         }
@@ -497,155 +487,6 @@
             .bento-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-
-            .span-2 {
-                grid-column: span 2;
-            }
-
-            .row-span-2 {
-                grid-row: span 2;
-            }
-        }
-
-        .bento-card {
-            position: relative;
-            background: #121212;
-            border: 1px solid var(--border-dark);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
-            cursor: pointer;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: var(--flame-orange);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .bento-items-center {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .bento-card .card-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.5;
-            transition: transform 0.6s ease, opacity 0.4s ease;
-            z-index: 0;
-        }
-
-        .bento-card:hover .card-bg {
-            transform: scale(1.1);
-            opacity: 0.7;
-        }
-
-        .bento-card .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.5) 60%, rgba(10, 10, 10, 0.2) 100%);
-            z-index: 1;
-        }
-
-        .bento-card .card-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .bento-card.highlight {
-            background: #ff6a2a;
-            border-color: #ff6a2a;
-        }
-
-        .bento-card.highlight .card-overlay {
-            background: linear-gradient(to top, rgba(255, 106, 42, 0.95) 0%, rgba(255, 106, 42, 0.6) 100%);
-        }
-
-        .bento-card.highlight .card-title {
-            color: black;
-        }
-
-        .bento-card.highlight .card-desc {
-            color: rgba(0, 0, 0, 0.7);
-        }
-
-        .card-tag {
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: var(--flame-orange);
-            color: black;
-            padding: 4px 8px;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 2rem;
-            font-weight: 900;
-            line-height: 1.1;
-            color: #fff;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .card-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 90%;
-        }
-
-        @media (max-width: 768px) {
-            .card-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Hero Fire Background Enhancement */
-        .fire-glow-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40%;
-            background: radial-gradient(ellipse at bottom, rgba(255, 106, 42, 0.15), transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-            animation: fireFlickerBg 4s infinite ease-in-out;
-        }
-
-        @keyframes fireFlickerBg {
-
-            0%,
-            100% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.8;
-                transform: scale(1.05);
-            }
-        }
-
-        /* NEW ARSENAL REDESIGN STYLES */
-        .arsenal-header-underline {
-            width: 140px;
-            /* Covers roughly the word 'THE' */
-            height: 4px;
-            background: #cc0000;
-            margin-top: 10px;
         }
 
         .weapon-card {
@@ -656,21 +497,37 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
             min-height: 240px;
+            cursor: pointer;
         }
 
+        .weapon-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .weapon-card:hover::before { opacity: 1; }
+
         .weapon-card:hover {
-            border-color: rgba(204, 0, 0, 0.3);
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            transform: translateY(-5px);
+            border-color: rgba(204, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(204, 0, 0, 0.1);
+            z-index: 10;
         }
 
         .weapon-card.featured {
             grid-column: span 1;
             grid-row: span 1;
             padding: 24px;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop');
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)),
+                url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
         }
@@ -684,7 +541,7 @@
         }
 
         .weapon-tag {
-            background: #cc0000;
+            background: var(--ninja-red);
             color: white;
             padding: 4px 12px;
             font-size: 10px;
@@ -693,12 +550,13 @@
             letter-spacing: 1px;
             display: inline-block;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .rank-tag {
             position: absolute;
-            top: 25px;
-            right: 30px;
+            top: 25px; right: 30px;
             font-size: 9px;
             font-weight: 700;
             color: #666;
@@ -713,30 +571,25 @@
             line-height: 1.1;
             margin-bottom: 15px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 1;
         }
 
-        .featured .weapon-title {
-            font-size: 1.5rem;
-            max-width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .featured .weapon-title {
-                font-size: 4rem;
-                max-width: 500px;
-            }
-        }
+        .featured .weapon-title { font-size: 1.5rem; max-width: 100%; }
+        @media (min-width: 768px) { .featured .weapon-title { font-size: 4rem; max-width: 500px; } }
 
         .weapon-desc {
             color: #888;
             font-size: 0.9rem;
             line-height: 1.6;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .deploy-link {
             margin-top: auto;
-            color: #cc0000;
+            color: var(--ninja-red);
             font-size: 10px;
             font-weight: 900;
             text-transform: uppercase;
@@ -745,17 +598,18 @@
             align-items: center;
             gap: 10px;
             transition: gap 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
-        .deploy-link:hover {
-            gap: 15px;
-        }
+        .deploy-link:hover { gap: 18px; }
 
         .weapon-icon {
-            width: 32px;
-            height: 32px;
-            fill: #cc0000;
+            width: 32px; height: 32px;
+            fill: var(--ninja-red);
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .highlight-red {
@@ -766,449 +620,258 @@
         .highlight-red .weapon-title,
         .highlight-red .weapon-desc,
         .highlight-red .deploy-link,
-        .highlight-red .rank-tag {
-            color: white;
+        .highlight-red .rank-tag { color: white; }
+        .highlight-red .weapon-icon { fill: white; }
+
+        /* =====================================================
+           MODAL
+           ===================================================== */
+        .weapon-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(25px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            padding: 20px;
         }
 
-        .highlight-red .deploy-link {
-            color: white;
+        .weapon-modal.active { opacity: 1; pointer-events: auto; }
+
+        .modal-content {
+            background: linear-gradient(135deg, #151515 0%, #080808 100%);
+            border: 1px solid var(--ninja-red);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            position: relative;
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(204, 0, 0, 0.2);
         }
 
-        .highlight-red .weapon-icon {
-            fill: white;
+        .weapon-modal.active .modal-content {
+            transform: scale(1) translateY(0);
         }
 
-        /* Custom Grid Overrides */
-        @media (min-width: 1024px) {
-            .bento-grid {
-                grid-template-columns: repeat(3, 1fr);
-                grid-auto-rows: minmax(280px, auto);
-            }
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        /* =============================================
-           MOBILE RESPONSIVE — GLOBAL OVERFLOW FIX
-           ============================================= */
+        .modal-close:hover {
+            background: var(--ninja-red);
+            border-color: var(--ninja-red);
+            transform: rotate(90deg);
+        }
+
+        /* =====================================================
+           PHILOSOPHY / IMMERSION
+           ===================================================== */
+        .immersion-text span {
+            opacity: 0.08;
+            display: inline-block;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(10px);
+        }
+
+        .immersion-text.is-visible span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cinematic-image {
+            transition: transform 12s ease-out;
+        }
+
+        .cinematic-image.in-view {
+            transform: scale(1.15);
+        }
+
+        /* =====================================================
+           SECTION TRANSITION DIVIDERS
+           ===================================================== */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 106, 42, 0.2), transparent);
+            margin: 0 auto;
+            width: 80%;
+        }
+
+        /* =====================================================
+           SCROLL-BASED REVEAL CLASSES
+           ===================================================== */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal-scale.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+        .footer-kanji {
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+        }
+
+        .footer-kanji:hover {
+            color: var(--flame-orange);
+            text-shadow: 0 0 30px rgba(255, 106, 42, 0.3);
+        }
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
         @media (max-width: 768px) {
-
-            html, body {
-                overflow-x: hidden !important;
-                max-width: 100vw !important;
-            }
-
-            *, *::before, *::after {
-                max-width: 100vw;
-            }
-
-            section, header, footer {
-                overflow-x: hidden !important;
-                max-width: 100vw !important;
-            }
-
-            /* --- HEADER --- */
-            header {
-                padding: 10px 14px !important;
-            }
-
-            header button {
-                font-size: 9px !important;
-                letter-spacing: 1px !important;
-            }
-
-            /* --- HERO SECTION --- */
-            .hero-section {
-                padding: 70px 16px 40px !important;
-                min-height: auto !important;
-            }
-
-            .hero-title {
-                font-size: clamp(3rem, 14vw, 5rem) !important;
-                letter-spacing: -0.02em !important;
-                word-break: break-word;
-                overflow-wrap: break-word;
-            }
-
-            /* Subtitle "Mastery through Discipline" */
-            .hero-section p[class*="tracking-"] {
-                letter-spacing: 3px !important;
-                font-size: 8px !important;
-                padding: 0 10px;
-            }
-
-            /* Hide desktop-only decorative elements */
-            .vertical-label {
-                display: none !important;
-            }
-
-            .cloud-icon {
-                display: none !important;
-            }
-
-            /* Hero katana container */
-            .hero-object-container {
-                max-width: 100% !important;
-                margin-top: -10px !important;
-                padding: 0 8px;
-                overflow: hidden;
-            }
-
-            .hero-object-container svg {
-                height: 120px;
-                max-width: 100%;
-            }
-
-            /* Countdown timer */
-            .hero-section .flex.items-baseline {
-                font-size: 1.6rem !important;
-            }
-
-            .hero-section .flex.items-baseline span {
-                font-size: inherit !important;
-            }
-
-            .hero-section .flex.items-baseline .text-sm {
-                font-size: 0.6rem !important;
-            }
-
-            /* CTA Button */
-            .btn-urgency {
-                padding: 12px 28px !important;
-                font-size: 0.85rem !important;
-                letter-spacing: 1px !important;
-                width: auto;
-                max-width: 90vw;
-            }
-
-            /* "Limited to 150 Disciples" */
-            .hero-section span[class*="text-[10px]"] {
-                font-size: 9px !important;
-            }
-
-            /* --- TACTICAL / INTEL SECTION --- */
-            #intel {
-                padding: 50px 16px !important;
-            }
-
-            .cinzel-font {
-                font-size: 2rem !important;
-                letter-spacing: -1px !important;
-                word-break: break-word;
-                overflow-wrap: break-word;
-                hyphens: auto;
-            }
-
-            #intel .max-w-sm {
-                max-width: 100% !important;
-            }
-
-            .stats-container {
-                gap: 1rem !important;
-            }
-
-            .hero-stat .stat-value {
-                font-size: 2.8rem !important;
-            }
-
-            .small-stat .stat-value {
-                font-size: 1.8rem !important;
-            }
-
-            .stat-card {
-                padding: 20px !important;
-                clip-path: none !important;
-            }
-
-            .stat-card.hero-stat {
-                border-left-width: 3px !important;
-            }
-
-            /* Clan badges — full wrap */
-            .flex.flex-wrap.gap-4 {
-                gap: 8px !important;
-            }
-
-            .clan-badge {
-                font-size: 0.6rem !important;
-                padding: 5px 8px !important;
-            }
-
-            /* Allied clans label */
-            #intel .text-\[10px\] {
-                letter-spacing: 3px !important;
-            }
-
-            /* --- ARSENAL SECTION --- */
-            #arsenal {
-                padding: 50px 16px !important;
-            }
-
-            .arsenal-header {
-                font-size: 2.2rem !important;
-                letter-spacing: -1px !important;
-            }
-
-            .arsenal-section .mb-24 {
-                margin-bottom: 32px !important;
-            }
-
-            .arsenal-header-underline {
-                width: 80px !important;
-            }
-
-            .bento-grid {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-                grid-auto-rows: auto !important;
-            }
-
-            .weapon-card {
-                padding: 22px !important;
-                min-height: auto !important;
-            }
-
-            .weapon-card.featured {
-                grid-column: span 1 !important;
-                grid-row: span 1 !important;
-                padding: 24px !important;
-                background-size: cover !important;
-            }
-
-            .weapon-title {
-                font-size: 1.2rem !important;
-            }
-
-            .featured .weapon-title {
-                font-size: 1.5rem !important;
-                max-width: 100% !important;
-            }
-
-            .weapon-desc {
-                font-size: 0.8rem !important;
-                margin-bottom: 16px !important;
-            }
-
-            .rank-tag {
-                top: 14px !important;
-                right: 14px !important;
-                font-size: 8px !important;
-            }
-
-            .weapon-tag {
-                font-size: 8px !important;
-                padding: 3px 8px !important;
-                margin-bottom: 12px !important;
-            }
-
-            .weapon-icon {
-                width: 24px !important;
-                height: 24px !important;
-                margin-bottom: 12px !important;
-            }
-
-            .deploy-link {
-                font-size: 9px !important;
-            }
-
-            /* --- PHILOSOPHY SECTION --- */
-            #about {
-                padding: 50px 16px !important;
-            }
-
-            #about h2 {
-                font-size: 2.2rem !important;
-                word-break: break-word;
-            }
-
-            #about .text-7xl {
-                font-size: 2.2rem !important;
-            }
-
-            #about .grid {
-                gap: 24px !important;
-            }
-
-            #about .text-2xl {
-                font-size: 1.2rem !important;
-            }
-
-            #about .text-lg {
-                font-size: 0.95rem !important;
-            }
-
-            #about .absolute.-inset-4 {
-                inset: -8px !important;
-            }
-
-            /* --- FOOTER --- */
-            footer {
-                padding: 32px 16px !important;
-            }
-
-            footer .max-w-7xl {
-                padding: 0 8px !important;
-            }
-
-            footer .flex.gap-12 {
-                gap: 16px !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-            }
-
-            footer .text-4xl {
-                font-size: 2rem !important;
-            }
-
-            footer p {
-                letter-spacing: 0.2rem !important;
-                font-size: 8px !important;
-                text-align: center;
-                word-break: break-word;
-            }
-
-            /* Smoke particles — scale down */
-            .smoke-blend-wrap {
-                height: 250px !important;
-                bottom: -60px !important;
-            }
-
-            .smoke-1, .smoke-2, .smoke-3 {
-                width: 250px !important;
-                height: 250px !important;
-            }
-
-            /* Fire glow */
-            .fire-glow-overlay {
-                height: 30% !important;
-            }
+            html, body { overflow-x: hidden !important; max-width: 100vw !important; }
+            header { padding: 10px 14px !important; }
+            .hero-section { padding: 70px 16px 40px !important; min-height: auto !important; }
+            .hero-title { font-size: clamp(3rem, 14vw, 5rem) !important; }
+            .vertical-label, .cloud-icon { display: none !important; }
+            .hero-object-container { max-width: 100% !important; margin-top: -10px !important; overflow: hidden; }
+            .hero-object-container svg { height: 100px; max-width: 100%; }
+            .btn-urgency { padding: 12px 28px !important; font-size: 0.85rem !important; letter-spacing: 1px !important; }
+            #intel { padding: 50px 16px !important; }
+            .cinzel-font { font-size: 2rem !important; letter-spacing: -1px !important; }
+            .stat-card { padding: 20px !important; clip-path: none !important; }
+            .hero-stat .stat-value { font-size: 2.8rem !important; }
+            .small-stat .stat-value { font-size: 1.8rem !important; }
+            #arsenal { padding: 50px 16px !important; }
+            .arsenal-header { font-size: 2.2rem !important; }
+            .bento-grid { grid-template-columns: 1fr !important; gap: 12px !important; grid-auto-rows: auto !important; }
+            .weapon-card { padding: 22px !important; min-height: auto !important; }
+            .weapon-card.featured { grid-column: span 1 !important; grid-row: span 1 !important; padding: 24px !important; }
+            .weapon-title { font-size: 1.2rem !important; }
+            .featured .weapon-title { font-size: 1.5rem !important; max-width: 100% !important; }
+            #about { padding: 50px 16px !important; }
+            #glow-cursor, .chapter-label { display: none !important; }
+            .loader-kanji { font-size: 5rem !important; }
         }
 
-        /* ==========================================
-           EXTRA SMALL DEVICES (phones ≤ 480px)
-           ========================================== */
         @media (max-width: 480px) {
-
-            .hero-title {
-                font-size: clamp(2.5rem, 16vw, 4rem) !important;
-            }
-
-            .hero-section p[class*="tracking-"] {
-                letter-spacing: 2px !important;
-                font-size: 7px !important;
-            }
-
-            .hero-section .flex.items-baseline {
-                font-size: 1.3rem !important;
-            }
-
-            .btn-urgency {
-                padding: 10px 20px !important;
-                font-size: 0.75rem !important;
-            }
-
-            .cinzel-font {
-                font-size: 1.6rem !important;
-            }
-
-            .hero-stat .stat-value {
-                font-size: 2.2rem !important;
-            }
-
-            .small-stat .stat-value {
-                font-size: 1.5rem !important;
-            }
-
-            .stat-label {
-                font-size: 0.6rem !important;
-                letter-spacing: 1px !important;
-            }
-
-            .arsenal-header {
-                font-size: 1.8rem !important;
-            }
-
-            #about .text-7xl {
-                font-size: 1.8rem !important;
-            }
-
-            footer .flex.gap-12 {
-                gap: 10px !important;
-                font-size: 9px !important;
-            }
-
-            footer p {
-                letter-spacing: 0.1rem !important;
-                font-size: 7px !important;
-            }
+            .hero-title { font-size: clamp(2.5rem, 16vw, 4rem) !important; }
+            .btn-urgency { padding: 10px 20px !important; font-size: 0.75rem !important; }
+            .cinzel-font { font-size: 1.6rem !important; }
+            .hero-stat .stat-value { font-size: 2.2rem !important; }
+            .small-stat .stat-value { font-size: 1.5rem !important; }
+            .arsenal-header { font-size: 1.8rem !important; }
         }
     </style>
 </head>
 
 <body>
 
-    <header
-        class="fixed top-0 w-full z-50 px-3 py-2 md:px-10 md:py-5 flex justify-between items-center header-hidden anim-slide-down delay-1200">
+    <!-- =====================================================
+         LOADING SCREEN — CINEMATIC PRELUDE
+         ===================================================== -->
+    <div id="loading-screen">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-kanji">炎</div>
+        <p class="loader-subtitle">Shadow Dojo</p>
+        <div class="loader-progress-wrap">
+            <div class="loader-progress-bar" id="loader-bar"></div>
+        </div>
+        <div class="loader-percent" id="loader-percent">0%</div>
+    </div>
+
+    <!-- Curtain Reveal -->
+    <div class="curtain-left"></div>
+    <div class="curtain-right"></div>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Chapter Label -->
+    <div class="chapter-label" id="chapter-label">
+        <span>I</span> — THE AWAKENING
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="glow-cursor"></div>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+    <header class="fixed top-0 w-full z-50 px-3 py-2 md:px-10 md:py-5 flex justify-between items-center" style="transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
         <div class="flex gap-4 opacity-40">
             <a href="#" class="hover:text-[#ff6a2a] transition">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                 </svg>
             </a>
             <a href="#" class="hover:text-[#ff6a2a] transition">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
             </a>
         </div>
         <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">
-            <a href="#intel" class="hover:text-white transition">Tactics</a>
-            <a href="#about" class="hover:text-white transition">Academy</a>
+            <a href="#intel" class="hover:text-white transition nav-link">Tactics</a>
+            <a href="#about" class="hover:text-white transition nav-link">Academy</a>
             <a href="#" class="flex items-center gap-2">
                 <span class="text-[#ff6a2a] font-black japan-font text-xl">SHADOW</span>
             </a>
-            <a href="#path" class="hover:text-white transition">Path</a>
-            <a href="#contact" class="hover:text-white transition">Summon</a>
+            <a href="#arsenal" class="hover:text-white transition nav-link">Path</a>
+            <a href="#contact" class="hover:text-white transition nav-link">Summon</a>
         </nav>
         <div class="flex items-center gap-4">
-            <button
-                class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff6a2a] pb-1">Entrance</button>
+            <button class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff6a2a] pb-1 hover:text-[#ff6a2a] transition">Entrance</button>
             <div class="w-8 h-[2px] bg-white"></div>
         </div>
     </header>
 
-    <!-- Main Landing Section -->
+    <!-- =====================================================
+         HERO / ENTRY SECTION
+         ===================================================== -->
     <section class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
-
-        <!-- Fire Particle Canvas -->
-        <canvas id="fireParticles"
-            class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
+        <canvas id="fireParticles" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
         <div class="fire-glow-overlay"></div>
 
-        <!-- Left Flourishes -->
-        <div class="vertical-label jp-font fade-in-right anim-fade-right delay-1000">プレミアムな選択</div>
-        <img src="https://www.transparentpng.com/download/cloud/clouds-clipart-icon-2.png"
-            class="cloud-icon cloud-hidden anim-fade-in delay-700" alt="Cloud">
+        <div class="vertical-label jp-font">プレミアムな選択</div>
 
-        <!-- Central Content -->
         <div class="text-center z-20 px-3 md:px-0">
-            <p
-                class="text-[8px] md:text-[10px] font-bold uppercase tracking-[2px] md:tracking-[8px] text-[var(--text-secondary)] mb-6 load-hidden anim-fade-up delay-100">
-                Mastery through Discipline</p>
-            <h1 class="hero-title japan-font load-hidden anim-fade-up delay-300">FLAMES</h1>
+            <p class="text-[8px] md:text-[10px] font-bold uppercase tracking-[2px] md:tracking-[8px] text-[var(--text-secondary)] mb-6 hero-element" style="opacity:0; transform:translateY(30px);">
+                Mastery through Discipline
+            </p>
+            <h1 class="hero-title japan-font hero-element" id="hero-title-main" style="opacity:0; transform:translateY(40px);">FLAMES</h1>
 
-            <!-- Urgency Section (Countdown + Button) -->
-            <div
-                class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 load-hidden anim-fade-up delay-500">
-
-                <!-- Countdown Timer -->
+            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 hero-element" style="opacity:0; transform:translateY(40px);">
                 <div class="flex items-center gap-5">
-                    <!-- Red vertical accent -->
                     <div class="w-1 h-14 bg-[#cc0000]"></div>
-
                     <div class="flex flex-col text-left">
-                        <span class="text-[11px] uppercase tracking-[1.5px] text-[#a1a1aa] mb-1 font-semibold">The Final
-                            Gate Closes In</span>
+                        <span class="text-[11px] uppercase tracking-[1.5px] text-[#a1a1aa] mb-1 font-semibold">The Final Gate Closes In</span>
                         <div class="flex items-baseline gap-1 md:gap-2 text-xl md:text-4xl font-black font-['Inter']">
                             <span id="cd-days">02</span><span class="text-sm text-[#777] ml-[-4px]">D</span>
                             <span class="text-[#cc0000] pb-1 animate-pulse">:</span>
@@ -1219,51 +882,37 @@
                     </div>
                 </div>
 
-                <!-- Call to Action Button -->
                 <div class="flex flex-col items-center gap-3">
-                    <button class="btn-urgency">Enter The Dojo</button>
-                    <span class="text-[10px] uppercase tracking-[1px] text-[#666] font-semibold">Limited to 150
-                        Disciples</span>
+                    <button class="btn-urgency magnetic-target" id="hero-btn">Enter The Dojo</button>
+                    <span class="text-[10px] uppercase tracking-[1px] text-[#666] font-semibold">Limited to 150 Disciples</span>
                 </div>
             </div>
         </div>
 
-        <!-- Hero Object: The Katana Stand -->
-        <div class="hero-object-container load-hidden anim-fade-up delay-700">
-            <div class="relative katana-stand">
-                <!-- A sleek, stylized Katana illustration using CSS/SVG logic -->
+        <div class="hero-object-container hero-element" style="opacity:0; transform:translateY(50px);">
+            <div class="relative katana-stand" id="katana-blade">
                 <svg width="100%" height="250" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
-                    <!-- The Stand (Katanakake) - Adjusted for dark mode -->
                     <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#1a1a1a" />
                     <rect x="280" y="110" width="15" height="50" fill="#1a1a1a" />
                     <rect x="505" y="110" width="15" height="50" fill="#1a1a1a" />
-
-                    <!-- The Katana -->
-                    <g transform="translate(100, 100) rotate(-2)">
-                        <!-- Blade -->
+                    <g transform="translate(100, 100) rotate(-2)" id="katana-tilt-group">
                         <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#b0b0b0" class="shimmer-effect" />
-                        <!-- Handle (Tsuka) - Changed to dark orange -->
                         <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
                         <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
-                        <!-- Guard (Tsuba) -->
                         <rect x="0" y="-5" width="10" height="35" rx="2" fill="#333" />
                     </g>
-
                     <defs>
                         <pattern id="wrapPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                            <path d="M0 10 L10 0 M5 -5 L15 5 M-5 5 L5 15" stroke="rgba(255,255,255,0.15)"
-                                stroke-width="1" />
+                            <path d="M0 10 L10 0 M5 -5 L15 5 M-5 5 L5 15" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
                         </pattern>
                     </defs>
                 </svg>
             </div>
         </div>
 
-        <!-- Pattern Border at bottom -->
         <div class="pattern-border"></div>
 
-        <!-- Shadow Smoke Blend Transition -->
-        <div class="smoke-blend-wrap">
+        <div class="smoke-blend-wrap" id="smoke-parallax">
             <div class="smoke-particle smoke-1"></div>
             <div class="smoke-particle smoke-2"></div>
             <div class="smoke-particle smoke-3"></div>
@@ -1271,28 +920,30 @@
         </div>
     </section>
 
-    <!-- TACTICAL SECTION -->
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- =====================================================
+         INTEL / DISCOVERY SECTION
+         ===================================================== -->
     <section id="intel" class="relative py-16 px-4 md:py-40 md:px-10 overflow-hidden"
         style="background: radial-gradient(circle at 30% 30%, rgba(255,106,42,0.06), transparent 50%), radial-gradient(circle at 70% 70%, rgba(255,106,42,0.04), transparent 50%), var(--bg-black);">
-        <!-- Floating Fog Element for depth reveal -->
-        <div
-            class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-60 z-10 pointer-events-none">
-        </div>
-
+        <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-60 z-10 pointer-events-none"></div>
         <div class="pattern-bg"></div>
         <div class="corner-accent"></div>
 
-        <div class="max-w-7xl mx-auto stats-container">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-            <!-- Left Column: Branding & Briefing -->
-            <div class="stats-info reveal-on-scroll">
+            <!-- Left Briefing -->
+            <div class="lg:col-span-5 reveal-up">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-10 h-[1px] bg-red-600"></span>
                     <span class="japan-font text-red-600 tracking-widest text-sm">戦術的な洞察</span>
                 </div>
-                <h2 class="cinzel-font text-2xl md:text-5xl lg:text-5xl xl:text-6xl font-black mb-6 md:mb-10 leading-none break-words">
-                    TACTICAL <br> SUPERIORITY</h2>
-                <p class="text-zinc-300 text-sm md:text-base md:text-lg leading-relaxed mb-8 md:mb-14 max-w-full md:max-w-sm">
+                <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words">
+                    TACTICAL <br> SUPERIORITY
+                </h2>
+                <p class="text-zinc-300 text-sm md:text-lg leading-relaxed mb-8 md:mb-14 max-w-full md:max-w-sm">
                     Access real-time field intelligence from our active deployment sectors. Our disciples maintain a
                     <span class="text-white font-bold">dominant strike-rate</span> within the digital shadows.
                 </p>
@@ -1309,55 +960,47 @@
                 </div>
             </div>
 
-            <!-- Right Column: Asymmetric Stats Grid -->
-            <div class="stats-visuals grid grid-cols-1 md:grid-cols-2 gap-6 relative z-20">
+            <!-- Stats Grid -->
+            <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 relative z-20">
 
-                <div class="stat-card hero-stat md:row-span-2 reveal-on-scroll">
+                <div class="stat-card hero-stat md:row-span-2 reveal-up">
                     <div class="stat-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
                     </div>
-                    <span class="stat-value">750+</span>
+                    <span class="stat-value" data-count="750" data-suffix="+">0</span>
                     <span class="stat-label">SHADOW DISCIPLES INITIATED</span>
-                    <p
-                        class="mt-8 text-neutral-500 text-[11px] leading-relaxed uppercase tracking-widest font-semibold">
-                        Confirmed mastery across all digital sectors.</p>
+                    <p class="mt-8 text-neutral-500 text-[11px] leading-relaxed uppercase tracking-widest font-semibold">
+                        Confirmed mastery across all digital sectors.
+                    </p>
                 </div>
 
-                <div class="stat-card small-stat reveal-on-scroll">
+                <div class="stat-card small-stat reveal-up">
                     <div class="stat-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
                     </div>
-                    <span class="stat-value text-4xl">160+</span>
+                    <span class="stat-value text-4xl" data-count="160" data-suffix="+">0</span>
                     <span class="stat-label">CLASSIFIED DEPLOYMENTS</span>
                 </div>
 
-                <div class="stat-card small-stat reveal-on-scroll">
+                <div class="stat-card small-stat reveal-up">
                     <div class="stat-icon">
                         <svg viewBox="0 0 24 24">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                             <circle cx="9" cy="7" r="4" />
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
                     </div>
-                    <span class="stat-value text-4xl">05</span>
+                    <span class="stat-value text-4xl" data-count="5">0</span>
                     <span class="stat-label">EXPERT TRACKS</span>
                 </div>
 
-                <div class="stat-card small-stat md:col-span-2 reveal-on-scroll flex items-center justify-between">
+                <div class="stat-card small-stat md:col-span-2 reveal-up flex items-center justify-between">
                     <div>
                         <span class="stat-label">RITE OF PASSAGE DURATION</span>
-                        <span class="stat-value text-3xl md:text-5xl mt-3">45 DAYS</span>
+                        <span class="stat-value text-3xl md:text-5xl mt-3"><span data-count="45">0</span> DAYS</span>
                     </div>
                     <div class="stat-icon mb-0 opacity-30">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2c-4 0-8 4.5-8 9 0 3 2 5 2 8s-1 3-1 3h14s-1 0-1-3 2-5 2-8c0-4.5-4-9-8-9z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 4.5-8 9 0 3 2 5 2 8s-1 3-1 3h14s-1 0-1-3 2-5 2-8c0-4.5-4-9-8-9z" /></svg>
                     </div>
                 </div>
 
@@ -1365,141 +1008,350 @@
         </div>
     </section>
 
-    <!-- THE ARSENAL SECTION -->
-    <section id="arsenal" class="arsenal-section py-16 px-4 md:py-40 md:px-10 relative overflow-hidden">
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- =====================================================
+         ARSENAL / POWER SECTION
+         ===================================================== -->
+    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden" style="background-color: var(--bg-black);">
         <div class="pattern-bg" style="opacity: 0.05;"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
-            <div class="mb-10 md:mb-24 reveal-on-scroll">
+            <div class="mb-10 md:mb-24 reveal-up">
                 <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-2">THE ARSENAL</h2>
                 <div class="arsenal-header-underline"></div>
             </div>
 
             <div class="bento-grid">
-                <!-- FEATURED WEAPON: Full Stack MERN -->
-                <div class="weapon-card featured reveal-on-scroll">
+
+                <div class="weapon-card featured reveal-scale" data-modal="modal-mern">
                     <span class="rank-tag">RANK: JONIN</span>
                     <span class="weapon-tag">FEATURED WEAPON</span>
                     <h3 class="weapon-title">FULL STACK <br> + GENAI DOMINATION</h3>
-                    <p class="weapon-desc">Mission Briefing: Infiltrate the modern web with AI-powered reactive
-                        architectures. Secure elite level deployment status.</p>
-                    <a href="#" class="deploy-link">WEAPON SELECTION <span>&rarr;</span></a>
+                    <p class="weapon-desc">Mission Briefing: Infiltrate the modern web with AI-powered reactive architectures. Secure elite deployment status.</p>
+                    <a href="#" class="deploy-link" onclick="event.preventDefault()">WEAPON SELECTION <span>&rarr;</span></a>
                 </div>
 
-                <!-- SIDE TOP: Data Analytics -->
-                <div class="weapon-card reveal-on-scroll" style="transition-delay: 100ms;">
+                <div class="weapon-card reveal-scale" data-modal="modal-data" style="transition-delay: 100ms;">
                     <span class="rank-tag">RANK: CHUNIN</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
                     </div>
                     <h3 class="weapon-title">SHADOW INTELLIGENCE</h3>
                     <p class="weapon-desc">Master Data Analytics and industry tools for deep-sector intel gathering.</p>
-                    <a href="#" class="deploy-link">DEPLOY <span>&rarr;</span></a>
+                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <!-- SIDE BOTTOM: Master DSA -->
-                <div class="weapon-card reveal-on-scroll" style="transition-delay: 200ms;">
+                <div class="weapon-card reveal-scale" data-modal="modal-dsa" style="transition-delay: 200ms;">
                     <span class="rank-tag">RANK: JONIN</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>
                     </div>
                     <h3 class="weapon-title">ALGORITHM BLADE</h3>
                     <p class="weapon-desc">Elite DSA. Precision strikes in high-frequency algorithmic environments.</p>
-                    <a href="#" class="deploy-link">DEPLOY <span>&rarr;</span></a>
+                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <!-- BOTTOM LEFT: Django & AI -->
-                <div class="weapon-card reveal-on-scroll" style="transition-delay: 300ms;">
+                <div class="weapon-card reveal-scale" data-modal="modal-django" style="transition-delay: 300ms;">
                     <span class="rank-tag">RANK: CHUNIN</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
                     </div>
                     <h3 class="weapon-title">ABYSS SCALING</h3>
                     <p class="weapon-desc">Django & AI Agents. Master the invisible backend architecture.</p>
-                    <a href="#" class="deploy-link">DEPLOY <span>&rarr;</span></a>
+                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <!-- BOTTOM MIDDLE: Mobile App Dev -->
-                <div class="weapon-card reveal-on-scroll" style="transition-delay: 400ms;">
+                <div class="weapon-card reveal-scale" data-modal="modal-mobile" style="transition-delay: 400ms;">
                     <span class="rank-tag">RANK: GENIN</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" /></svg>
                     </div>
                     <h3 class="weapon-title">AESTHETIC WARFARE</h3>
                     <p class="weapon-desc">Mobile App Development. Weaponize the interface with lethal design.</p>
-                    <a href="#" class="deploy-link">DEPLOY <span>&rarr;</span></a>
+                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <!-- BOTTOM RIGHT: Bundle Offer -->
-                <div class="weapon-card highlight-red reveal-on-scroll" style="transition-delay: 500ms;">
+                <div class="weapon-card highlight-red reveal-scale" data-modal="modal-bundle" style="transition-delay: 500ms;">
                     <span class="rank-tag">TARGET: CAREER</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" />
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" /></svg>
                     </div>
                     <h3 class="weapon-title">ASSASSINATION ARTS</h3>
-                    <p class="weapon-desc">Bundle Offer (DSA+ WEBD). Negotiation, resume forgery, and mock executions.
-                    </p>
-                    <a href="#" class="deploy-link">MISSION BRIEFING <span>&rarr;</span></a>
+                    <p class="weapon-desc">Bundle Offer (DSA+ WEBD). Negotiation, resume forgery, and mock executions.</p>
+                    <a href="#" class="deploy-link" onclick="event.preventDefault()">MISSION BRIEFING <span>&rarr;</span></a>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- PHILOSOPHY SECTION -->
-    <section id="about" class="py-16 px-4 md:py-40 md:px-10 bg-[#0f0f0f]">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-center">
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- =====================================================
+         PHILOSOPHY / IMMERSION SECTION
+         ===================================================== -->
+    <section id="about" class="py-16 px-4 md:py-40 md:px-10 bg-[#0f0f0f] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-center relative z-10">
             <div>
-                <span class="japan-font text-[#ff6a2a] text-lg md:text-2xl mb-4 md:mb-6 block">Philosophy</span>
-                <h2 class="text-3xl md:text-7xl cinzel-font font-black leading-none mb-6 md:mb-10 italic text-white">ZEN STRIKE <br>
-                    PRECISION</h2>
-                <p class="text-[var(--text-secondary)] text-sm md:text-lg leading-relaxed mb-6 md:mb-10 max-w-full md:max-w-lg">
-                    In the Shadow Dojo, we teach you that speed is secondary to accuracy. Our digital mastery curriculum
-                    is built on the pillars of ancient Japanese tactical wisdom.
+                <span class="japan-font text-[#ff6a2a] text-lg md:text-2xl mb-4 md:mb-6 block reveal-up">Philosophy</span>
+                <h2 class="text-3xl md:text-7xl cinzel-font font-black leading-none mb-6 md:mb-10 italic text-white immersion-text reveal-up" id="philosophy-title">
+                    ZEN STRIKE PRECISION
+                </h2>
+                <p class="text-[var(--text-secondary)] text-sm md:text-lg leading-relaxed mb-6 md:mb-10 max-w-full md:max-w-lg immersion-text reveal-up" id="philosophy-body">
+                    In the Shadow Dojo, we teach you that speed is secondary to accuracy. Our digital mastery curriculum is built on the pillars of ancient Japanese tactical wisdom. Embrace the emptiness, strike with purpose.
                 </p>
+                <div class="reveal-up">
+                    <button class="btn-urgency text-sm" style="padding: 14px 35px;">Begin Your Path</button>
+                </div>
             </div>
-            <div class="relative">
+            <div class="relative overflow-hidden reveal-scale">
                 <div class="absolute -inset-4 border-2 border-[#ff6a2a] opacity-20"></div>
-                <div class="aspect-video bg-neutral-900 overflow-hidden">
+                <div class="aspect-video bg-neutral-900 overflow-hidden relative">
                     <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop"
-                        class="w-full h-full object-cover grayscale contrast-125 opacity-80" alt="Temple">
+                        class="w-full h-full object-cover grayscale contrast-125 opacity-80 cinematic-image" alt="Temple">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
     <footer class="py-10 md:py-20 bg-[#050505] border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col items-center">
-            <div class="japan-font text-4xl mb-10 text-neutral-800">影</div>
+            <div class="japan-font text-5xl md:text-6xl mb-10 text-neutral-800 footer-kanji cursor-pointer">影</div>
             <div class="flex gap-4 md:gap-12 text-[10px] font-black uppercase tracking-[2px] md:tracking-[5px] text-[var(--text-secondary)]">
                 <a href="#" class="hover:text-[#ff6a2a] transition">Twitter</a>
                 <a href="#" class="hover:text-[#ff6a2a] transition">Discord</a>
                 <a href="#" class="hover:text-[#ff6a2a] transition">Academy</a>
             </div>
-            <p class="mt-8 md:mt-12 text-[8px] md:text-[9px] text-[var(--text-secondary)] uppercase tracking-[0.15rem] md:tracking-[1rem] font-black">Shadow Dojo
-                Academy &copy; 2024</p>
+            <p class="mt-8 md:mt-12 text-[8px] md:text-[9px] text-[var(--text-secondary)] uppercase tracking-[0.15rem] md:tracking-[1rem] font-black">
+                Shadow Dojo Academy &copy; 2024
+            </p>
         </div>
     </footer>
 
+    <!-- =====================================================
+         MODAL
+         ===================================================== -->
+    <div class="weapon-modal" id="modal-container">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">✕</div>
+            <span class="weapon-tag" id="modal-tag">FEATURED WEAPON</span>
+            <h3 class="weapon-title text-2xl md:text-3xl mb-4" id="modal-title">WEAPON NAME</h3>
+            <p class="weapon-desc text-base md:text-lg mb-8" id="modal-desc">Detailed intelligence and technical background for this specific masterclass path.</p>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-[rgba(255,255,255,0.1)] pt-6">
+                <button class="btn-urgency text-sm py-3 px-6" onclick="closeModal()">Secure Your Target</button>
+                <span class="text-xs text-neutral-500 tracking-widest uppercase">Immediate Access</span>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        // Countdown Logic
+        /* =====================================================
+           0. LOADING SCREEN — CINEMATIC PRELUDE
+           ===================================================== */
+        const loadingScreen = document.getElementById('loading-screen');
+        const loaderBar = document.getElementById('loader-bar');
+        const loaderPercent = document.getElementById('loader-percent');
+        const loaderCanvas = document.getElementById('loader-canvas');
+        const loaderCtx = loaderCanvas.getContext('2d');
+
+        // Set loader canvas size
+        loaderCanvas.width = window.innerWidth;
+        loaderCanvas.height = window.innerHeight;
+
+        // Loader particles
+        let loaderParticles = [];
+
+        class LoaderParticle {
+            constructor() {
+                this.x = Math.random() * loaderCanvas.width;
+                this.y = Math.random() * loaderCanvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = loaderCanvas.width;
+                if (this.x > loaderCanvas.width) this.x = 0;
+                if (this.y < 0) this.y = loaderCanvas.height;
+                if (this.y > loaderCanvas.height) this.y = 0;
+            }
+
+            draw() {
+                loaderCtx.fillStyle = `rgba(255, 106, 42, ${this.opacity})`;
+                loaderCtx.beginPath();
+                loaderCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                loaderCtx.fill();
+            }
+        }
+
+        // Create loader particles
+        for (let i = 0; i < 80; i++) {
+            loaderParticles.push(new LoaderParticle());
+        }
+
+        function animateLoaderParticles() {
+            loaderCtx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
+            loaderParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw connecting lines
+            loaderParticles.forEach((a, i) => {
+                loaderParticles.slice(i + 1).forEach(b => {
+                    const dist = Math.hypot(a.x - b.x, a.y - b.y);
+                    if (dist < 120) {
+                        loaderCtx.strokeStyle = `rgba(255, 106, 42, ${0.05 * (1 - dist / 120)})`;
+                        loaderCtx.lineWidth = 0.5;
+                        loaderCtx.beginPath();
+                        loaderCtx.moveTo(a.x, a.y);
+                        loaderCtx.lineTo(b.x, b.y);
+                        loaderCtx.stroke();
+                    }
+                });
+            });
+
+            if (!loadingScreen.classList.contains('fade-out')) {
+                requestAnimationFrame(animateLoaderParticles);
+            }
+        }
+        animateLoaderParticles();
+
+        // Simulate loading progress
+        let loadProgress = 0;
+        const loadInterval = setInterval(() => {
+            loadProgress += Math.random() * 15 + 5;
+            if (loadProgress >= 100) {
+                loadProgress = 100;
+                clearInterval(loadInterval);
+                setTimeout(revealSite, 400);
+            }
+            loaderBar.style.width = loadProgress + '%';
+            loaderPercent.textContent = Math.floor(loadProgress) + '%';
+        }, 200);
+
+        // Reveal site with curtain effect
+        function revealSite() {
+            loadingScreen.classList.add('fade-out');
+            document.body.classList.add('curtains-open');
+
+            // Stagger hero elements
+            const heroElements = document.querySelectorAll('.hero-element');
+            heroElements.forEach((el, i) => {
+                setTimeout(() => {
+                    el.style.transition = 'opacity 1s cubic-bezier(0.2, 1, 0.3, 1), transform 1s cubic-bezier(0.2, 1, 0.3, 1)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 800 + (i * 200));
+            });
+
+            // Show header
+            setTimeout(() => {
+                document.querySelector('header').style.transform = 'translateY(0)';
+            }, 600);
+
+            // Remove loading screen from DOM after transition
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                initLenis();
+            }, 1500);
+        }
+
+
+        /* =====================================================
+           1. LENIS SMOOTH SCROLL
+           ===================================================== */
+        let lenis;
+
+        function initLenis() {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                smooth: true
+            });
+
+            const heroTitle = document.getElementById('hero-title-main');
+            const katanaBlade = document.getElementById('katana-blade');
+            const smokeWrap = document.getElementById('smoke-parallax');
+            const scrollProgress = document.getElementById('scroll-progress');
+            const chapterLabel = document.getElementById('chapter-label');
+
+            const chapters = [
+                { id: 'hero', label: 'I', name: 'THE AWAKENING' },
+                { id: 'intel', label: 'II', name: 'TACTICAL INTEL' },
+                { id: 'arsenal', label: 'III', name: 'THE ARSENAL' },
+                { id: 'about', label: 'IV', name: 'PHILOSOPHY' }
+            ];
+
+            lenis.on('scroll', (e) => {
+                const scrollY = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollY / docHeight) * 100;
+
+                // Update scroll progress bar
+                scrollProgress.style.width = scrollPercent + '%';
+
+                // Update chapter label
+                const sections = ['hero', 'intel', 'arsenal', 'about'];
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const section = document.getElementById(sections[i]);
+                    if (section && scrollY >= section.offsetTop - window.innerHeight * 0.5) {
+                        const chapter = chapters[i];
+                        chapterLabel.innerHTML = `<span>${chapter.label}</span> — ${chapter.name}`;
+                        break;
+                    }
+                }
+
+                // Hero parallax
+                if (scrollY < window.innerHeight * 1.2) {
+                    const scale = Math.max(0.7, 1 - scrollY * 0.0004);
+                    heroTitle.style.transform = `scale(${scale}) translateY(${scrollY * 0.25}px)`;
+                    heroTitle.style.opacity = Math.max(0, 1 - scrollY * 0.001);
+
+                    // FIXED: Smoothed out the katana downward parallax. Minimal rotation, pure translation drop.
+                    katanaBlade.style.transform = `translateY(${scrollY * 0.15}px)`;
+                }
+
+                // Smoke parallax (faster descent)
+                smokeWrap.style.transform = `translateY(${-scrollY * 0.3}px)`;
+
+                // Cinematic image slow zoom
+                const cinematicImg = document.querySelector('.cinematic-image');
+                if (cinematicImg) {
+                    const imgRect = cinematicImg.getBoundingClientRect();
+                    if (imgRect.top < window.innerHeight && imgRect.bottom > 0) {
+                        cinematicImg.classList.add('in-view');
+                    }
+                }
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+
+
+        /* =====================================================
+           2. COUNTDOWN TIMER
+           ===================================================== */
         let timeInSeconds = (2 * 24 * 3600) + (14 * 3600) + (55 * 60);
         function updateCountdown() {
             timeInSeconds--;
+            if (timeInSeconds < 0) timeInSeconds = 0;
             const d = Math.floor(timeInSeconds / (24 * 3600));
             const h = Math.floor((timeInSeconds % (24 * 3600)) / 3600);
             const m = Math.floor((timeInSeconds % 3600) / 60);
@@ -1509,414 +1361,221 @@
         }
         setInterval(updateCountdown, 60000);
 
-        // Fire Particles
+
+        /* =====================================================
+           3. FIRE PARTICLES (Interactive)
+           ===================================================== */
         const canvas = document.getElementById('fireParticles');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
-        function setCanvasSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
         window.addEventListener('resize', setCanvasSize);
         setCanvasSize();
 
-        class Particle {
+        class FireParticle {
             constructor() {
+                this.reset();
+            }
+
+            reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 100;
+                this.y = canvas.height + Math.random() * 50;
                 this.size = Math.random() * 4 + 1;
-                this.speedY = Math.random() * 2 + 1; // Rise up
-                this.speedX = (Math.random() - 0.5) * 1.5; // Slight drift
+                this.speedY = Math.random() * 2.5 + 0.8;
+                this.speedX = (Math.random() - 0.5) * 1.2;
                 this.life = 1;
-                this.decay = Math.random() * 0.015 + 0.005; // Rate of fade
-                this.color = Math.random() > 0.5 ? 'rgba(255, 106, 42, 1)' : 'rgba(255, 138, 77, 1)';
+                this.decay = Math.random() * 0.012 + 0.004;
+                const colors = [
+                    'rgba(255, 106, 42, ',
+                    'rgba(255, 138, 77, ',
+                    'rgba(255, 80, 20, ',
+                    'rgba(255, 160, 60, '
+                ];
+                this.colorBase = colors[Math.floor(Math.random() * colors.length)];
             }
 
             update() {
+                const dx = mouseX - this.x;
+                this.x += this.speedX + (dx * 0.001);
                 this.y -= this.speedY;
-                this.x += this.speedX;
                 this.life -= this.decay;
-                if (this.size > 0.1) this.size -= 0.03;
+                if (this.size > 0.1) this.size -= 0.02;
+                if (this.life <= 0 || this.size <= 0) this.reset();
             }
 
             draw() {
-                ctx.globalAlpha = this.life;
-                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life * 0.8;
+                ctx.fillStyle = this.colorBase + this.life + ')';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Glow
+                ctx.globalAlpha = this.life * 0.3;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        function handleParticles() {
-            // Add new particles randomly
-            if (particlesArray.length < 100 && Math.random() < 0.5) {
-                particlesArray.push(new Particle());
-            }
-
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-
-                // Remove dead particles
-                if (particlesArray[i].life <= 0 || particlesArray[i].size <= 0) {
-                    particlesArray.splice(i, 1);
-                    i--;
-                }
-            }
+        for (let i = 0; i < 80; i++) {
+            particlesArray.push(new FireParticle());
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            handleParticles();
+            particlesArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-        // Intersection Observer for Scroll Animations
-        const observer = new IntersectionObserver((entries) => {
+
+        /* =====================================================
+           4. CUSTOM GLOW CURSOR + MAGNETIC BUTTON
+           ===================================================== */
+        const cursor = document.getElementById('glow-cursor');
+
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Hover detection for interactive elements
+        document.querySelectorAll('a, button, .weapon-card, .clan-badge').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // Magnetic button
+        const magneticBtn = document.getElementById('hero-btn');
+        magneticBtn.addEventListener('mousemove', (e) => {
+            const rect = magneticBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            magneticBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        magneticBtn.addEventListener('mouseleave', () => {
+            magneticBtn.style.transform = 'translate(0, 0)';
+        });
+
+
+        /* =====================================================
+           5. SCROLL REVEAL + COUNTING ANIMATION
+           ===================================================== */
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // Special case for section ID triggers
-                    if (entry.target.id === 'intel') {
-                        entry.target.classList.add('is-visible');
-                    }
-                    // Handle manual reveal classes
-                    if (entry.target.classList.contains('reveal-on-scroll')) {
-                        entry.target.style.opacity = "1";
-                        entry.target.style.transform = "translateY(0)";
-                    }
+
+                    // Counting animation
+                    const counters = entry.target.querySelectorAll('[data-count]');
+                    counters.forEach(counter => {
+                        if (counter.dataset.counted) return;
+                        counter.dataset.counted = 'true';
+
+                        const target = parseInt(counter.dataset.count);
+                        const suffix = counter.dataset.suffix || '';
+                        const duration = 2000;
+                        const start = performance.now();
+
+                        function animateCount(currentTime) {
+                            const elapsed = currentTime - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = Math.floor(eased * target);
+                            counter.textContent = current + suffix;
+
+                            if (progress < 1) {
+                                requestAnimationFrame(animateCount);
+                            } else {
+                                counter.textContent = target + suffix;
+                            }
+                        }
+                        requestAnimationFrame(animateCount);
+                    });
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.2 });
 
-        document.querySelectorAll('.reveal-on-scroll, .stat-card, #intel').forEach(el => {
-            if (el.classList.contains('reveal-on-scroll')) {
-                el.style.opacity = "0";
-                el.style.transform = "translateY(40px)";
-                el.style.transition = "all 1.2s cubic-bezier(0.2, 1, 0.3, 1)";
-            }
-            observer.observe(el);
+        document.querySelectorAll('.reveal-up, .reveal-scale, .stat-card').forEach(el => {
+            revealObserver.observe(el);
         });
 
-        // Smooth Scroll
+        // Philosophy text word-by-word animation
+        document.querySelectorAll('.immersion-text').forEach(el => {
+            const text = el.textContent.trim();
+            el.innerHTML = text.split(' ').map((word, i) =>
+                `<span style="transition-delay:${i * 60}ms">${word}</span>`
+            ).join(' ');
+            revealObserver.observe(el);
+        });
+
+
+        /* =====================================================
+           6. WEAPON CARDS — MODAL (Tilt Removed)
+           ===================================================== */
+        const weaponCards = document.querySelectorAll('.weapon-card');
+        const modal = document.getElementById('modal-container');
+        const modalTag = document.getElementById('modal-tag');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+
+        weaponCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.weapon-title').innerText;
+                const desc = card.querySelector('.weapon-desc').innerText;
+                const tag = card.querySelector('.rank-tag').innerText;
+
+                modalTag.innerText = tag;
+                modalTitle.innerText = title;
+                modalDesc.innerText = desc;
+                modal.classList.add('active');
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Close modal on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+
+        /* =====================================================
+           7. SMOOTH SCROLL NAVIGATION
+           ===================================================== */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                if (target && lenis) {
+                    lenis.scrollTo(target, { offset: -80, duration: 1.5 });
                 }
             });
         });
+
     </script>
-
-    <!-- MOBILE OVERRIDES — loaded AFTER Tailwind CDN to guarantee override -->
-    <style>
-        @media (max-width: 768px) {
-
-            /* === GLOBAL CONTAINMENT === */
-            html {
-                overflow-x: hidden !important;
-            }
-            body {
-                overflow-x: hidden !important;
-                width: 100vw !important;
-                max-width: 100vw !important;
-            }
-            *, *::before, *::after {
-                box-sizing: border-box !important;
-            }
-
-            /* === HEADER === */
-            header.px-10 {
-                padding-left: 12px !important;
-                padding-right: 12px !important;
-                padding-top: 10px !important;
-                padding-bottom: 10px !important;
-            }
-            header button.tracking-widest {
-                letter-spacing: 1px !important;
-                font-size: 9px !important;
-            }
-
-            /* === HERO SECTION === */
-            .hero-section {
-                padding-top: 70px !important;
-                padding-left: 12px !important;
-                padding-right: 12px !important;
-                min-height: 85vh !important;
-            }
-            .hero-title {
-                font-size: clamp(2.8rem, 13vw, 4.5rem) !important;
-                letter-spacing: -2px !important;
-                word-break: break-word !important;
-                overflow-wrap: break-word !important;
-                max-width: 100% !important;
-            }
-
-            /* "Mastery through Discipline" — tracking-[8px] causes overflow */
-            .hero-section .text-center > p.tracking-\[8px\],
-            .hero-section .text-center > p[class*="tracking-"] {
-                letter-spacing: 2px !important;
-                font-size: 8px !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-
-            /* Hide desktop-only decorations */
-            .vertical-label { display: none !important; }
-            .cloud-icon { display: none !important; }
-
-            /* Katana SVG */
-            .hero-object-container {
-                max-width: 100% !important;
-                margin-top: -10px !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                overflow: hidden !important;
-            }
-            .hero-object-container svg {
-                height: 100px !important;
-                max-width: 100% !important;
-            }
-
-            /* Countdown — text-4xl causes large font */
-            .hero-section .text-4xl {
-                font-size: 1.5rem !important;
-            }
-            .hero-section .gap-5 {
-                gap: 12px !important;
-            }
-            .hero-section .gap-2 {
-                gap: 4px !important;
-            }
-            .hero-section .gap-10 {
-                gap: 20px !important;
-            }
-
-            /* CTA Button */
-            .btn-urgency {
-                padding: 12px 24px !important;
-                font-size: 0.85rem !important;
-                letter-spacing: 1px !important;
-            }
-
-            /* === TACTICAL / INTEL SECTION === */
-            section#intel.px-10,
-            #intel {
-                padding-left: 16px !important;
-                padding-right: 16px !important;
-                padding-top: 50px !important;
-                padding-bottom: 50px !important;
-            }
-
-            /* "TACTICAL SUPERIORITY" — the text-5xl heading */
-            #intel h2.text-5xl,
-            #intel .cinzel-font {
-                font-size: 1.8rem !important;
-                letter-spacing: -1px !important;
-                word-break: break-word !important;
-                overflow-wrap: break-word !important;
-            }
-
-            /* Paragraph with max-w-sm is wider than mobile viewport */
-            #intel p.max-w-sm,
-            #intel .max-w-sm {
-                max-width: 100% !important;
-            }
-            #intel p {
-                font-size: 0.9rem !important;
-            }
-
-            /* Stats grid */
-            .stats-container {
-                gap: 1rem !important;
-            }
-            .stat-card {
-                padding: 20px !important;
-                clip-path: none !important;
-            }
-            .hero-stat .stat-value {
-                font-size: 2.5rem !important;
-            }
-            .small-stat .stat-value {
-                font-size: 1.8rem !important;
-            }
-
-            /* Stat card that spans 2 cols on md */
-            .stat-card.md\:col-span-2,
-            .stat-card[class*="col-span-2"] {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-            }
-
-            /* Clan badges row */
-            #intel .flex.flex-wrap {
-                gap: 6px !important;
-            }
-            .clan-badge {
-                font-size: 0.55rem !important;
-                padding: 4px 8px !important;
-            }
-            /* "THE ALLIED CLANS" label */
-            #intel .tracking-\[5px\],
-            #intel p[class*="tracking-[5px]"] {
-                letter-spacing: 2px !important;
-            }
-
-            /* === ARSENAL SECTION === */
-            section#arsenal.px-10,
-            #arsenal {
-                padding-left: 16px !important;
-                padding-right: 16px !important;
-                padding-top: 50px !important;
-                padding-bottom: 50px !important;
-            }
-            .arsenal-header {
-                font-size: 2rem !important;
-                letter-spacing: -1px !important;
-            }
-            .arsenal-section .mb-24 {
-                margin-bottom: 30px !important;
-            }
-            .arsenal-header-underline {
-                width: 70px !important;
-            }
-            .bento-grid {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-            }
-            .weapon-card {
-                padding: 20px !important;
-                min-height: auto !important;
-            }
-            .weapon-card.featured {
-                grid-column: span 1 !important;
-                grid-row: span 1 !important;
-                padding: 22px !important;
-            }
-            .weapon-title {
-                font-size: 1.15rem !important;
-            }
-            .featured .weapon-title {
-                font-size: 1.4rem !important;
-                max-width: 100% !important;
-            }
-            .weapon-desc {
-                font-size: 0.78rem !important;
-                margin-bottom: 14px !important;
-            }
-            .rank-tag {
-                font-size: 8px !important;
-                top: 12px !important;
-                right: 12px !important;
-            }
-            .weapon-tag {
-                font-size: 8px !important;
-                padding: 3px 8px !important;
-            }
-            .weapon-icon {
-                width: 22px !important;
-                height: 22px !important;
-                margin-bottom: 10px !important;
-            }
-            .deploy-link {
-                font-size: 9px !important;
-            }
-
-            /* === PHILOSOPHY SECTION === */
-            #about.px-10,
-            section#about,
-            #about {
-                padding-left: 16px !important;
-                padding-right: 16px !important;
-                padding-top: 50px !important;
-                padding-bottom: 50px !important;
-            }
-            #about .text-7xl {
-                font-size: 2rem !important;
-                word-break: break-word !important;
-            }
-            #about .text-2xl {
-                font-size: 1.2rem !important;
-            }
-            #about .gap-24 {
-                gap: 24px !important;
-            }
-            #about .max-w-lg {
-                max-width: 100% !important;
-            }
-
-            /* === FOOTER === */
-            footer {
-                padding: 30px 16px !important;
-            }
-            footer .px-10 {
-                padding-left: 8px !important;
-                padding-right: 8px !important;
-            }
-            footer .gap-12 {
-                gap: 14px !important;
-            }
-            footer .tracking-\[5px\],
-            footer [class*="tracking-["] {
-                letter-spacing: 2px !important;
-            }
-            footer p.tracking-\[1rem\],
-            footer p[class*="tracking-[1rem]"] {
-                letter-spacing: 0.15rem !important;
-                font-size: 8px !important;
-                word-break: break-word !important;
-            }
-
-            /* Smoke */
-            .smoke-blend-wrap {
-                height: 200px !important;
-                bottom: -50px !important;
-            }
-            .smoke-1, .smoke-2, .smoke-3 {
-                width: 200px !important;
-                height: 200px !important;
-            }
-        }
-
-        /* === EXTRA SMALL (≤ 480px) === */
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: clamp(2.2rem, 14vw, 3.5rem) !important;
-            }
-            .hero-section .text-4xl {
-                font-size: 1.3rem !important;
-            }
-            .btn-urgency {
-                padding: 10px 18px !important;
-                font-size: 0.75rem !important;
-            }
-            #intel h2.text-5xl,
-            #intel .cinzel-font {
-                font-size: 1.5rem !important;
-            }
-            .hero-stat .stat-value {
-                font-size: 2rem !important;
-            }
-            .small-stat .stat-value {
-                font-size: 1.4rem !important;
-            }
-            .stat-label {
-                font-size: 0.55rem !important;
-                letter-spacing: 1px !important;
-            }
-            .arsenal-header {
-                font-size: 1.6rem !important;
-            }
-            #about .text-7xl {
-                font-size: 1.7rem !important;
-            }
-            footer p[class*="tracking-[1rem]"] {
-                letter-spacing: 0.1rem !important;
-                font-size: 7px !important;
-            }
-        }
-    </style>
 </body>
 
 </html>
