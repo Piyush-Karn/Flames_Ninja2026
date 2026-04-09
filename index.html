@@ -146,18 +146,50 @@
         .curtains-open .curtain-right { transform: translateX(100%); }
 
         /* =====================================================
-           SCROLL PROGRESS INDICATOR
+           KATANA PROGRESS INDICATOR (replaces generic bar)
            ===================================================== */
-        #scroll-progress {
+        #scroll-progress { display: none; }
+
+        #katana-progress {
             position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--ninja-red), var(--flame-orange));
+            top: 0; left: 0;
+            width: 100%; height: 3px;
             z-index: 99999;
-            width: 0%;
-            transition: width 0.1s linear;
+            pointer-events: none;
+            overflow: visible;
         }
+
+        /* Sheath track */
+        #katana-progress::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* Drawn blade fill */
+        #katana-blade-fill {
+            position: absolute;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--ninja-red) 0%, var(--flame-orange) 70%, #fff 100%);
+            transition: width 0.08s linear;
+            will-change: width;
+        }
+
+        /* Gleam tip at the leading edge */
+        #katana-blade-fill::after {
+            content: '';
+            position: absolute;
+            right: -6px; top: -2px;
+            width: 12px; height: 7px;
+            background: radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, transparent 80%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #katana-blade-fill.drawing::after { opacity: 1; }
 
         /* =====================================================
            CHAPTER LABEL (Side)
@@ -274,6 +306,122 @@
         }
 
         @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+
+        /* =====================================================
+           KATANA UNSHEATHE — scroll-driven blade reveal
+           ===================================================== */
+        #katana-blade svg {
+            overflow: visible;
+        }
+
+        /* The blade path gets a clip rect driven by JS */
+        #blade-path-main {
+            will-change: clip-path;
+        }
+
+        /* Gleam flash at full unsheathe */
+        #katana-gleam {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+            transition: opacity 0.15s ease;
+            border-radius: 0;
+        }
+
+        #katana-gleam.flash {
+            animation: gleamSweep 0.35s ease-out forwards;
+        }
+
+        @keyframes gleamSweep {
+            0%   { opacity: 0; background-position: -100% 0; }
+            30%  { opacity: 1; }
+            100% { opacity: 0; background-position: 200% 0; }
+        }
+
+        /* Heat glow around blade — intensifies on scroll */
+        #katana-blade .katana-stand {
+            filter: drop-shadow(0 30px 80px rgba(255, 106, 42, 0.15));
+            transition: filter 0.4s ease;
+            will-change: filter;
+        }
+
+        #katana-blade .katana-stand.heated-1 {
+            filter: drop-shadow(0 20px 60px rgba(255, 106, 42, 0.35)) drop-shadow(0 0 20px rgba(255, 106, 42, 0.2));
+        }
+
+        #katana-blade .katana-stand.heated-2 {
+            filter: drop-shadow(0 15px 40px rgba(255, 80, 20, 0.55)) drop-shadow(0 0 30px rgba(255, 106, 42, 0.3));
+        }
+
+        /* CTA hover — blade activation */
+        #katana-blade .katana-stand.cta-active {
+            filter: drop-shadow(0 10px 30px rgba(204, 0, 0, 0.7)) drop-shadow(0 0 40px rgba(255, 106, 42, 0.5));
+        }
+
+        /* =====================================================
+           SLASH TRANSITION OVERLAY
+           ===================================================== */
+        #slash-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999990;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .slash-streak {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 120%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), var(--flame-orange), transparent);
+            transform: rotate(-12deg) scaleX(0);
+            transform-origin: left center;
+            opacity: 0;
+        }
+
+        .slash-streak.s2 {
+            top: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(204,0,0,0.7), transparent);
+            transform: rotate(-12deg) scaleX(0);
+        }
+
+        #slash-overlay.firing .slash-streak {
+            animation: slashAnim 0.45s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+        }
+
+        #slash-overlay.firing .slash-streak.s2 {
+            animation: slashAnim 0.35s 0.05s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+        }
+
+        #slash-screen-flash {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0);
+            transition: background 0.08s ease;
+        }
+
+        #slash-overlay.firing #slash-screen-flash {
+            animation: screenFlash 0.4s ease forwards;
+        }
+
+        @keyframes slashAnim {
+            0%   { transform: rotate(-12deg) scaleX(0) translateX(-5%); opacity: 0; }
+            10%  { opacity: 1; }
+            60%  { transform: rotate(-12deg) scaleX(1) translateX(0%); opacity: 1; }
+            100% { transform: rotate(-12deg) scaleX(1) translateX(0%); opacity: 0; }
+        }
+
+        @keyframes screenFlash {
+            0%   { background: rgba(255,255,255,0); }
+            15%  { background: rgba(255,255,255,0.08); }
+            40%  { background: rgba(255,255,255,0.03); }
+            100% { background: rgba(255,255,255,0); }
+        }
 
         .pattern-border {
             height: 40px;
@@ -794,143 +942,321 @@
            ===================================================== */
         #transformation {
             background: #050505;
-            padding: 100px 0;
+            min-height: 250vh; 
             position: relative;
-            overflow: hidden;
+            padding: 0;
+            overflow: visible;
         }
 
-        .comparison-container {
-            width: 100%;
-            max-width: 1200px;
-            height: 600px;
-            margin: 50px auto 0;
-            position: relative;
-            cursor: ew-resize;
-            border: 1px solid var(--border-dark);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            user-select: none;
-        }
-
-        .side-panel {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .side-content {
-            width: 1200px;
-            height: 600px;
+        .trans-header {
+            height: 80vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
         }
 
-        /* Before Side (The Shadow) */
-        .side-before {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                        url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200') center/cover;
-            filter: grayscale(1);
-            z-index: 1;
-        }
-
-        .side-before .trans-title {
-            font-family: 'Cinzel', serif;
-            color: #666;
-            font-size: clamp(2rem, 5vw, 4rem);
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-        }
-
-        .side-before .trans-desc {
-            color: #444;
-            max-width: 500px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-
-        /* After Side (The Flame) */
-        .side-after {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-                        url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200') center/cover;
-            z-index: 2;
-            clip-path: inset(0 0 0 50%);
-        }
-
-        .after-overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 106, 42, 0.1), transparent 70%);
-            animation: fireFlicker 4s infinite;
-        }
-
-        .side-after .trans-title {
-            font-family: 'Cinzel', serif;
-            color: var(--flame-orange);
-            font-size: clamp(2rem, 5vw, 4rem);
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(255, 106, 42, 0.5);
-        }
-
-        .side-after .trans-desc {
-            color: #ccc;
-            max-width: 500px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-
-        /* Handle */
-        .slider-handle {
-            position: absolute;
+        .laptop-frame {
+            position: sticky;
             top: 0;
-            left: 50%;
-            width: 2px;
-            height: 100%;
-            background: var(--flame-orange);
-            z-index: 3;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px var(--flame-orange);
-        }
-
-        .handle-circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: #000;
-            border: 2px solid var(--flame-orange);
-            border-radius: 50%;
+            height: 100vh;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 106, 42, 0.4);
+            z-index: 10;
+            pointer-events: none;
         }
 
-        .handle-circle svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--flame-orange);
+        .comparison-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            position: relative;
+            background: #000;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+            overflow: hidden;
+            pointer-events: auto;
+            will-change: transform;
+            transform-origin: center center;
+            display: flex;
+        }
+
+        /* The Chassis (Laptop Frame) - Disabling layout triggers */
+        .comparison-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 14px solid #1a1a1a;
+            border-bottom-width: 22px;
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 100;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity;
+        }
+
+        .comparison-container.is-fullscreen::after {
+            opacity: 0;
+        }
+
+        /* Webcam dot */
+        .comparison-container::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #333;
+            border-radius: 50%;
+            z-index: 101;
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        .comparison-container.is-fullscreen::before {
+            opacity: 0;
+        }
+
+        .split-panel {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            will-change: flex;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        .comparison-container:hover .split-panel {
+            flex: 0.7;
+        }
+        .comparison-container .split-panel:hover {
+            flex: 1.6;
+        }
+
+        .panel-bg {
+            position: absolute;
+            inset: -20px;
+            z-index: 1;
+            will-change: transform, opacity;
+            transform: translate3d(0,0,0);
+        }
+
+        .panel-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            transition: background 0.6s ease;
+        }
+
+        .panel-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 40px;
+            width: 100%;
+            min-width: 350px; 
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            opacity: 0.7;
+            will-change: transform, opacity;
+        }
+
+        .split-panel:hover .panel-content {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .panel-before {
+            border-right: 2px solid rgba(255, 106, 42, 0.4);
+            box-shadow: inset -10px 0 30px rgba(0,0,0,0.8);
+            z-index: 10;
+            background-color: #080808;
+        }
+
+        .panel-before .panel-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center center;
+            transition: transform 0.8s ease;
+        }
+
+        /* Hover texture layer (GPU Optimized) */
+        .panel-before .panel-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .split-panel.panel-before:hover .panel-bg::after {
+            opacity: 1;
+        }
+
+        .split-panel.panel-before:hover .panel-bg {
+            transform: scale(1.05);
+        }
+
+        .panel-after {
+            background-color: #0a0300;
+        }
+
+        .panel-after .panel-bg {
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.25) 0%, transparent 70%),
+                linear-gradient(rgba(255, 106, 42, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 106, 42, 0.08) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: center center;
+            transition: transform 0.8s ease;
+        }
+
+        /* Hover texture layer (GPU Optimized) */
+        .panel-after .panel-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.4) 0%, transparent 80%),
+                linear-gradient(rgba(255, 106, 42, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 106, 42, 0.12) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .split-panel.panel-after:hover .panel-bg::after {
+            opacity: 1;
+        }
+
+        .split-panel.panel-after:hover .panel-bg {
+            transform: scale(1.05);
+        }
+
+        .after-fire-flicker {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 106, 42, 0.15), transparent 70%);
+            animation: fireFlicker 4s infinite;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            transform: translateZ(0);
+        }
+
+        .split-panel.panel-after:hover .after-fire-flicker {
+            opacity: 1;
+        }
+
+        .status-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            padding: 6px 16px;
+            margin-bottom: 25px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .panel-before .status-tag {
+            color: #888;
+            border: 1px solid #333;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .panel-after .status-tag {
+            color: var(--flame-orange);
+            border: 1px solid rgba(255,106,42,0.3);
+            background: rgba(255, 106, 42, 0.05);
+            box-shadow: 0 0 15px rgba(255, 106, 42, 0.1);
+        }
+
+        .trans-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .panel-before .trans-title {
+            color: #555;
+        }
+
+        .panel-after .trans-title {
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 106, 42, 0.6);
+        }
+
+        .trans-desc {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .panel-before .trans-desc {
+            color: #666;
+        }
+
+        .panel-after .trans-desc {
+            color: #ccc;
         }
 
         @media (max-width: 768px) {
-            .comparison-container { height: 400px; margin-top: 30px; cursor: default; }
-            .side-content { width: 100vw; height: 400px; }
-            .slider-handle { display: none; }
-            .side-after { clip-path: none !important; position: relative; height: auto; }
-            .side-before { position: relative; height: auto; border-bottom: 1px solid var(--border-dark); }
-            .comparison-container { display: flex; flex-direction: column; height: auto; box-shadow: none; border: none; }
+            #transformation {
+                min-height: auto !important;
+                padding-bottom: 60px;
+            }
+            .trans-header {
+                height: auto;
+                padding: 60px 20px 40px;
+            }
+            .laptop-frame {
+                position: relative;
+                height: auto;
+                top: auto;
+            }
+            .comparison-container { 
+                flex-direction: column;
+                height: auto; 
+                margin-top: 0; 
+                border: none;
+                box-shadow: none;
+                transform: none !important;
+            }
+            .split-panel {
+                flex: none !important; 
+                height: 400px;
+                border-right: none;
+                border-bottom: 2px solid rgba(255, 106, 42, 0.4);
+                transform: none !important;
+            }
+            .panel-content {
+                min-width: 100%;
+                padding: 40px 20px;
+                opacity: 1;
+                transform: none !important;
+            }
         }
 
         /* =====================================================
@@ -1251,8 +1577,17 @@
     <div class="curtain-left"></div>
     <div class="curtain-right"></div>
 
-    <!-- Scroll Progress -->
-    <div id="scroll-progress"></div>
+    <!-- Katana Progress Indicator -->
+    <div id="katana-progress">
+        <div id="katana-blade-fill"></div>
+    </div>
+
+    <!-- Slash Transition Overlay -->
+    <div id="slash-overlay">
+        <div id="slash-screen-flash"></div>
+        <div class="slash-streak"></div>
+        <div class="slash-streak s2"></div>
+    </div>
 
     <!-- Chapter Label -->
     <div class="chapter-label" id="chapter-label">
@@ -1296,7 +1631,7 @@
     <!-- =====================================================
          HERO / ENTRY SECTION
          ===================================================== -->
-    <section class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
+    <section id="hero" class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
         <canvas id="fireParticles" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
         <div class="fire-glow-overlay"></div>
 
@@ -1331,24 +1666,43 @@
         </div>
 
         <div class="hero-object-container hero-element" style="opacity:0; transform:translateY(50px);">
-            <div class="relative katana-stand" id="katana-blade">
-                <svg width="100%" height="250" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
-                    <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#1a1a1a" />
-                    <rect x="280" y="110" width="15" height="50" fill="#1a1a1a" />
-                    <rect x="505" y="110" width="15" height="50" fill="#1a1a1a" />
-                    <g transform="translate(100, 100) rotate(-2)" id="katana-tilt-group">
-                        <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#b0b0b0" class="shimmer-effect" />
-                        <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
-                        <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
-                        <rect x="0" y="-5" width="10" height="35" rx="2" fill="#333" />
+        <div class="relative katana-stand" id="katana-blade">
+            <div id="katana-gleam"></div>
+            <svg width="100%" height="250" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet" style="overflow:visible;">
+                <defs>
+                    <clipPath id="blade-clip">
+                        <rect id="blade-clip-rect" x="0" y="0" width="0" height="200" />
+                    </clipPath>
+                    <filter id="blade-glow" x="-20%" y="-100%" width="140%" height="300%">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+                <!-- Sheath / stand base (always visible) -->
+                <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#222" stroke="#333" stroke-width="0.5" />
+                <rect x="280" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
+                <rect x="505" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
+                <!-- Handle (always visible) -->
+                <g transform="translate(100, 100) rotate(-2)">
+                    <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
+                    <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
+                    <rect x="0" y="-5" width="10" height="35" rx="2" fill="#333" />
+                </g>
+                <!-- Blade — revealed by clip path on scroll -->
+                <g clip-path="url(#blade-clip)">
+                    <g transform="translate(100, 100) rotate(-2)">
+                        <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#c8c8c8" id="blade-path-main" class="shimmer-effect" filter="url(#blade-glow)" />
+                        <!-- Edge highlight -->
+                        <path d="M0 10 Q 300 9 600 5 L 605 6 Q 300 11 0 11 Z" fill="rgba(255,255,255,0.4)" />
                     </g>
-                    <defs>
-                        <pattern id="wrapPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                            <path d="M0 10 L10 0 M5 -5 L15 5 M-5 5 L5 15" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
-                        </pattern>
-                    </defs>
-                </svg>
-            </div>
+                </g>
+                <defs>
+                    <pattern id="wrapPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M0 10 L10 0 M5 -5 L15 5 M-5 5 L5 15" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+                    </pattern>
+                </defs>
+            </svg>
+        </div>
         </div>
 
         <div class="pattern-border"></div>
@@ -1535,38 +1889,40 @@
          BEFORE VS AFTER — THE REBIRTH
          ===================================================== -->
     <section id="transformation">
-        <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="trans-header text-center">
             <div class="reveal-up">
                 <span class="japan-font text-[#666] text-sm tracking-widest block mb-4">意志の進化</span>
                 <h2 class="cinzel-font text-3xl md:text-6xl font-black mb-4">THE REBIRTH</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto"></div>
             </div>
+        </div>
 
-            <div class="comparison-container reveal-scale" id="comp-slider">
+        <div class="laptop-frame">
+            <div class="comparison-container" id="comp-slider">
+                
                 <!-- Before Panel -->
-                <div class="side-panel side-before">
-                    <div class="side-content">
-                        <h3 class="trans-title">SHADOW</h3>
-                        <p class="trans-desc">Fragmented focus. Weak implementation. Lost in the static of average development. No weapons. No edge.</p>
+                <div class="split-panel panel-before">
+                    <div class="panel-bg"></div>
+                    <div class="panel-overlay"></div>
+                    <div class="panel-content">
+                        <span class="status-tag">THE SHADOW</span>
+                        <h3 class="trans-title">BEFORE<br>FLAMES</h3>
+                        <p class="trans-desc">Fragmented focus. Tutorial purgatory. Writing average code without a lethal edge or direction.</p>
                     </div>
                 </div>
 
                 <!-- After Panel -->
-                <div class="side-panel side-after" id="after-panel">
-                    <div class="after-overlay"></div>
-                    <div class="side-content">
-                        <h3 class="trans-title">FLAME</h3>
-                        <p class="trans-desc">Lethal precision. Weaponized AI agents. Forged in the fires of discipline. The elite 1% of the digital era.</p>
+                <div class="split-panel panel-after">
+                    <div class="panel-bg"></div>
+                    <div class="panel-overlay"></div>
+                    <div class="after-fire-flicker"></div>
+                    <div class="panel-content">
+                        <span class="status-tag">THE DOJO</span>
+                        <h3 class="trans-title">AFTER<br>FLAMES</h3>
+                        <p class="trans-desc">Lethal precision. Weaponized AI agents. Forging scalable architectures that place you in the elite 1%.</p>
                     </div>
                 </div>
 
-                <!-- Slider Handle -->
-                <div class="slider-handle" id="slider-handle">
-                    <div class="handle-circle">
-                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-                        <svg viewBox="0 0 24 24" class="rotate-180"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -1899,10 +2255,9 @@
                 smooth: true
             });
 
-            const heroTitle = document.getElementById('hero-title-main');
+            const heroTitle   = document.getElementById('hero-title-main');
             const katanaBlade = document.getElementById('katana-blade');
-            const smokeWrap = document.getElementById('smoke-parallax');
-            const scrollProgress = document.getElementById('scroll-progress');
+            const smokeWrap   = document.getElementById('smoke-parallax');
             const chapterLabel = document.getElementById('chapter-label');
 
             const chapters = [
@@ -1915,53 +2270,167 @@
                 { id: 'final-gate', label: 'VII', name: 'THE GATE' }
             ];
 
-            lenis.on('scroll', (e) => {
-                const scrollY = window.scrollY;
+            // ── Katana unsheathe state ──
+            const bladeClipRect  = document.getElementById('blade-clip-rect');
+            const katanaStand    = document.getElementById('katana-blade');
+            const katanaGleam    = document.getElementById('katana-gleam');
+            const bladeFill      = document.getElementById('katana-blade-fill');
+            const BLADE_FULL_W   = 710; // SVG viewBox units for full blade width (from x=100 to x=810)
+
+            let gleamFired = false;
+            let lastScrollPercent = -1;
+            let rafPending = false;
+
+            function onScrollUpdate(scrollY) {
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrollPercent = (scrollY / docHeight) * 100;
+                const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
-                // Update scroll progress bar
-                scrollProgress.style.width = scrollPercent + '%';
+                // Katana blade progress bar (top)
+                bladeFill.style.width = scrollPercent + '%';
+                if (scrollPercent > 1) {
+                    bladeFill.classList.add('drawing');
+                } else {
+                    bladeFill.classList.remove('drawing');
+                }
 
-                // Update chapter label
+                // Chapter label
                 let activeChapter = chapters[0];
                 const viewThreshold = window.innerHeight * 0.4;
-
                 chapters.forEach(ch => {
                     const el = document.getElementById(ch.id);
                     if (el) {
                         const rect = el.getBoundingClientRect();
-                        if (rect.top <= viewThreshold) {
-                            activeChapter = ch;
-                        }
+                        if (rect.top <= viewThreshold) activeChapter = ch;
                     }
                 });
-
                 if (chapterLabel.dataset.lastId !== activeChapter.id) {
                     chapterLabel.dataset.lastId = activeChapter.id;
                     chapterLabel.innerHTML = `<span>${activeChapter.label}</span> — ${activeChapter.name}`;
                 }
 
-                // Hero parallax
-                if (scrollY < window.innerHeight * 1.2) {
+                // Hero parallax (only while in hero)
+                if (scrollY < window.innerHeight * 1.5) {
                     const scale = Math.max(0.7, 1 - scrollY * 0.0004);
-                    heroTitle.style.transform = `scale(${scale}) translateY(${scrollY * 0.25}px)`;
-                    heroTitle.style.opacity = Math.max(0, 1 - scrollY * 0.001);
-
-                    // FIXED: Smoothed out the katana downward parallax. Minimal rotation, pure translation drop.
+                    heroTitle.style.transform  = `scale(${scale}) translateY(${scrollY * 0.25}px)`;
+                    heroTitle.style.opacity    = Math.max(0, 1 - scrollY * 0.001);
                     katanaBlade.style.transform = `translateY(${scrollY * 0.15}px)`;
+
+                    // ── Scroll-driven unsheathe (0–60% of hero height) ──
+                    const heroH      = window.innerHeight;
+                    const unsheatheP = Math.min(1, scrollY / (heroH * 0.6));
+                    const bladeW     = Math.round(unsheatheP * BLADE_FULL_W);
+                    bladeClipRect.setAttribute('width', bladeW);
+
+                    // Heat glow tiers
+                    katanaStand.classList.remove('heated-1', 'heated-2');
+                    if (unsheatheP > 0.7)       katanaStand.classList.add('heated-2');
+                    else if (unsheatheP > 0.35)  katanaStand.classList.add('heated-1');
+
+                    // Gleam at full unsheathe (fires once)
+                    if (unsheatheP >= 0.98 && !gleamFired) {
+                        gleamFired = true;
+                        katanaGleam.classList.add('flash');
+                        setTimeout(() => katanaGleam.classList.remove('flash'), 350);
+                    } else if (unsheatheP < 0.9) {
+                        gleamFired = false;
+                    }
                 }
 
-                // Smoke parallax (faster descent)
+                // ── Transformation section expansion (Laptop Zoom in -> Hold -> Zoom out) ──
+                const transSection = document.getElementById('transformation');
+                const compSlider = document.getElementById('comp-slider');
+                const header = document.querySelector('header');
+                
+                // Initialize Rebirth State if not exists 
+                if (!window._rebirthState) {
+                    window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
+                }
+
+                if (transSection && compSlider && window.innerWidth > 768) {
+                    const rect = transSection.getBoundingClientRect();
+                    const sectionH = transSection.offsetHeight;
+                    const viewH = window.innerHeight;
+                    const viewW = window.innerWidth;
+                    
+                    const maxScroll = sectionH - viewH;
+                    let progress = 0;
+                    if (rect.top <= 0) {
+                        progress = Math.min(1, Math.abs(rect.top) / maxScroll);
+                    }
+                    
+                    let p = 0;
+                    if (progress < 0.25) {
+                        p = progress / 0.25; // Phase 1: Zoom In
+                    } else if (progress >= 0.25 && progress <= 0.75) {
+                        p = 1; // Phase 2: Hold
+                    } else {
+                        p = 1 - ((progress - 0.75) / 0.25); // Phase 3: Zoom Out
+                    }
+                    
+                    // State Guard: Only update if progress has changed significantly
+                    if (Math.abs(p - window._rebirthState.lastP) > 0.001) {
+                        window._rebirthState.lastP = p;
+                        
+                        const scaleX = viewW / 1000;
+                        const scaleY = viewH / 600;
+                        const maxScale = Math.max(scaleX, scaleY);
+                        
+                        // Ease-in-out progress for smoother transitions
+                        const easeP = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+
+                        compSlider.style.transform = `scale(${1 + (maxScale - 1) * easeP}) translate3d(0,0,0)`;
+                        
+                        // Fullscreen State Guard
+                        const isFull = easeP >= 0.95;
+                        if (isFull !== window._rebirthState.lastFull) {
+                            window._rebirthState.lastFull = isFull;
+                            compSlider.classList.toggle('is-fullscreen', isFull);
+                        }
+
+                        // Navbar toggle synced with expansion (State Guarded)
+                        if (header) {
+                            const showNav = !(easeP > 0.02 && easeP < 1);
+                            if (showNav !== window._rebirthState.lastNav) {
+                                window._rebirthState.lastNav = showNav;
+                                header.style.transform = showNav ? 'translateY(0)' : 'translateY(-100%)';
+                            }
+                        }
+                    }
+                } else if (compSlider && window.innerWidth <= 768) {
+                    // Cleanup for mobile/resize
+                    if (window._rebirthState?.lastFull !== null) {
+                        compSlider.style.transform = '';
+                        compSlider.classList.remove('is-fullscreen');
+                        if (header) header.style.transform = '';
+                        window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
+                    }
+                }
+
+                // Smoke parallax
                 smokeWrap.style.transform = `translateY(${-scrollY * 0.3}px)`;
 
-                // Cinematic image slow zoom
+                // Cinematic image
                 const cinematicImg = document.querySelector('.cinematic-image');
                 if (cinematicImg) {
                     const imgRect = cinematicImg.getBoundingClientRect();
                     if (imgRect.top < window.innerHeight && imgRect.bottom > 0) {
                         cinematicImg.classList.add('in-view');
                     }
+                }
+
+                lastScrollPercent = scrollPercent;
+            }
+
+            // Initial call to set state
+            onScrollUpdate(window.scrollY);
+
+            lenis.on('scroll', (e) => {
+                if (!rafPending) {
+                    rafPending = true;
+                    requestAnimationFrame(() => {
+                        onScrollUpdate(window.scrollY);
+                        rafPending = false;
+                    });
                 }
             });
 
@@ -2098,6 +2567,47 @@
         });
         magneticBtn.addEventListener('mouseleave', () => {
             magneticBtn.style.transform = 'translate(0, 0)';
+        });
+
+        /* =====================================================
+           CTA ACTIVATION — blade glows on hero button hover
+           ===================================================== */
+        const katanaStandEl = document.getElementById('katana-blade');
+        if (katanaStandEl) {
+            magneticBtn.addEventListener('mouseenter', () => {
+                katanaStandEl.classList.add('cta-active');
+            });
+            magneticBtn.addEventListener('mouseleave', () => {
+                katanaStandEl.classList.remove('cta-active');
+            });
+        }
+
+        /* =====================================================
+           SLASH TRANSITION — fires once on "Enter The Dojo"
+           ===================================================== */
+        const slashOverlay = document.getElementById('slash-overlay');
+        let slashUsed = false;
+
+        magneticBtn.addEventListener('click', (e) => {
+            if (slashUsed) return;
+            slashUsed = true;
+
+            // Fire the slash
+            slashOverlay.classList.add('firing');
+
+            // Scroll to intel section after slash
+            setTimeout(() => {
+                const target = document.querySelector('#intel');
+                if (target && lenis) {
+                    lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+                }
+            }, 200);
+
+            // Clean up overlay
+            setTimeout(() => {
+                slashOverlay.classList.remove('firing');
+                slashUsed = false;
+            }, 600);
         });
 
 
