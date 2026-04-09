@@ -33,176 +33,133 @@
         .jp-font { font-family: 'Noto Sans JP', sans-serif; }
 
         /* =====================================================
-           LOADING SCREEN — CINEMATIC PRELUDE
+           LOADING SCREEN
            ===================================================== */
         #loading-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 9999999;
+            position: fixed; inset: 0; z-index: 9999999;
             background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-
-        #loading-screen.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
+        #loading-screen.fade-out { opacity: 0; visibility: hidden; }
 
         .loader-kanji {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: clamp(5rem, 15vw, 12rem);
-            font-weight: 900;
+            font-size: clamp(5rem, 15vw, 12rem); font-weight: 900;
             color: transparent;
             -webkit-text-stroke: 1px rgba(255, 106, 42, 0.3);
             animation: kanjiPulse 2s ease-in-out infinite;
             position: relative;
         }
-
         .loader-kanji::after {
-            content: '炎';
-            position: absolute;
-            inset: 0;
-            color: var(--flame-orange);
-            -webkit-text-stroke: 0;
+            content: '炎'; position: absolute; inset: 0;
+            color: var(--flame-orange); -webkit-text-stroke: 0;
             clip-path: inset(100% 0 0 0);
             animation: kanjiReveal 2.5s ease-out forwards;
         }
-
         @keyframes kanjiPulse {
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 0.6; transform: scale(1.02); }
         }
-
-        @keyframes kanjiReveal {
-            0% { clip-path: inset(100% 0 0 0); }
-            100% { clip-path: inset(0% 0 0 0); }
-        }
+        @keyframes kanjiReveal { 0% { clip-path: inset(100% 0 0 0); } 100% { clip-path: inset(0% 0 0 0); } }
 
         .loader-subtitle {
-            font-size: 10px;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.3);
-            margin-top: 30px;
-            opacity: 0;
+            font-size: 10px; letter-spacing: 8px; text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3); margin-top: 30px; opacity: 0;
             animation: fadeInSlow 1s ease 0.5s forwards;
         }
+        @keyframes fadeInSlow { to { opacity: 1; } }
 
-        @keyframes fadeInSlow {
-            to { opacity: 1; }
-        }
-
-        /* Progress Bar */
         .loader-progress-wrap {
-            width: 200px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.05);
-            margin-top: 40px;
-            position: relative;
-            overflow: hidden;
+            width: 200px; height: 2px; background: rgba(255, 255, 255, 0.05);
+            margin-top: 40px; position: relative; overflow: hidden;
         }
-
         .loader-progress-bar {
-            height: 100%;
-            width: 0%;
+            height: 100%; width: 0%;
             background: linear-gradient(90deg, var(--ninja-red), var(--flame-orange));
             transition: width 0.1s linear;
         }
-
         .loader-percent {
-            font-size: 11px;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.4);
-            margin-top: 15px;
-            letter-spacing: 2px;
+            font-size: 11px; font-weight: 800; color: rgba(255, 255, 255, 0.4);
+            margin-top: 15px; letter-spacing: 2px;
         }
+        #loader-canvas { position: absolute; inset: 0; pointer-events: none; }
 
-        /* Loading particles */
-        #loader-canvas {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-        }
-
-        /* Curtain Reveal Effect */
         .curtain-left, .curtain-right {
-            position: fixed;
-            top: 0;
-            width: 50%;
-            height: 100%;
-            background: #000;
-            z-index: 9999998;
+            position: fixed; top: 0; width: 50%; height: 100%;
+            background: #000; z-index: 9999998;
             transition: transform 1.2s cubic-bezier(0.87, 0, 0.13, 1);
         }
-
         .curtain-left { left: 0; transform-origin: left; }
         .curtain-right { right: 0; transform-origin: right; }
-
         .curtains-open .curtain-left { transform: translateX(-100%); }
         .curtains-open .curtain-right { transform: translateX(100%); }
 
         /* =====================================================
-           SCROLL PROGRESS INDICATOR
+           SCROLL PROGRESS
            ===================================================== */
         #scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
+            position: fixed; top: 0; left: 0; height: 3px;
             background: linear-gradient(90deg, var(--ninja-red), var(--flame-orange));
-            z-index: 99999;
-            width: 0%;
-            transition: width 0.1s linear;
+            z-index: 99999; width: 0%; transition: width 0.1s linear;
         }
 
         /* =====================================================
-           CHAPTER LABEL (Side)
+           CHAPTER LABEL
            ===================================================== */
         .chapter-label {
-            position: fixed;
-            right: 30px;
-            top: 50%;
+            position: fixed; right: 30px; top: 50%;
             transform: translateY(-50%);
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-size: 9px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.15);
-            z-index: 100;
-            transition: color 0.5s ease;
-            pointer-events: none;
+            writing-mode: vertical-rl; text-orientation: mixed;
+            font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15); z-index: 100;
+            transition: color 0.5s ease; pointer-events: none;
         }
-
-        .chapter-label span {
-            color: var(--flame-orange);
-            font-weight: 900;
-        }
+        .chapter-label span { color: var(--flame-orange); font-weight: 900; }
 
         /* =====================================================
-           GLOW CURSOR
+           CONTEXT-AWARE CURSOR (Feature 4)
            ===================================================== */
         #glow-cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 300px; height: 300px;
-            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            width: 300px; height: 300px; border-radius: 50%;
             background: radial-gradient(circle, rgba(255, 106, 42, 0.12) 0%, transparent 60%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9998;
-            transition: width 0.4s ease, height 0.4s ease;
+            transform: translate(-50%, -50%); pointer-events: none; z-index: 9998;
+            transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                        background 0.5s ease,
+                        box-shadow 0.5s ease,
+                        border-radius 0.5s ease,
+                        opacity 0.5s ease;
             mix-blend-mode: screen;
         }
-
-        #glow-cursor.hovering {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, transparent 60%);
+        /* State: hovering a weapon card — sharp, red, smaller */
+        #glow-cursor.cursor-weapon {
+            width: 60px !important; height: 60px !important;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.6) 0%, rgba(204, 0, 0, 0.1) 40%, transparent 70%) !important;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+        }
+        /* State: hovering CTA — expanded, pulsing */
+        #glow-cursor.cursor-cta {
+            width: 200px !important; height: 200px !important;
+            background: radial-gradient(circle, rgba(255, 106, 42, 0.25) 0%, transparent 60%) !important;
+            animation: cursorPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes cursorPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.15); }
+        }
+        /* State: active selection — fixed, glowing */
+        #glow-cursor.cursor-active {
+            width: 100px !important; height: 100px !important;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.35) 0%, transparent 60%) !important;
+            box-shadow: 0 0 40px rgba(204, 0, 0, 0.2);
+            animation: cursorActiveGlow 2s ease-in-out infinite;
+        }
+        @keyframes cursorActiveGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(204, 0, 0, 0.15); }
+            50% { box-shadow: 0 0 50px rgba(204, 0, 0, 0.3); }
         }
 
         /* =====================================================
@@ -218,44 +175,29 @@
            HERO SECTION
            ===================================================== */
         .vertical-label {
-            writing-mode: vertical-rl;
-            text-orientation: upright;
-            font-size: 0.85rem;
-            letter-spacing: 0.4em;
+            writing-mode: vertical-rl; text-orientation: upright;
+            font-size: 0.85rem; letter-spacing: 0.4em;
             color: rgba(255, 255, 255, 0.15);
-            position: absolute;
-            left: 40px;
-            top: 35%;
-            z-index: 10;
+            position: absolute; left: 40px; top: 35%; z-index: 10;
         }
-
         .vertical-label::after {
-            content: '';
-            display: block;
-            width: 1px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.08);
-            margin-top: 20px;
+            content: ''; display: block;
+            width: 1px; height: 60px;
+            background: rgba(255, 255, 255, 0.08); margin-top: 20px;
         }
 
         .hero-title {
-            font-size: clamp(3rem, 12vw, 5rem);
-            line-height: 0.9;
-            color: var(--flame-orange);
-            letter-spacing: -0.02em;
+            font-size: clamp(3rem, 12vw, 5rem); line-height: 0.9;
+            color: var(--flame-orange); letter-spacing: -0.02em;
             will-change: transform;
         }
-
         @media (min-width: 768px) {
             .hero-title { font-size: clamp(6rem, 18vw, 14rem); }
         }
 
         .hero-object-container {
-            width: 100%;
-            max-width: 1000px;
-            margin: -30px auto 0;
-            position: relative;
-            z-index: 10;
+            width: 100%; max-width: 1000px;
+            margin: -30px auto 0; position: relative; z-index: 10;
         }
 
         .katana-stand {
@@ -263,66 +205,87 @@
             will-change: transform;
         }
 
-        .shimmer-effect::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-            transform: skewX(-20deg);
-            animation: shimmer 4s infinite;
+        /* Katana unsheathe */
+        #katana-tilt-group {
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+        #katana-tilt-group.unsheathed {
+            transform: translate(100px, 100px) rotate(-2deg);
         }
 
+        .katana-gleam-line {
+            position: absolute; top: 0; left: -100px;
+            width: 3px; height: 300%;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8), transparent);
+            transform: rotate(-15deg);
+            pointer-events: none; opacity: 0;
+        }
+        .katana-gleam-line.active {
+            animation: gleamSweep 0.6s ease-out 0.4s forwards;
+        }
+        @keyframes gleamSweep {
+            0% { left: -100px; opacity: 1; }
+            100% { left: calc(100% + 100px); opacity: 0; }
+        }
+
+        .viewport-gleam {
+            position: absolute; top: 0; left: 0;
+            width: 200vw; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: rotate(-30deg);
+            pointer-events: none; opacity: 0;
+        }
+        .viewport-gleam.active {
+            animation: viewportGleam 0.7s ease-out 0.8s forwards;
+        }
+        @keyframes viewportGleam {
+            0% { transform: rotate(-30deg) translate(-50vw, 50vh); opacity: 1; }
+            100% { transform: rotate(-30deg) translate(50vw, -50vh); opacity: 0; }
+        }
+
+        .shimmer-effect::after {
+            content: ''; position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: skewX(-20deg); animation: shimmer 4s infinite;
+        }
         @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
 
         .pattern-border {
-            height: 40px;
-            width: 100%;
+            height: 40px; width: 100%;
             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23ff6a2a' fill-opacity='0.03'/%3E%3C/svg%3E");
             background-repeat: repeat-x;
-            position: absolute;
-            bottom: 0; left: 0;
+            position: absolute; bottom: 0; left: 0;
             border-top: 1px solid rgba(255, 106, 42, 0.05);
         }
 
         .fire-glow-overlay {
-            position: absolute;
-            bottom: 0; left: 0;
+            position: absolute; bottom: 0; left: 0;
             width: 100%; height: 40%;
             background: radial-gradient(ellipse at bottom, rgba(255, 106, 42, 0.15), transparent 70%);
-            z-index: 1;
-            pointer-events: none;
+            z-index: 1; pointer-events: none;
             animation: fireFlicker 4s infinite ease-in-out;
         }
-
         @keyframes fireFlicker {
             0%, 100% { opacity: 0.5; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.05); }
         }
 
-        /* Smoke Parallax */
         .smoke-blend-wrap {
-            position: absolute;
-            bottom: -150px; left: 0;
-            width: 100%; height: 600px;
-            z-index: 5;
-            pointer-events: none;
-            overflow: hidden;
-            will-change: transform;
+            position: absolute; bottom: -150px; left: 0;
+            width: 100%; height: 600px; z-index: 5;
+            pointer-events: none; overflow: hidden; will-change: transform;
         }
-
         .smoke-particle {
             position: absolute;
             background: radial-gradient(circle, rgba(10, 10, 10, 0.8) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(60px);
+            border-radius: 50%; filter: blur(60px);
             animation: smokeDrift 15s infinite ease-in-out;
         }
-
         .smoke-1 { width: 600px; height: 600px; bottom: -200px; left: -100px; }
         .smoke-2 { width: 700px; height: 700px; bottom: -250px; right: -50px; animation-delay: 5s; }
         .smoke-3 { width: 500px; height: 500px; bottom: -150px; left: 40%; animation-delay: 10s; }
-
         @keyframes smokeDrift {
             0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
             30% { opacity: 0.5; }
@@ -331,412 +294,521 @@
         }
 
         .blend-gradient-overlay {
-            position: absolute;
-            bottom: 0; left: 0;
+            position: absolute; bottom: 0; left: 0;
             width: 100%; height: 100%;
             background: linear-gradient(to bottom,
-                transparent 0%,
-                rgba(10, 10, 10, 0.3) 20%,
-                rgba(10, 10, 10, 0.7) 50%,
-                rgba(10, 10, 10, 0.95) 85%,
+                transparent 0%, rgba(10, 10, 10, 0.3) 20%,
+                rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.95) 85%,
                 var(--bg-black) 100%);
         }
 
-        /* CTA Button */
+        /* Hero bottom crossfade into narrative */
+        .hero-crossfade {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 200px;
+            background: linear-gradient(to bottom, transparent 0%, var(--bg-black) 100%);
+            pointer-events: none; z-index: 6;
+        }
+
         .btn-urgency {
-            background: #a80000;
-            color: #fff;
-            padding: 16px 45px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
+            background: #a80000; color: #fff;
+            padding: 16px 45px; font-weight: 900; font-size: 1.1rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            border: none; cursor: pointer;
             transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
         }
-
         .btn-urgency:hover {
             background: #cc0000;
             box-shadow: 0 15px 40px rgba(204, 0, 0, 0.5);
         }
 
         /* =====================================================
-           INTEL / STATS SECTION
+           NARRATIVE SECTION
            ===================================================== */
-        .stat-card {
-            background: #0e0e0e;
-            border: 1px solid var(--border-dark);
-            padding: 20px;
-            position: relative;
+        .narrative-wrapper {
+            height: 300vh; position: relative;
+        }
+        .narrative-sticky {
+            position: sticky; top: 0; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .narrative-bg {
+            position: absolute; inset: 40px;
+            background: radial-gradient(ellipse at center, #1a1408 0%, #0f0d08 40%, var(--bg-black) 100%);
+            box-shadow: inset 0 0 120px rgba(0,0,0,0.9), inset 0 0 60px rgba(255,106,42,0.03);
+            border: 1px solid rgba(255,106,42,0.04);
+            opacity: 0; transition: opacity 1s ease;
+        }
+        .narrative-bg.visible { opacity: 1; }
+
+        .narrative-content {
+            position: relative; z-index: 2;
+            text-align: center; padding: 40px;
+            max-width: 800px;
         }
 
+        .narrative-line {
+            line-height: 1.8; color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 10px;
+            clip-path: inset(0 100% 0 0);
+            opacity: 0;
+            will-change: clip-path, opacity;
+        }
+        .narrative-line.revealed {
+            clip-path: inset(0 0% 0 0);
+            opacity: 1;
+        }
+
+        /* Pacing: each line has its own timing */
+        .narrative-line[data-beat="1"] {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            transition: clip-path 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease;
+        }
+        .narrative-line[data-beat="2"] {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            transition: clip-path 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+        }
+        .narrative-line[data-beat="3"] {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            transition: clip-path 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        .narrative-line[data-beat="4"] {
+            font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+            font-weight: 700;
+            transition: clip-path 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
+            color: #fff;
+        }
+        .narrative-line[data-beat="5"] {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+            color: var(--flame-orange);
+            letter-spacing: 3px; margin-top: 30px;
+            transition: clip-path 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 1s ease,
+                        text-shadow 1s ease 0.8s;
+        }
+        .narrative-line[data-beat="5"].revealed {
+            text-shadow: 0 0 40px rgba(255, 106, 42, 0.3);
+        }
+
+        /* =====================================================
+           INTEL SECTION
+           ===================================================== */
+        .stat-card {
+            background: #0e0e0e; border: 1px solid var(--border-dark);
+            padding: 20px; position: relative; overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
         @media (min-width: 768px) {
             .stat-card {
                 padding: 40px;
                 clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
             }
         }
-
         .stat-card.hero-stat {
             background: linear-gradient(135deg, #121212 0%, #080808 100%);
             border-left: 4px solid var(--ninja-red);
         }
-
         .stat-card:hover {
-            border-color: var(--ninja-red);
-            transform: translateY(-8px);
-            background: #141414;
+            border-color: var(--ninja-red); transform: translateY(-8px); background: #141414;
         }
-
         .stat-value {
-            font-weight: 900;
-            color: var(--ninja-red);
-            line-height: 1;
-            display: block;
+            font-weight: 900; color: var(--ninja-red);
+            line-height: 1; display: block;
         }
-
         .hero-stat .stat-value { font-size: 2.5rem; }
         @media (min-width: 768px) { .hero-stat .stat-value { font-size: 5rem; } }
         .small-stat .stat-value { font-size: 1.5rem; }
         @media (min-width: 768px) { .small-stat .stat-value { font-size: 2.5rem; } }
 
         .stat-label {
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
+            font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-secondary);
+        }
+        .stat-card.is-visible .stat-label::after {
+            content: '\258F';
+            animation: cursorBlink 1s step-end infinite;
+            color: var(--ninja-red); margin-left: 4px; font-size: 0.6em;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .stat-icon svg {
             width: 32px; height: 32px;
-            stroke: var(--ninja-red);
-            stroke-width: 1.5;
-            fill: none;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
+            stroke: var(--ninja-red); stroke-width: 1.5; fill: none;
+            stroke-dasharray: 200; stroke-dashoffset: 200;
             transition: stroke-dashoffset 2s cubic-bezier(0.25, 1, 0.5, 1);
             margin-bottom: 20px;
         }
-
         .stat-card.is-visible .stat-icon svg { stroke-dashoffset: 0; }
 
-        .clan-badge {
-            font-size: 0.75rem;
-            font-weight: 900;
-            color: #555;
-            padding: 8px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
+        /* Intel secondary: CRT scan lines */
+        #intel::after {
+            content: ''; position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 2px,
+                rgba(255, 106, 42, 0.015) 2px, rgba(255, 106, 42, 0.015) 4px
+            );
+            pointer-events: none; z-index: 30;
         }
 
+        /* Intel primary: radar sweep */
+        .radar-sweep {
+            position: absolute; top: 50%; left: 50%;
+            width: 600px; height: 600px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 0deg, rgba(204,0,0,0.05) 30deg, transparent 60deg);
+            animation: radarSweep 6s linear infinite;
+            pointer-events: none; z-index: 0; opacity: 0.4;
+        }
+        @keyframes radarSweep { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Intel top crossfade from narrative */
+        .intel-crossfade-top {
+            position: absolute; top: 0; left: 0; width: 100%; height: 150px;
+            background: linear-gradient(to bottom, var(--bg-black) 0%, transparent 100%);
+            pointer-events: none; z-index: 15;
+        }
+
+        .clan-badge {
+            font-size: 0.75rem; font-weight: 900; color: #555;
+            padding: 8px 16px; border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
         .clan-badge:hover {
-            color: var(--flame-orange);
-            border-color: var(--flame-orange);
+            color: var(--flame-orange); border-color: var(--flame-orange);
             background: rgba(255, 106, 42, 0.05);
         }
 
         .pattern-bg {
-            position: absolute;
-            inset: 0;
-            opacity: 0.03;
+            position: absolute; inset: 0; opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M0 40c0-20 20-40 40-40s40 20 40 40' fill='none' stroke='%23ff6a2a' stroke-width='1'/%3E%3C/svg%3E");
-            background-size: 60px 30px;
-            pointer-events: none;
-            z-index: 0;
+            background-size: 60px 30px; pointer-events: none; z-index: 0;
         }
-
         .corner-accent {
-            position: absolute;
-            bottom: 0; right: 0;
+            position: absolute; bottom: 0; right: 0;
             width: 35%; height: 60%;
             background: linear-gradient(to top left, rgba(204, 0, 0, 0.03), transparent);
             clip-path: polygon(100% 0, 100% 100%, 0 100%);
-            pointer-events: none;
-            z-index: 1;
+            pointer-events: none; z-index: 1;
         }
 
         /* =====================================================
-           ARSENAL / WEAPON CARDS
+           ARSENAL SECTION
            ===================================================== */
         .arsenal-header {
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            letter-spacing: -2px;
+            font-family: 'Cinzel', serif; font-weight: 900; letter-spacing: -2px;
         }
-
         .arsenal-header-underline {
-            width: 140px;
-            height: 4px;
-            background: var(--ninja-red);
-            margin-top: 10px;
+            width: 140px; height: 4px; background: var(--ninja-red); margin-top: 10px;
         }
 
         .bento-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            grid-auto-rows: minmax(280px, auto);
+            display: grid; grid-template-columns: 1fr;
+            gap: 20px; grid-auto-rows: minmax(280px, auto);
         }
-
         @media (min-width: 1024px) {
-            .bento-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .bento-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         .weapon-card {
             background: linear-gradient(135deg, #151515 0%, #0a0a0a 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            min-height: 240px;
-            cursor: pointer;
+            border-radius: 16px; padding: 30px;
+            display: flex; flex-direction: column;
+            position: relative; min-height: 240px; cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease,
+                        border-color 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
         }
-
         .weapon-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.08), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 0;
+            content: ''; position: absolute; inset: 0; border-radius: 16px;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 106, 42, 0.15), transparent 60%);
+            opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 0;
         }
-
         .weapon-card:hover::before { opacity: 1; }
-
         .weapon-card:hover {
             border-color: rgba(204, 0, 0, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(204, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(204, 0, 0, 0.2);
             z-index: 10;
         }
 
         .weapon-card.featured {
-            grid-column: span 1;
-            grid-row: span 1;
-            padding: 24px;
+            grid-column: span 1; grid-row: span 1; padding: 24px;
             background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)),
                 url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+            background-size: cover; background-position: center;
         }
-
         @media (min-width: 768px) {
-            .weapon-card.featured {
-                grid-column: span 2;
-                grid-row: span 2;
-                padding: 50px;
-            }
+            .weapon-card.featured { grid-column: span 2; grid-row: span 2; padding: 50px; }
         }
 
         .weapon-tag {
-            background: var(--ninja-red);
-            color: white;
-            padding: 4px 12px;
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
+            background: var(--ninja-red); color: white;
+            padding: 4px 12px; font-size: 10px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 1px;
+            display: inline-block; margin-bottom: 20px;
+            position: relative; z-index: 1;
         }
-
         .rank-tag {
-            position: absolute;
-            top: 25px; right: 30px;
-            font-size: 9px;
-            font-weight: 700;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            position: absolute; top: 25px; right: 30px;
+            font-size: 9px; font-weight: 700; color: #666;
+            text-transform: uppercase; letter-spacing: 1.5px;
         }
-
         .weapon-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 1;
+            font-size: 1.8rem; font-weight: 900; color: white;
+            line-height: 1.1; margin-bottom: 15px;
+            text-transform: uppercase; position: relative; z-index: 1;
         }
-
         .featured .weapon-title { font-size: 1.5rem; max-width: 100%; }
         @media (min-width: 768px) { .featured .weapon-title { font-size: 4rem; max-width: 500px; } }
 
         .weapon-desc {
-            color: #888;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
+            color: #888; font-size: 0.9rem; line-height: 1.6;
+            margin-bottom: 30px; position: relative; z-index: 1;
         }
-
         .deploy-link {
-            margin-top: auto;
-            color: var(--ninja-red);
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: gap 0.3s ease;
-            position: relative;
-            z-index: 1;
+            margin-top: auto; color: var(--ninja-red);
+            font-size: 10px; font-weight: 900; text-transform: uppercase;
+            letter-spacing: 2px; display: flex; align-items: center;
+            gap: 10px; transition: gap 0.3s ease, opacity 0.3s ease;
+            position: relative; z-index: 1;
         }
-
         .deploy-link:hover { gap: 18px; }
-
         .weapon-icon {
-            width: 32px; height: 32px;
-            fill: var(--ninja-red);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
+            width: 32px; height: 32px; fill: var(--ninja-red);
+            margin-bottom: 20px; position: relative; z-index: 1;
         }
 
-        .highlight-red {
-            background: #a00000 !important;
-            border: none;
-        }
-
+        .highlight-red { background: #a00000 !important; border: none; }
         .highlight-red .weapon-title,
         .highlight-red .weapon-desc,
         .highlight-red .deploy-link,
         .highlight-red .rank-tag { color: white; }
         .highlight-red .weapon-icon { fill: white; }
 
-        /* =====================================================
-           MODAL
-           ===================================================== */
-        .weapon-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 999999;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(25px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
+        /* Weapon selection indicator */
+        .chosen-label {
+            margin-top: auto;
+            color: var(--flame-orange); font-size: 10px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 3px;
+            display: none; align-items: center; gap: 10px;
+            position: relative; z-index: 1;
+            animation: chosenPulse 2s ease-in-out infinite;
+        }
+        @keyframes chosenPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Forge animation base */
+        .weapon-card.forge-ready {
+            border-color: transparent;
+        }
+        .weapon-card.forge-ready .weapon-icon,
+        .weapon-card.forge-ready .weapon-tag {
+            opacity: 0; filter: blur(10px); transform: scale(1.5);
+            transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .weapon-card.forge-ready .weapon-title { opacity: 0; transition: opacity 0.3s ease; }
+        .weapon-card.forge-ready .weapon-desc {
+            opacity: 0; transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .weapon-card.forge-ready .deploy-link { opacity: 0; transition: opacity 0.4s ease; }
+        .weapon-card.forge-ready .rank-tag { opacity: 0; transition: opacity 0.4s ease; }
+
+        .weapon-card.forging {
+            transition: border-color 0.6s ease;
+            border-color: rgba(255, 106, 42, 0.3);
+        }
+        .weapon-card.forging .weapon-icon,
+        .weapon-card.forging .weapon-tag { opacity: 1; filter: blur(0); transform: scale(1); }
+        .weapon-card.forging .weapon-desc { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
+        .weapon-card.forging .deploy-link { opacity: 1; transition-delay: 1s; }
+        .weapon-card.forging .rank-tag { opacity: 1; transition-delay: 0.3s; }
+
+        .weapon-card.forging::after {
+            content: ''; position: absolute; inset: -20px; border-radius: 20px;
+            background: radial-gradient(circle, rgba(255, 106, 42, 0.15), transparent 70%);
+            pointer-events: none; z-index: -1;
+            animation: forgeGlow 1s ease-out forwards;
+        }
+        @keyframes forgeGlow {
+            0% { opacity: 0.8; transform: scale(0.95); }
+            100% { opacity: 0; transform: scale(1.1); }
+        }
+
+        /* ACTIVE selection state */
+        .weapon-card.active-card {
+            border-color: var(--ninja-red) !important;
+            box-shadow: 0 0 50px rgba(204, 0, 0, 0.25), 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+            transform: scale(1.03) !important;
+            z-index: 20;
+        }
+        .weapon-card.active-card .deploy-link { display: none; }
+        .weapon-card.active-card .chosen-label { display: flex; }
+
+        .weapon-card.dimmed {
+            opacity: 0.35 !important;
+            filter: grayscale(0.6) !important;
             pointer-events: none;
-            transition: opacity 0.5s ease;
-            padding: 20px;
-        }
-
-        .weapon-modal.active { opacity: 1; pointer-events: auto; }
-
-        .modal-content {
-            background: linear-gradient(135deg, #151515 0%, #080808 100%);
-            border: 1px solid var(--ninja-red);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 600px;
-            padding: 40px;
-            position: relative;
-            transform: scale(0.9) translateY(30px);
-            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(204, 0, 0, 0.2);
-        }
-
-        .weapon-modal.active .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px; right: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: var(--ninja-red);
-            border-color: var(--ninja-red);
-            transform: rotate(90deg);
+            transform: scale(0.97) !important;
         }
 
         /* =====================================================
-           PHILOSOPHY / IMMERSION
+           CHAPTER TRANSITIONS
+           ===================================================== */
+        .chapter-transition-break {
+            height: 180px; position: relative;
+            overflow: hidden; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .chapter-ink-wipe {
+            position: absolute; inset: 0;
+            background: var(--ninja-red);
+            transform: scaleX(0); transform-origin: left;
+        }
+        .chapter-transition-break.active .chapter-ink-wipe {
+            animation: inkWipe 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+        @keyframes inkWipe {
+            0% { transform: scaleX(0); transform-origin: left; }
+            45% { transform: scaleX(1); transform-origin: left; }
+            55% { transform: scaleX(1); transform-origin: right; }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+
+        .chapter-text-break {
+            position: relative; z-index: 2;
+            text-align: center; opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.35s, transform 0.6s ease 0.35s;
+        }
+        .chapter-transition-break.active .chapter-text-break {
+            opacity: 1; transform: translateY(0);
+        }
+        .chapter-transition-break.faded .chapter-text-break {
+            opacity: 0.25;
+            transition: opacity 1s ease;
+        }
+
+        .chapter-kanji-break {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.8rem; font-weight: 900;
+            color: var(--flame-orange); display: block;
+            letter-spacing: 4px;
+        }
+        .chapter-name-break {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.5);
+            display: block; margin-top: 8px;
+        }
+
+        /* =====================================================
+           PHILOSOPHY SECTION
            ===================================================== */
         .immersion-text span {
-            opacity: 0.08;
-            display: inline-block;
+            opacity: 0.08; display: inline-block;
             transition: opacity 0.8s ease, transform 0.8s ease;
-            transform: translateY(10px);
+            transform: translateY(10px); position: relative;
         }
-
         .immersion-text.is-visible span {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1; transform: translateY(0);
         }
 
         .cinematic-image {
-            transition: transform 12s ease-out;
+            transition: filter 0.5s ease;
         }
 
-        .cinematic-image.in-view {
-            transform: scale(1.15);
+        .philosophy-frame {
+            position: absolute; inset: -8px;
+            pointer-events: none; z-index: 2;
+        }
+        .frame-line {
+            position: absolute; background: var(--flame-orange);
+        }
+        .frame-line.top {
+            top: 0; left: 0; height: 2px; width: 100%;
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        .frame-line.right {
+            top: 0; right: 0; width: 2px; height: 100%;
+            transform: scaleY(0); transform-origin: top;
+            transition: transform 0.5s ease;
+        }
+        .frame-line.bottom {
+            bottom: 0; right: 0; height: 2px; width: 100%;
+            transform: scaleX(0); transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        .frame-line.left {
+            bottom: 0; left: 0; width: 2px; height: 100%;
+            transform: scaleY(0); transform-origin: bottom;
+            transition: transform 0.5s ease;
         }
 
         /* =====================================================
-           SECTION TRANSITION DIVIDERS
+           ENDING SECTION (Final Payoff)
            ===================================================== */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 106, 42, 0.2), transparent);
-            margin: 0 auto;
-            width: 80%;
+        .ending-section {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column;
+            background: #000;
+            position: relative;
+        }
+        .ending-section::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 200px;
+            background: linear-gradient(to bottom, var(--bg-black) 0%, #000 100%);
+            pointer-events: none;
         }
 
-        /* =====================================================
-           SCROLL-BASED REVEAL CLASSES
-           ===================================================== */
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        .ending-line {
+            font-family: 'Cinzel', serif; font-weight: 900;
+            font-size: clamp(1.6rem, 5vw, 3.5rem);
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 3px;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 2s ease, transform 2s ease;
+            text-align: center; padding: 0 20px;
+        }
+        .ending-line.visible {
+            opacity: 1; transform: translateY(0);
         }
 
-        .reveal-up.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .ending-subtitle {
+            font-size: 10px; letter-spacing: 6px; text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 12px;
+            opacity: 0; transition: opacity 1.5s ease 0.5s;
+        }
+        .ending-line.visible ~ .ending-subtitle { opacity: 1; }
+
+        .ending-cta-wrap {
+            margin-top: 50px;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 1.5s ease 1s, transform 1.5s ease 1s;
+        }
+        .ending-line.visible ~ .ending-cta-wrap {
+            opacity: 1; transform: translateY(0);
         }
 
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-
-        .reveal-scale.is-visible {
-            opacity: 1;
-            transform: scale(1);
+        .ending-kanji {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 900; color: rgba(255, 255, 255, 0.02);
+            position: absolute; bottom: 10%; right: 10%;
+            pointer-events: none;
         }
 
         /* =====================================================
@@ -745,11 +817,70 @@
         .footer-kanji {
             transition: color 0.5s ease, text-shadow 0.5s ease;
         }
-
         .footer-kanji:hover {
             color: var(--flame-orange);
             text-shadow: 0 0 30px rgba(255, 106, 42, 0.3);
         }
+
+        /* =====================================================
+           MODAL
+           ===================================================== */
+        .weapon-modal {
+            position: fixed; inset: 0; z-index: 999999;
+            background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(25px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.5s ease; padding: 20px;
+        }
+        .weapon-modal.active { opacity: 1; pointer-events: auto; }
+
+        .modal-content {
+            background: linear-gradient(135deg, #151515 0%, #080808 100%);
+            border: 1px solid var(--ninja-red); border-radius: 16px;
+            width: 100%; max-width: 600px; padding: 40px;
+            position: relative;
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(204, 0, 0, 0.2);
+        }
+        .weapon-modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+        .modal-close {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .modal-close:hover {
+            background: var(--ninja-red); border-color: var(--ninja-red);
+            transform: rotate(90deg);
+        }
+
+        /* =====================================================
+           SECTION DIVIDER
+           ===================================================== */
+        .section-divider {
+            height: 1px; margin: 0 auto; width: 80%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,106,42,0.15) 50%, transparent 100%);
+        }
+
+        /* =====================================================
+           SCROLL REVEAL
+           ===================================================== */
+        .reveal-up {
+            opacity: 0; transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-scale {
+            opacity: 0; transform: scale(0.9);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .reveal-scale.is-visible { opacity: 1; transform: scale(1); }
 
         /* =====================================================
            MOBILE
@@ -759,7 +890,7 @@
             header { padding: 10px 14px !important; }
             .hero-section { padding: 70px 16px 40px !important; min-height: auto !important; }
             .hero-title { font-size: clamp(3rem, 14vw, 5rem) !important; }
-            .vertical-label, .cloud-icon { display: none !important; }
+            .vertical-label { display: none !important; }
             .hero-object-container { max-width: 100% !important; margin-top: -10px !important; overflow: hidden; }
             .hero-object-container svg { height: 100px; max-width: 100%; }
             .btn-urgency { padding: 12px 28px !important; font-size: 0.85rem !important; letter-spacing: 1px !important; }
@@ -778,6 +909,22 @@
             #about { padding: 50px 16px !important; }
             #glow-cursor, .chapter-label { display: none !important; }
             .loader-kanji { font-size: 5rem !important; }
+
+            /* Simplified narrative */
+            .narrative-wrapper { height: 220vh; }
+            .narrative-bg { inset: 15px; }
+            .narrative-content { padding: 20px; }
+
+            /* Smaller chapter transitions */
+            .chapter-transition-break { height: 100px; }
+            .chapter-kanji-break { font-size: 1.2rem; }
+
+            /* Hide radar on mobile */
+            .radar-sweep { display: none; }
+
+            /* Simplified ending */
+            .ending-section { min-height: 70vh; padding: 40px 20px; }
+            .ending-line { font-size: clamp(1.2rem, 4vw, 2rem) !important; }
         }
 
         @media (max-width: 480px) {
@@ -788,14 +935,20 @@
             .small-stat .stat-value { font-size: 1.5rem !important; }
             .arsenal-header { font-size: 1.8rem !important; }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- =====================================================
-         LOADING SCREEN — CINEMATIC PRELUDE
-         ===================================================== -->
+    <!-- LOADING SCREEN -->
     <div id="loading-screen">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-kanji">炎</div>
@@ -806,35 +959,29 @@
         <div class="loader-percent" id="loader-percent">0%</div>
     </div>
 
-    <!-- Curtain Reveal -->
     <div class="curtain-left"></div>
     <div class="curtain-right"></div>
 
-    <!-- Scroll Progress -->
     <div id="scroll-progress"></div>
 
-    <!-- Chapter Label -->
     <div class="chapter-label" id="chapter-label">
         <span>I</span> — THE AWAKENING
     </div>
 
-    <!-- Custom Cursor -->
+    <!-- Context-aware cursor -->
     <div id="glow-cursor"></div>
 
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
+    <!-- Fire particles (fixed, full page — reduced outside hero) -->
+    <canvas id="fireParticles"></canvas>
+
+    <!-- HEADER -->
     <header class="fixed top-0 w-full z-50 px-3 py-2 md:px-10 md:py-5 flex justify-between items-center" style="transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
         <div class="flex gap-4 opacity-40">
             <a href="#" class="hover:text-[#ff6a2a] transition">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                </svg>
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" /></svg>
             </a>
             <a href="#" class="hover:text-[#ff6a2a] transition">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
             </a>
         </div>
         <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">
@@ -844,7 +991,7 @@
                 <span class="text-[#ff6a2a] font-black japan-font text-xl">SHADOW</span>
             </a>
             <a href="#arsenal" class="hover:text-white transition nav-link">Path</a>
-            <a href="#contact" class="hover:text-white transition nav-link">Summon</a>
+            <a href="#ending" class="hover:text-white transition nav-link">Summon</a>
         </nav>
         <div class="flex items-center gap-4">
             <button class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff6a2a] pb-1 hover:text-[#ff6a2a] transition">Entrance</button>
@@ -853,10 +1000,9 @@
     </header>
 
     <!-- =====================================================
-         HERO / ENTRY SECTION
+         HERO SECTION — Primary: Katana unsheathe | Secondary: Smoke
          ===================================================== -->
-    <section class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
-        <canvas id="fireParticles" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
+    <section id="hero" class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
         <div class="fire-glow-overlay"></div>
 
         <div class="vertical-label jp-font">プレミアムな選択</div>
@@ -889,13 +1035,16 @@
             </div>
         </div>
 
+        <!-- Katana with unsheathe elements -->
         <div class="hero-object-container hero-element" style="opacity:0; transform:translateY(50px);">
             <div class="relative katana-stand" id="katana-blade">
+                <div class="katana-gleam-line" id="katana-gleam"></div>
+                <div class="viewport-gleam" id="viewport-gleam"></div>
                 <svg width="100%" height="250" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
                     <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#1a1a1a" />
                     <rect x="280" y="110" width="15" height="50" fill="#1a1a1a" />
                     <rect x="505" y="110" width="15" height="50" fill="#1a1a1a" />
-                    <g transform="translate(100, 100) rotate(-2)" id="katana-tilt-group">
+                    <g transform="translate(-300, 100) rotate(-2)" id="katana-tilt-group">
                         <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#b0b0b0" class="shimmer-effect" />
                         <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
                         <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
@@ -918,23 +1067,43 @@
             <div class="smoke-particle smoke-3"></div>
             <div class="blend-gradient-overlay"></div>
         </div>
+
+        <!-- Crossfade into narrative -->
+        <div class="hero-crossfade"></div>
     </section>
 
-    <!-- Section Divider -->
-    <div class="section-divider"></div>
+    <!-- =====================================================
+         NARRATIVE — Paced brush-stroke reveal
+         ===================================================== -->
+    <div class="narrative-wrapper" id="narrative-section">
+        <div class="narrative-sticky">
+            <div class="narrative-bg" id="narrative-bg"></div>
+            <div class="narrative-content" id="narrative-content">
+                <div class="narrative-line" data-beat="1" data-threshold="0.05">In the ancient dojos of digital mastery...</div>
+                <div class="narrative-line" data-beat="2" data-threshold="0.20">the flame was passed from master to disciple.</div>
+                <div class="narrative-line" data-beat="3" data-threshold="0.42">Only those who survive the 45-day trial...</div>
+                <div class="narrative-line" data-beat="4" data-threshold="0.55">emerge from the shadows as true warriors.</div>
+                <div class="narrative-line" data-beat="5" data-threshold="0.75">This is not a course. This is a rite of passage.</div>
+            </div>
+        </div>
+    </div>
 
     <!-- =====================================================
-         INTEL / DISCOVERY SECTION
+         INTEL — Primary: Radar | Secondary: Scanlines
          ===================================================== -->
     <section id="intel" class="relative py-16 px-4 md:py-40 md:px-10 overflow-hidden"
         style="background: radial-gradient(circle at 30% 30%, rgba(255,106,42,0.06), transparent 50%), radial-gradient(circle at 70% 70%, rgba(255,106,42,0.04), transparent 50%), var(--bg-black);">
+        <!-- Crossfade from narrative -->
+        <div class="intel-crossfade-top"></div>
         <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-60 z-10 pointer-events-none"></div>
         <div class="pattern-bg"></div>
         <div class="corner-accent"></div>
 
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <!-- Primary: Radar sweep -->
+        <div class="radar-sweep"></div>
 
-            <!-- Left Briefing -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 relative z-10">
+
             <div class="lg:col-span-5 reveal-up">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-10 h-[1px] bg-red-600"></span>
@@ -960,9 +1129,7 @@
                 </div>
             </div>
 
-            <!-- Stats Grid -->
             <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 relative z-20">
-
                 <div class="stat-card hero-stat md:row-span-2 reveal-up">
                     <div class="stat-icon">
                         <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
@@ -1003,16 +1170,21 @@
                         <svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 4.5-8 9 0 3 2 5 2 8s-1 3-1 3h14s-1 0-1-3 2-5 2-8c0-4.5-4-9-8-9z" /></svg>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Section Divider -->
-    <div class="section-divider"></div>
+    <!-- Chapter: 第三章 -->
+    <div class="chapter-transition-break" data-chapter="三" data-title="THE ARSENAL">
+        <div class="chapter-ink-wipe"></div>
+        <div class="chapter-text-break">
+            <span class="chapter-kanji-break">第三章</span>
+            <span class="chapter-name-break">— THE ARSENAL</span>
+        </div>
+    </div>
 
     <!-- =====================================================
-         ARSENAL / POWER SECTION
+         ARSENAL — Primary: Card forge | Secondary: Glow
          ===================================================== -->
     <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden" style="background-color: var(--bg-black);">
         <div class="pattern-bg" style="opacity: 0.05;"></div>
@@ -1021,19 +1193,21 @@
             <div class="mb-10 md:mb-24 reveal-up">
                 <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-2">THE ARSENAL</h2>
                 <div class="arsenal-header-underline"></div>
+                <p class="text-[10px] uppercase tracking-[3px] text-neutral-600 mt-4 font-bold">Choose your weapon. Commit your path.</p>
             </div>
 
-            <div class="bento-grid">
+            <div class="bento-grid" id="arsenal-grid">
 
-                <div class="weapon-card featured reveal-scale" data-modal="modal-mern">
+                <div class="weapon-card featured forge-ready" data-modal="modal-mern">
                     <span class="rank-tag">RANK: JONIN</span>
                     <span class="weapon-tag">FEATURED WEAPON</span>
                     <h3 class="weapon-title">FULL STACK <br> + GENAI DOMINATION</h3>
                     <p class="weapon-desc">Mission Briefing: Infiltrate the modern web with AI-powered reactive architectures. Secure elite deployment status.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">WEAPON SELECTION <span>&rarr;</span></a>
+                    <div class="chosen-label">&#9670; PATH CHOSEN &#9670;</div>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-data" style="transition-delay: 100ms;">
+                <div class="weapon-card forge-ready" data-modal="modal-data">
                     <span class="rank-tag">RANK: CHUNIN</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
@@ -1041,9 +1215,10 @@
                     <h3 class="weapon-title">SHADOW INTELLIGENCE</h3>
                     <p class="weapon-desc">Master Data Analytics and industry tools for deep-sector intel gathering.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
+                    <div class="chosen-label">&#9670; PATH CHOSEN &#9670;</div>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-dsa" style="transition-delay: 200ms;">
+                <div class="weapon-card forge-ready" data-modal="modal-dsa">
                     <span class="rank-tag">RANK: JONIN</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>
@@ -1051,9 +1226,10 @@
                     <h3 class="weapon-title">ALGORITHM BLADE</h3>
                     <p class="weapon-desc">Elite DSA. Precision strikes in high-frequency algorithmic environments.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
+                    <div class="chosen-label">&#9670; PATH CHOSEN &#9670;</div>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-django" style="transition-delay: 300ms;">
+                <div class="weapon-card forge-ready" data-modal="modal-django">
                     <span class="rank-tag">RANK: CHUNIN</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
@@ -1061,9 +1237,10 @@
                     <h3 class="weapon-title">ABYSS SCALING</h3>
                     <p class="weapon-desc">Django & AI Agents. Master the invisible backend architecture.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
+                    <div class="chosen-label">&#9670; PATH CHOSEN &#9670;</div>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-mobile" style="transition-delay: 400ms;">
+                <div class="weapon-card forge-ready" data-modal="modal-mobile">
                     <span class="rank-tag">RANK: GENIN</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" /></svg>
@@ -1071,9 +1248,10 @@
                     <h3 class="weapon-title">AESTHETIC WARFARE</h3>
                     <p class="weapon-desc">Mobile App Development. Weaponize the interface with lethal design.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
+                    <div class="chosen-label">&#9670; PATH CHOSEN &#9670;</div>
                 </div>
 
-                <div class="weapon-card highlight-red reveal-scale" data-modal="modal-bundle" style="transition-delay: 500ms;">
+                <div class="weapon-card highlight-red forge-ready" data-modal="modal-bundle">
                     <span class="rank-tag">TARGET: CAREER</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" /></svg>
@@ -1081,17 +1259,24 @@
                     <h3 class="weapon-title">ASSASSINATION ARTS</h3>
                     <p class="weapon-desc">Bundle Offer (DSA+ WEBD). Negotiation, resume forgery, and mock executions.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">MISSION BRIEFING <span>&rarr;</span></a>
+                    <div class="chosen-label">&#9670; PATH CHOSEN &#9670;</div>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- Section Divider -->
-    <div class="section-divider"></div>
+    <!-- Chapter: 第四章 -->
+    <div class="chapter-transition-break" data-chapter="四" data-title="ZEN PHILOSOPHY">
+        <div class="chapter-ink-wipe"></div>
+        <div class="chapter-text-break">
+            <span class="chapter-kanji-break">第四章</span>
+            <span class="chapter-name-break">— ZEN PHILOSOPHY</span>
+        </div>
+    </div>
 
     <!-- =====================================================
-         PHILOSOPHY / IMMERSION SECTION
+         PHILOSOPHY — Primary: Ink wash image | Secondary: Frame
          ===================================================== -->
     <section id="about" class="py-16 px-4 md:py-40 md:px-10 bg-[#0f0f0f] relative overflow-hidden">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-24 items-center relative z-10">
@@ -1107,20 +1292,35 @@
                     <button class="btn-urgency text-sm" style="padding: 14px 35px;">Begin Your Path</button>
                 </div>
             </div>
-            <div class="relative overflow-hidden reveal-scale">
-                <div class="absolute -inset-4 border-2 border-[#ff6a2a] opacity-20"></div>
+            <div class="relative overflow-hidden reveal-scale" id="philosophy-image-wrap">
+                <div class="philosophy-frame" id="philosophy-frame">
+                    <div class="frame-line top"></div>
+                    <div class="frame-line right"></div>
+                    <div class="frame-line bottom"></div>
+                    <div class="frame-line left"></div>
+                </div>
                 <div class="aspect-video bg-neutral-900 overflow-hidden relative">
                     <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop"
-                        class="w-full h-full object-cover grayscale contrast-125 opacity-80 cinematic-image" alt="Temple">
+                        class="w-full h-full object-cover grayscale contrast-125 opacity-80 cinematic-image" id="philosophy-img" alt="Temple">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- =====================================================
-         FOOTER
+         ENDING — The Final Payoff
          ===================================================== -->
-    <footer class="py-10 md:py-20 bg-[#050505] border-t border-neutral-900">
+    <section id="ending" class="ending-section">
+        <div class="ending-line" id="ending-text">The gate is open.</div>
+        <div class="ending-subtitle">Your move, warrior</div>
+        <div class="ending-cta-wrap">
+            <button class="btn-urgency magnetic-target" style="font-size: 0.85rem; padding: 14px 40px;">Enter The Dojo</button>
+        </div>
+        <div class="ending-kanji">門</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-10 md:py-20 bg-[#000] border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col items-center">
             <div class="japan-font text-5xl md:text-6xl mb-10 text-neutral-800 footer-kanji cursor-pointer">影</div>
             <div class="flex gap-4 md:gap-12 text-[10px] font-black uppercase tracking-[2px] md:tracking-[5px] text-[var(--text-secondary)]">
@@ -1134,9 +1334,7 @@
         </div>
     </footer>
 
-    <!-- =====================================================
-         MODAL
-         ===================================================== -->
+    <!-- MODAL -->
     <div class="weapon-modal" id="modal-container">
         <div class="modal-content">
             <div class="modal-close" onclick="closeModal()">✕</div>
@@ -1153,7 +1351,16 @@
 
     <script>
         /* =====================================================
-           0. LOADING SCREEN — CINEMATIC PRELUDE
+           GLOBALS
+           ===================================================== */
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = () => window.innerWidth <= 768;
+        let lenis;
+        let scrollY = 0;
+        let hasActiveCard = false;
+
+        /* =====================================================
+           LOADING SCREEN
            ===================================================== */
         const loadingScreen = document.getElementById('loading-screen');
         const loaderBar = document.getElementById('loader-bar');
@@ -1161,13 +1368,10 @@
         const loaderCanvas = document.getElementById('loader-canvas');
         const loaderCtx = loaderCanvas.getContext('2d');
 
-        // Set loader canvas size
         loaderCanvas.width = window.innerWidth;
         loaderCanvas.height = window.innerHeight;
 
-        // Loader particles
         let loaderParticles = [];
-
         class LoaderParticle {
             constructor() {
                 this.x = Math.random() * loaderCanvas.width;
@@ -1177,7 +1381,6 @@
                 this.speedY = (Math.random() - 0.5) * 0.5;
                 this.opacity = Math.random() * 0.5 + 0.1;
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
@@ -1186,7 +1389,6 @@
                 if (this.y < 0) this.y = loaderCanvas.height;
                 if (this.y > loaderCanvas.height) this.y = 0;
             }
-
             draw() {
                 loaderCtx.fillStyle = `rgba(255, 106, 42, ${this.opacity})`;
                 loaderCtx.beginPath();
@@ -1195,19 +1397,11 @@
             }
         }
 
-        // Create loader particles
-        for (let i = 0; i < 80; i++) {
-            loaderParticles.push(new LoaderParticle());
-        }
+        for (let i = 0; i < 80; i++) loaderParticles.push(new LoaderParticle());
 
         function animateLoaderParticles() {
             loaderCtx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
-            loaderParticles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
-            // Draw connecting lines
+            loaderParticles.forEach(p => { p.update(); p.draw(); });
             loaderParticles.forEach((a, i) => {
                 loaderParticles.slice(i + 1).forEach(b => {
                     const dist = Math.hypot(a.x - b.x, a.y - b.y);
@@ -1221,14 +1415,10 @@
                     }
                 });
             });
-
-            if (!loadingScreen.classList.contains('fade-out')) {
-                requestAnimationFrame(animateLoaderParticles);
-            }
+            if (!loadingScreen.classList.contains('fade-out')) requestAnimationFrame(animateLoaderParticles);
         }
         animateLoaderParticles();
 
-        // Simulate loading progress
         let loadProgress = 0;
         const loadInterval = setInterval(() => {
             loadProgress += Math.random() * 15 + 5;
@@ -1241,39 +1431,45 @@
             loaderPercent.textContent = Math.floor(loadProgress) + '%';
         }, 200);
 
-        // Reveal site with curtain effect
+        /* =====================================================
+           REVEAL SITE + KATANA UNSHEATHE
+           ===================================================== */
         function revealSite() {
             loadingScreen.classList.add('fade-out');
             document.body.classList.add('curtains-open');
 
-            // Stagger hero elements
+            setTimeout(() => {
+                document.querySelector('header').style.transform = 'translateY(0)';
+            }, 600);
+
+            // Katana unsheathe sequence
+            const katanaGroup = document.getElementById('katana-tilt-group');
+            const gleamLine = document.getElementById('katana-gleam');
+            const viewportGleam = document.getElementById('viewport-gleam');
+
+            setTimeout(() => { katanaGroup.classList.add('unsheathed'); }, 700);
+            setTimeout(() => { gleamLine.classList.add('active'); }, 800);
+            setTimeout(() => { viewportGleam.classList.add('active'); }, 1000);
+
+            // Hero elements after unsheathe
             const heroElements = document.querySelectorAll('.hero-element');
             heroElements.forEach((el, i) => {
                 setTimeout(() => {
                     el.style.transition = 'opacity 1s cubic-bezier(0.2, 1, 0.3, 1), transform 1s cubic-bezier(0.2, 1, 0.3, 1)';
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
-                }, 800 + (i * 200));
+                }, 1500 + (i * 200));
             });
 
-            // Show header
-            setTimeout(() => {
-                document.querySelector('header').style.transform = 'translateY(0)';
-            }, 600);
-
-            // Remove loading screen from DOM after transition
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
                 initLenis();
             }, 1500);
         }
 
-
         /* =====================================================
-           1. LENIS SMOOTH SCROLL
+           LENIS SMOOTH SCROLL
            ===================================================== */
-        let lenis;
-
         function initLenis() {
             lenis = new Lenis({
                 duration: 1.2,
@@ -1292,19 +1488,18 @@
                 { id: 'hero', label: 'I', name: 'THE AWAKENING' },
                 { id: 'intel', label: 'II', name: 'TACTICAL INTEL' },
                 { id: 'arsenal', label: 'III', name: 'THE ARSENAL' },
-                { id: 'about', label: 'IV', name: 'PHILOSOPHY' }
+                { id: 'about', label: 'IV', name: 'PHILOSOPHY' },
+                { id: 'ending', label: 'V', name: 'THE GATE' }
             ];
 
             lenis.on('scroll', (e) => {
-                const scrollY = window.scrollY;
+                scrollY = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const scrollPercent = (scrollY / docHeight) * 100;
-
-                // Update scroll progress bar
                 scrollProgress.style.width = scrollPercent + '%';
 
-                // Update chapter label
-                const sections = ['hero', 'intel', 'arsenal', 'about'];
+                // Chapter label
+                const sections = ['hero', 'intel', 'arsenal', 'about', 'ending'];
                 for (let i = sections.length - 1; i >= 0; i--) {
                     const section = document.getElementById(sections[i]);
                     if (section && scrollY >= section.offsetTop - window.innerHeight * 0.5) {
@@ -1319,22 +1514,18 @@
                     const scale = Math.max(0.7, 1 - scrollY * 0.0004);
                     heroTitle.style.transform = `scale(${scale}) translateY(${scrollY * 0.25}px)`;
                     heroTitle.style.opacity = Math.max(0, 1 - scrollY * 0.001);
-
-                    // FIXED: Smoothed out the katana downward parallax. Minimal rotation, pure translation drop.
-                    katanaBlade.style.transform = `translateY(${scrollY * 0.15}px)`;
+                    const rotate = Math.min(12, scrollY * 0.015);
+                    katanaBlade.style.transform = `rotate(${rotate}deg) translateY(${scrollY * 0.12}px)`;
                 }
 
-                // Smoke parallax (faster descent)
-                smokeWrap.style.transform = `translateY(${-scrollY * 0.3}px)`;
+                // Smoke parallax
+                if (smokeWrap) smokeWrap.style.transform = `translateY(${-scrollY * 0.3}px)`;
 
-                // Cinematic image slow zoom
-                const cinematicImg = document.querySelector('.cinematic-image');
-                if (cinematicImg) {
-                    const imgRect = cinematicImg.getBoundingClientRect();
-                    if (imgRect.top < window.innerHeight && imgRect.bottom > 0) {
-                        cinematicImg.classList.add('in-view');
-                    }
-                }
+                // Narrative scroll
+                updateNarrativeScroll();
+
+                // Philosophy reveal
+                updatePhilosophyReveal();
             });
 
             function raf(time) {
@@ -1344,9 +1535,8 @@
             requestAnimationFrame(raf);
         }
 
-
         /* =====================================================
-           2. COUNTDOWN TIMER
+           COUNTDOWN TIMER
            ===================================================== */
         let timeInSeconds = (2 * 24 * 3600) + (14 * 3600) + (55 * 60);
         function updateCountdown() {
@@ -1361,9 +1551,8 @@
         }
         setInterval(updateCountdown, 60000);
 
-
         /* =====================================================
-           3. FIRE PARTICLES (Interactive)
+           FIRE PARTICLES (fixed, full page — reduced outside hero)
            ===================================================== */
         const canvas = document.getElementById('fireParticles');
         const ctx = canvas.getContext('2d');
@@ -1371,10 +1560,7 @@
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight;
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+        window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
 
         function setCanvasSize() {
             canvas.width = window.innerWidth;
@@ -1384,10 +1570,7 @@
         setCanvasSize();
 
         class FireParticle {
-            constructor() {
-                this.reset();
-            }
-
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height + Math.random() * 50;
@@ -1396,15 +1579,9 @@
                 this.speedX = (Math.random() - 0.5) * 1.2;
                 this.life = 1;
                 this.decay = Math.random() * 0.012 + 0.004;
-                const colors = [
-                    'rgba(255, 106, 42, ',
-                    'rgba(255, 138, 77, ',
-                    'rgba(255, 80, 20, ',
-                    'rgba(255, 160, 60, '
-                ];
+                const colors = ['rgba(255, 106, 42, ', 'rgba(255, 138, 77, ', 'rgba(255, 80, 20, ', 'rgba(255, 160, 60, '];
                 this.colorBase = colors[Math.floor(Math.random() * colors.length)];
             }
-
             update() {
                 const dx = mouseX - this.x;
                 this.x += this.speedX + (dx * 0.001);
@@ -1413,51 +1590,71 @@
                 if (this.size > 0.1) this.size -= 0.02;
                 if (this.life <= 0 || this.size <= 0) this.reset();
             }
-
             draw() {
-                ctx.globalAlpha = this.life * 0.8;
+                let alpha = this.life * 0.8;
+                // Reduce density outside hero
+                if (this.y < window.innerHeight * 0.5) alpha *= 0.25;
+                ctx.globalAlpha = alpha;
                 ctx.fillStyle = this.colorBase + this.life + ')';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
-
-                // Glow
-                ctx.globalAlpha = this.life * 0.3;
+                ctx.globalAlpha = alpha * 0.375;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < 80; i++) {
-            particlesArray.push(new FireParticle());
-        }
+        for (let i = 0; i < 80; i++) particlesArray.push(new FireParticle());
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particlesArray.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-
         /* =====================================================
-           4. CUSTOM GLOW CURSOR + MAGNETIC BUTTON
+           CONTEXT-AWARE CURSOR
            ===================================================== */
-        const cursor = document.getElementById('glow-cursor');
+        const cursorEl = document.getElementById('glow-cursor');
 
         window.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            cursorEl.style.left = e.clientX + 'px';
+            cursorEl.style.top = e.clientY + 'px';
         });
 
-        // Hover detection for interactive elements
-        document.querySelectorAll('a, button, .weapon-card, .clan-badge').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        // Weapon cards: sharp red cursor
+        document.querySelectorAll('.weapon-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                cursorEl.className = 'cursor-weapon';
+            });
+            card.addEventListener('mouseleave', () => {
+                cursorEl.className = hasActiveCard ? 'cursor-active' : '';
+            });
+        });
+
+        // CTAs: expanded pulsing cursor
+        document.querySelectorAll('.btn-urgency, .deploy-link').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (!el.closest('.active-card')) cursorEl.className = 'cursor-cta';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorEl.className = hasActiveCard ? 'cursor-active' : '';
+            });
+        });
+
+        // Clan badges: subtle highlight
+        document.querySelectorAll('.clan-badge').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorEl.style.width = '180px';
+                cursorEl.style.height = '180px';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorEl.style.width = '';
+                cursorEl.style.height = '';
+            });
         });
 
         // Magnetic button
@@ -1472,61 +1669,259 @@
             magneticBtn.style.transform = 'translate(0, 0)';
         });
 
+        /* =====================================================
+           NARRATIVE — Paced scroll-driven reveal
+           ===================================================== */
+        function updateNarrativeScroll() {
+            const wrapper = document.getElementById('narrative-section');
+            if (!wrapper) return;
+
+            const rect = wrapper.getBoundingClientRect();
+            const wrapperHeight = wrapper.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const totalScrollRange = wrapperHeight - viewportHeight;
+            const scrolled = -rect.top;
+            const progress = Math.max(0, Math.min(1, scrolled / totalScrollRange));
+
+            const bg = document.getElementById('narrative-bg');
+            if (progress > 0.01 && progress < 0.99) {
+                bg.classList.add('visible');
+            } else {
+                bg.classList.remove('visible');
+            }
+
+            // Each line has its own threshold for varied pacing
+            const lines = document.querySelectorAll('.narrative-line');
+            lines.forEach(line => {
+                const threshold = parseFloat(line.dataset.threshold);
+                if (progress >= threshold) {
+                    line.classList.add('revealed');
+                } else {
+                    line.classList.remove('revealed');
+                }
+            });
+        }
 
         /* =====================================================
-           5. SCROLL REVEAL + COUNTING ANIMATION
+           CHAPTER TRANSITIONS
+           ===================================================== */
+        function initChapterTransitions() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('active')) {
+                        entry.target.classList.add('active');
+                        setTimeout(() => { entry.target.classList.add('faded'); }, 2200);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.chapter-transition-break').forEach(el => observer.observe(el));
+        }
+        initChapterTransitions();
+
+        /* =====================================================
+           WEAPON CARDS — FORGE + SELECTION
+           ===================================================== */
+        function initForgeAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const card = entry.target;
+                        if (card.classList.contains('forging')) return;
+                        const allCards = Array.from(document.querySelectorAll('.weapon-card.forge-ready'));
+                        const index = allCards.indexOf(card);
+                        setTimeout(() => forgeWeaponCard(card), index * 200);
+                        observer.unobserve(card);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.weapon-card.forge-ready').forEach(card => observer.observe(card));
+        }
+
+        function forgeWeaponCard(card) {
+            card.classList.add('forging');
+            const titleEl = card.querySelector('.weapon-title');
+            if (titleEl && !titleEl.dataset.typed) {
+                titleEl.dataset.typed = 'true';
+                const text = titleEl.innerHTML;
+                titleEl.innerHTML = '';
+                titleEl.style.opacity = '1';
+                const parts = text.split(/(<br\s*\/?>)/gi);
+                let charDelay = 0;
+                parts.forEach(part => {
+                    if (part.match(/<br\s*\/?>/i)) {
+                        titleEl.innerHTML += '<br>';
+                    } else {
+                        part.split('').forEach((char) => {
+                            setTimeout(() => {
+                                const span = document.createElement('span');
+                                span.textContent = char;
+                                span.style.opacity = '0';
+                                span.style.transition = 'opacity 0.05s ease';
+                                titleEl.appendChild(span);
+                                requestAnimationFrame(() => { span.style.opacity = '1'; });
+                            }, 500 + charDelay);
+                            charDelay += 30;
+                        });
+                    }
+                });
+            }
+        }
+
+        initForgeAnimations();
+
+        // Weapon card selection interaction
+        document.querySelectorAll('.weapon-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const wasActive = card.classList.contains('active-card');
+
+                // Clear all
+                document.querySelectorAll('.weapon-card').forEach(c => {
+                    c.classList.remove('active-card', 'dimmed');
+                });
+                hasActiveCard = false;
+                cursorEl.className = '';
+
+                if (!wasActive) {
+                    // Activate clicked card
+                    card.classList.add('active-card');
+                    document.querySelectorAll('.weapon-card').forEach(c => {
+                        if (c !== card) c.classList.add('dimmed');
+                    });
+                    hasActiveCard = true;
+                    cursorEl.className = 'cursor-active';
+                }
+            });
+        });
+
+        /* =====================================================
+           SCRAMBLE COUNTING ANIMATION
+           ===================================================== */
+        function initScrambleCounters() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counters = entry.target.querySelectorAll('[data-count]');
+                        counters.forEach(counter => {
+                            if (counter.dataset.counted) return;
+                            counter.dataset.counted = 'true';
+                            scrambleCounter(counter);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('.stat-card').forEach(card => observer.observe(card));
+        }
+
+        function scrambleCounter(el) {
+            const target = parseInt(el.dataset.count);
+            const suffix = el.dataset.suffix || '';
+            const totalDuration = 2000;
+            const scrambleDuration = 800;
+            const start = performance.now();
+
+            function animate(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / totalDuration, 1);
+
+                if (elapsed < scrambleDuration) {
+                    el.textContent = Math.floor(Math.random() * target * 1.5) + suffix;
+                } else {
+                    const settleProgress = (elapsed - scrambleDuration) / (totalDuration - scrambleDuration);
+                    const eased = 1 - Math.pow(1 - settleProgress, 3);
+                    el.textContent = Math.floor(eased * target) + suffix;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    el.textContent = target + suffix;
+                    el.style.textShadow = '0 0 15px rgba(204, 0, 0, 0.6)';
+                    setTimeout(() => { el.style.textShadow = 'none'; }, 300);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        initScrambleCounters();
+
+        /* =====================================================
+           SCROLL REVEAL OBSERVER
            ===================================================== */
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-
-                    // Counting animation
-                    const counters = entry.target.querySelectorAll('[data-count]');
-                    counters.forEach(counter => {
-                        if (counter.dataset.counted) return;
-                        counter.dataset.counted = 'true';
-
-                        const target = parseInt(counter.dataset.count);
-                        const suffix = counter.dataset.suffix || '';
-                        const duration = 2000;
-                        const start = performance.now();
-
-                        function animateCount(currentTime) {
-                            const elapsed = currentTime - start;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const eased = 1 - Math.pow(1 - progress, 3);
-                            const current = Math.floor(eased * target);
-                            counter.textContent = current + suffix;
-
-                            if (progress < 1) {
-                                requestAnimationFrame(animateCount);
-                            } else {
-                                counter.textContent = target + suffix;
-                            }
-                        }
-                        requestAnimationFrame(animateCount);
-                    });
-                }
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
             });
         }, { threshold: 0.2 });
 
-        document.querySelectorAll('.reveal-up, .reveal-scale, .stat-card').forEach(el => {
-            revealObserver.observe(el);
-        });
+        document.querySelectorAll('.reveal-up, .reveal-scale, .stat-card').forEach(el => revealObserver.observe(el));
 
-        // Philosophy text word-by-word animation
+        // Philosophy text — word-by-word at 120ms delay
         document.querySelectorAll('.immersion-text').forEach(el => {
             const text = el.textContent.trim();
             el.innerHTML = text.split(' ').map((word, i) =>
-                `<span style="transition-delay:${i * 60}ms">${word}</span>`
+                `<span style="transition-delay:${i * 120}ms">${word}</span>`
             ).join(' ');
             revealObserver.observe(el);
         });
 
+        /* =====================================================
+           PHILOSOPHY INK WASH REVEAL
+           ===================================================== */
+        function updatePhilosophyReveal() {
+            const section = document.getElementById('about');
+            const img = document.getElementById('philosophy-img');
+            const frame = document.getElementById('philosophy-frame');
+            if (!section || !img) return;
+
+            const rect = section.getBoundingClientRect();
+            const sectionHeight = section.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const visibleRange = sectionHeight + viewportHeight;
+            const progress = Math.max(0, Math.min(1, (viewportHeight - rect.top) / visibleRange));
+
+            // Image filter
+            if (progress < 0.3) {
+                img.style.filter = 'grayscale(1) blur(8px) brightness(0.3)';
+            } else if (progress < 0.7) {
+                const lp = (progress - 0.3) / 0.4;
+                img.style.filter = `grayscale(${1 - lp * 0.8}) blur(${8 - lp * 8}px) brightness(${0.3 + lp * 0.5})`;
+            } else {
+                img.style.filter = 'grayscale(0.2) blur(0px) brightness(0.8)';
+            }
+
+            // Border frame draw
+            if (frame && progress > 0.1) {
+                const fp = Math.min(1, (progress - 0.1) / 0.6);
+                frame.querySelector('.frame-line.top').style.transform = `scaleX(${Math.min(1, fp / 0.25)})`;
+                frame.querySelector('.frame-line.right').style.transform = `scaleY(${Math.min(1, Math.max(0, (fp - 0.25) / 0.25))})`;
+                frame.querySelector('.frame-line.bottom').style.transform = `scaleX(${Math.min(1, Math.max(0, (fp - 0.5) / 0.25))})`;
+                frame.querySelector('.frame-line.left').style.transform = `scaleY(${Math.min(1, Math.max(0, (fp - 0.75) / 0.25))})`;
+            }
+        }
 
         /* =====================================================
-           6. WEAPON CARDS — MODAL (Tilt Removed)
+           ENDING SECTION — Final Payoff
+           ===================================================== */
+        function initEndingSection() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            const endingText = document.getElementById('ending-text');
+            if (endingText) observer.observe(endingText);
+        }
+        initEndingSection();
+
+        /* =====================================================
+           WEAPON CARDS — 3D TILT + MODAL
            ===================================================== */
         const weaponCards = document.querySelectorAll('.weapon-card');
         const modal = document.getElementById('modal-container');
@@ -1535,35 +1930,31 @@
         const modalDesc = document.getElementById('modal-desc');
 
         weaponCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('.weapon-title').innerText;
-                const desc = card.querySelector('.weapon-desc').innerText;
-                const tag = card.querySelector('.rank-tag').innerText;
+            card.addEventListener('mousemove', (e) => {
+                if (card.classList.contains('active-card')) return;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const tiltX = (y - rect.height / 2) / 25;
+                const tiltY = (rect.width / 2 - x) / 25;
+                card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
 
-                modalTag.innerText = tag;
-                modalTitle.innerText = title;
-                modalDesc.innerText = desc;
-                modal.classList.add('active');
+            card.addEventListener('mouseleave', () => {
+                if (!card.classList.contains('active-card')) {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                }
             });
         });
 
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-
-        // Close modal on background click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // Close on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
+        function closeModal() { modal.classList.remove('active'); }
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
         /* =====================================================
-           7. SMOOTH SCROLL NAVIGATION
+           SMOOTH SCROLL NAVIGATION
            ===================================================== */
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1574,7 +1965,6 @@
                 }
             });
         });
-
     </script>
 </body>
 
