@@ -1362,126 +1362,275 @@
         }
 
         /* =====================================================
-           USER REVIEWS CAROUSEL
+           USER REVIEWS — MODERN SPLIT LAYOUT
            ===================================================== */
         #reviews {
             background: #050505;
-            padding: 100px 0;
+            padding: 120px 0;
             position: relative;
             overflow: hidden;
         }
 
-        .reviews-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            padding: 0 60px;
+        .reviews-header-large {
+            text-align: center;
+            margin-bottom: 80px;
         }
 
-        .reviews-container {
-            overflow: hidden;
-            cursor: grab;
-        }
-
-        .reviews-container:active {
-            cursor: grabbing;
-        }
-
-        .reviews-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-            gap: 30px;
-        }
-
-        .review-card {
-            min-width: calc(33.333% - 20px);
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-dark);
-            padding: 40px;
-            border-radius: 12px;
-            position: relative;
-            transition: all 0.4s ease;
-            user-select: none;
-        }
-
-        .review-card:hover {
-            border-color: var(--flame-orange);
-            background: rgba(255, 106, 42, 0.03);
-            transform: translateY(-5px);
-        }
-
-        .review-card::before {
-            content: '“';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 80px;
-            color: var(--flame-orange);
-            opacity: 0.1;
-            font-family: serif;
-        }
-
-        .review-text {
-            color: #aaa;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
-            font-style: italic;
-        }
-
-        .review-footer {
+        .reviews-badge {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 15px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 20px;
+            margin-top: 20px;
+            color: #888;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        .warrior-info h4 {
-            font-family: 'Cinzel', serif;
-            color: #fff;
-            font-size: 1.1rem;
-            margin-bottom: 2px;
+        .trustpilot-icon {
+            color: #00b67a;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
         }
 
-        .warrior-info span {
+        .trustpilot-star {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .reviews-grid {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 1400px) {
+            .reviews-grid {
+                grid-template-columns: 320px 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .reviews-grid {
+                display: block;
+            }
+            .reviews-sidebar {
+                margin-bottom: 60px;
+                text-align: center;
+            }
+            .reviews-nav {
+                justify-content: center;
+            }
+        }
+
+        .reviews-sidebar {
+            position: relative;
+        }
+
+        .quote-icon-large {
+            font-size: 100px;
             color: var(--flame-orange);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
+            opacity: 0.2;
+            font-family: serif;
+            line-height: 1;
+            margin-bottom: -20px;
+            margin-left: -10px;
         }
 
-        /* Carousel Nav */
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+        .sidebar-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+
+        .reviews-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
             width: 50px;
             height: 50px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border-dark);
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 10;
             transition: all 0.3s ease;
-            border-radius: 50%;
         }
 
-        .carousel-btn:hover {
-            background: var(--flame-orange);
+        .nav-btn:hover {
             border-color: var(--flame-orange);
-            box-shadow: 0 0 20px rgba(255, 106, 42, 0.4);
+            color: var(--flame-orange);
         }
 
-        .btn-prev { left: 0; }
-        .btn-next { right: 0; }
+        .nav-line {
+            width: 100px;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .nav-line-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--flame-orange);
+            transition: width 0.3s ease;
+        }
+
+        /* Carousel Area */
+        .reviews-carousel {
+            overflow: hidden;
+            width: 100%;
+            padding: 30px 0; /* Vertical safety buffer */
+            margin: -30px 0; /* Offset the padding to maintain layout */
+            position: relative;
+        }
+
+        .reviews-track {
+            display: flex;
+            gap: 40px; /* Increased gap for better framing */
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            will-change: transform;
+            padding-left: 5px; /* Tiny starting offset to show first bubble tail */
+        }
+
+        .review-bubble {
+            width: 500px; /* Explicit width for better math */
+            max-width: 85vw; /* Safety for smaller layouts */
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .bubble-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 50px 60px; /* More internal breathing room */
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+            overflow: visible;
+            box-sizing: border-box;
+        }
+
+        .review-bubble:hover .bubble-content {
+            border-color: rgba(255,106,42,0.5);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-5px);
+        }
+
+        /* The Triangle Tail - Fixed Color to match bubble bg */
+        .bubble-content::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 45px;
+            width: 30px;
+            height: 30px;
+            background: #0d0d0d;
+            border-right: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .review-stars {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 25px;
+            color: #00b67a;
+        }
+
+        .star-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            filter: drop-shadow(0 0 5px rgba(0, 182, 122, 0.2));
+        }
+
+        .bubble-text {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .bubble-footer {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-left: 10px;
+        }
+
+        .reviewer-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255,106,42,0.3);
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .reviewer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1);
+            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .review-bubble:hover .reviewer-avatar img {
+            filter: grayscale(0);
+        }
+
+        .reviewer-meta h4 {
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .reviewer-meta span {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
 
         @media (max-width: 1024px) {
-            .review-card { min-width: calc(50% - 15px); }
+            .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .review-bubble {
+                min-width: calc(100vw - 80px);
+            }
+            .sidebar-title {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1554,6 +1703,71 @@
             color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
             font-weight: 800;
+        }
+
+        /* =====================================================
+           SAMURAI THEMATIC INTEGRATION
+           ===================================================== */
+        .samurai-intel-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://i.pinimg.com/736x/e1/ca/61/e1ca61a3a5a7af393edf9c4b37a7ec4d.jpg') center/cover no-repeat;
+            opacity: 0.1; /* Reduced opacity by ~15% for less fatigue */
+            z-index: 0;
+            filter: saturate(0.8) contrast(1.1) brightness(0.6); /* Desaturated slightly to reduce red intensity */
+            pointer-events: none;
+            animation: slowDrift 30s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        .intel-gradient-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, 
+                rgba(10, 10, 10, 0.95) 0%, 
+                rgba(10, 10, 10, 0.7) 30%, 
+                rgba(10, 10, 10, 0) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes slowDrift {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.15) translate(-2%, -1%); }
+        }
+
+        #transformation .panel-after {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://i.pinimg.com/736x/fb/96/47/fb96471c067458dfafaf0cb963396acf.jpg') !important;
+            background-size: cover !important;
+            background-position: center !important;
+        }
+
+        #transformation .panel-before {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('./assets/samurai/shadow.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+        }
+
+        #transformation .panel-before .trans-title {
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255,255,255,0.1);
+        }
+
+        #transformation .panel-before .trans-desc {
+            color: #e4e4e7; /* text-zinc-200 */
+        }
+
+        #final-gate .gate-samurai-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: url('./assets/samurai/gate.png') center/cover no-repeat;
+            opacity: 0.15;
+            filter: grayscale(1);
+            z-index: 0;
         }
     </style>
 </head>
@@ -1723,6 +1937,8 @@
          ===================================================== -->
     <section id="intel" class="relative py-16 px-4 md:py-40 md:px-10 overflow-hidden"
         style="background: radial-gradient(circle at 30% 30%, rgba(255,106,42,0.06), transparent 50%), radial-gradient(circle at 70% 70%, rgba(255,106,42,0.04), transparent 50%), var(--bg-black);">
+        <div class="samurai-intel-bg"></div>
+        <div class="intel-gradient-overlay"></div>
         <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-60 z-10 pointer-events-none"></div>
         <div class="pattern-bg"></div>
         <div class="corner-accent"></div>
@@ -1730,21 +1946,25 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
             <!-- Left Briefing -->
-            <div class="lg:col-span-5 reveal-up">
+            <div class="lg:col-span-5 reveal-up relative z-10">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-10 h-[1px] bg-red-600"></span>
-                    <span class="japan-font text-red-600 tracking-widest text-sm">戦術的な洞察</span>
+                    <span class="text-red-600 tracking-widest text-[10px] uppercase font-bold">Elite Training System</span>
                 </div>
-                <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words">
+                <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words text-white" style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
                     TACTICAL <br> SUPERIORITY
                 </h2>
-                <p class="text-zinc-300 text-sm md:text-lg leading-relaxed mb-8 md:mb-14 max-w-full md:max-w-sm">
-                    Access real-time field intelligence from our active deployment sectors. Our disciples maintain a
-                    <span class="text-white font-bold">dominant strike-rate</span> within the digital shadows.
-                </p>
+                <div class="text-white text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-full md:max-w-md opacity-90">
+                    <p class="mb-4">Get real-world skills through hands-on building. Work on live projects, stay consistent, and develop the discipline needed to stand out.</p>
+                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused execution.</p>
+                </div>
+                
+                <div class="mb-10 py-4 border-y border-white/5">
+                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like a warrior. Build like a pro.</p>
+                </div>
 
                 <div class="border-t border-neutral-900 pt-10">
-                    <p class="text-[10px] uppercase tracking-[2px] md:tracking-[5px] text-neutral-500 mb-8 font-bold">The Allied Clans</p>
+                    <p class="text-[10px] uppercase tracking-[2px] md:tracking-[5px] text-neutral-500 mb-8 font-bold">Our Students Come From</p>
                     <div class="flex flex-wrap gap-2 md:gap-4">
                         <span class="clan-badge cinzel-font">IIT DELHI</span>
                         <span class="clan-badge cinzel-font">LPU</span>
@@ -1763,7 +1983,7 @@
                         <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
                     </div>
                     <span class="stat-value" data-count="750" data-suffix="+">0</span>
-                    <span class="stat-label">SHADOW DISCIPLES INITIATED</span>
+                    <span class="stat-label">Students Transformed into Skilled Developers</span>
                     <p class="mt-8 text-neutral-500 text-[11px] leading-relaxed uppercase tracking-widest font-semibold">
                         Confirmed mastery across all digital sectors.
                     </p>
@@ -1774,7 +1994,7 @@
                         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
                     </div>
                     <span class="stat-value text-4xl" data-count="160" data-suffix="+">0</span>
-                    <span class="stat-label">CLASSIFIED DEPLOYMENTS</span>
+                    <span class="stat-label">Real-World Projects & Deployments</span>
                 </div>
 
                 <div class="stat-card small-stat reveal-up">
@@ -1786,13 +2006,13 @@
                         </svg>
                     </div>
                     <span class="stat-value text-4xl" data-count="5">0</span>
-                    <span class="stat-label">EXPERT TRACKS</span>
+                    <span class="stat-label">Specialized Career Tracks</span>
                 </div>
 
                 <div class="stat-card small-stat md:col-span-2 reveal-up flex items-center justify-between">
                     <div>
-                        <span class="stat-label">RITE OF PASSAGE DURATION</span>
-                        <span class="stat-value text-3xl md:text-5xl mt-3"><span data-count="45">0</span> DAYS</span>
+                        <span class="stat-label">Program Duration</span>
+                        <span class="stat-value text-3xl md:text-5xl mt-3"><span data-count="45">0</span> Days of Focused Execution</span>
                     </div>
                     <div class="stat-icon mb-0 opacity-30">
                         <svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 4.5-8 9 0 3 2 5 2 8s-1 3-1 3h14s-1 0-1-3 2-5 2-8c0-4.5-4-9-8-9z" /></svg>
@@ -1814,68 +2034,77 @@
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-10 md:mb-24 reveal-up">
-                <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-2">THE ARSENAL</h2>
-                <div class="arsenal-header-underline"></div>
+                <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">THE ARSENAL</h2>
+                <div class="arsenal-header-underline mb-6"></div>
+                <div class="text-neutral-400 max-w-lg">
+                    <p class="text-sm md:text-base leading-relaxed">Choose your path. Master your craft.<br>
+                    <span class="text-white font-bold">Train with focus. Build with purpose.</span></p>
+                </div>
             </div>
 
             <div class="bento-grid">
 
                 <div class="weapon-card featured reveal-scale" data-modal="modal-mern">
-                    <span class="rank-tag">RANK: JONIN</span>
-                    <span class="weapon-tag">FEATURED WEAPON</span>
-                    <h3 class="weapon-title">FULL STACK <br> + GENAI DOMINATION</h3>
-                    <p class="weapon-desc">Mission Briefing: Infiltrate the modern web with AI-powered reactive architectures. Secure elite deployment status.</p>
-                    <a href="#" class="deploy-link" onclick="event.preventDefault()">WEAPON SELECTION <span>&rarr;</span></a>
+                    <span class="rank-tag">FEATURED PATH</span>
+                    <h3 class="weapon-title">FULL STACK <br> + GEN AI MASTERY</h3>
+                    <p class="weapon-desc">Build modern web applications powered by AI. Learn frontend, backend, and deployment — everything needed to become job-ready.</p>
+                    <div class="mt-4 space-y-1 text-[10px] uppercase tracking-wider text-neutral-500 font-bold">
+                        <div class="flex items-center gap-2"><span>&bull;</span> Work on real projects</div>
+                        <div class="flex items-center gap-2"><span>&bull;</span> Ship production-level apps</div>
+                        <div class="flex items-center gap-2"><span>&bull;</span> Stand out with skills that matter</div>
+                    </div>
+                    <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">WEAPON SELECTION <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-data" style="transition-delay: 100ms;">
-                    <span class="rank-tag">RANK: CHUNIN</span>
+                    <span class="rank-tag">DATA ELITE</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
                     </div>
                     <h3 class="weapon-title">SHADOW INTELLIGENCE</h3>
-                    <p class="weapon-desc">Master Data Analytics and industry tools for deep-sector intel gathering.</p>
+                    <p class="weapon-desc">Master Data Analytics and industry tools. Learn how to work with data, uncover insights, and make smarter decisions.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-dsa" style="transition-delay: 200ms;">
-                    <span class="rank-tag">RANK: JONIN</span>
+                    <span class="rank-tag">ELITE LOGIC</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>
                     </div>
                     <h3 class="weapon-title">ALGORITHM BLADE</h3>
-                    <p class="weapon-desc">Elite DSA. Precision strikes in high-frequency algorithmic environments.</p>
+                    <p class="weapon-desc">Master DSA with a structured approach. Improve problem-solving, speed, and logic for coding rounds and interviews.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-django" style="transition-delay: 300ms;">
-                    <span class="rank-tag">RANK: CHUNIN</span>
+                    <span class="rank-tag">ARCHITECT</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
                     </div>
                     <h3 class="weapon-title">ABYSS SCALING</h3>
-                    <p class="weapon-desc">Django & AI Agents. Master the invisible backend architecture.</p>
+                    <p class="weapon-desc">Learn backend development with Django and AI integration. Build secure, scalable systems that power real applications.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-mobile" style="transition-delay: 400ms;">
-                    <span class="rank-tag">RANK: GENIN</span>
+                    <span class="rank-tag">FRONT-LINE</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" /></svg>
                     </div>
                     <h3 class="weapon-title">AESTHETIC WARFARE</h3>
-                    <p class="weapon-desc">Mobile App Development. Weaponize the interface with lethal design.</p>
+                    <p class="weapon-desc">Learn mobile app development with strong UI/UX fundamentals. Design clean, modern interfaces and build apps users enjoy using.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card highlight-red reveal-scale" data-modal="modal-bundle" style="transition-delay: 500ms;">
-                    <span class="rank-tag">TARGET: CAREER</span>
+                    <span class="rank-tag">THE COMPLETE PATH</span>
                     <div class="weapon-icon">
                         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" /></svg>
                     </div>
-                    <h3 class="weapon-title">ASSASSINATION ARTS</h3>
-                    <p class="weapon-desc">Bundle Offer (DSA+ WEBD). Negotiation, resume forgery, and mock executions.</p>
-                    <a href="#" class="deploy-link" onclick="event.preventDefault()">MISSION BRIEFING <span>&rarr;</span></a>
+                    <h3 class="weapon-title text-xl">ASSASSINATION ARTS (BUNDLE)</h3>
+                    <p class="weapon-desc text-sm">Your complete path to becoming job-ready. Master DSA, Full Stack, and AI in one structured program. No gaps. No confusion.</p>
+                    
+                    <a href="#" class="deploy-link mt-10" onclick="event.preventDefault()">MISSION BRIEFING <span>&rarr;</span></a>
                 </div>
 
             </div>
@@ -1907,7 +2136,8 @@
                     <div class="panel-content">
                         <span class="status-tag">THE SHADOW</span>
                         <h3 class="trans-title">BEFORE<br>FLAMES</h3>
-                        <p class="trans-desc">Fragmented focus. Tutorial purgatory. Writing average code without a lethal edge or direction.</p>
+                        <p class="trans-desc italic text-zinc-400 mb-4">Lost in tutorials. Jumping from one thing to another. Learning, but not building anything real.</p>
+                        <p class="trans-desc">No clear direction. No consistency. Just effort without results.</p>
                     </div>
                 </div>
 
@@ -1919,7 +2149,12 @@
                     <div class="panel-content">
                         <span class="status-tag">THE DOJO</span>
                         <h3 class="trans-title">AFTER<br>FLAMES</h3>
-                        <p class="trans-desc">Lethal precision. Weaponized AI agents. Forging scalable architectures that place you in the elite 1%.</p>
+                        <div class="trans-desc text-white font-bold mb-4">
+                            <p>Clear path. Real skills.</p>
+                            <p class="text-[var(--flame-orange)]">You build projects that actually matter.</p>
+                        </div>
+                        <p class="trans-desc opacity-80 mb-4">Strong in fundamentals. Confident in interviews. Ready to step into the industry.</p>
+                        <p class="trans-desc font-black uppercase tracking-widest text-[#ff6a2a]">You don’t just learn — you become job-ready.</p>
                     </div>
                 </div>
 
@@ -2001,64 +2236,125 @@
          USER REVIEWS — ECHOES OF MASTERY
          ===================================================== -->
     <section id="reviews">
-        <div class="max-w-7xl mx-auto px-4 box-border">
-            <div class="text-center reveal-up">
-                <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">戦士の証言</span>
-                <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4">ECHOES OF MASTERY</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto"></div>
+        <div class="reviews-header-large reveal-up">
+            <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">戦士の証言</span>
+            <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4 uppercase">Read reviews, ride with confidence</h2>
+            <div class="reviews-badge">
+                <span>4.2/5</span>
+                <div class="trustpilot-icon">
+                    <svg class="trustpilot-star" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                    Trustpilot
+                </div>
+                <span>Based on 5210 reviews</span>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="reviews-sidebar reveal-up">
+                <div class="quote-icon-large">“</div>
+                <h3 class="sidebar-title">What our students are saying</h3>
+                
+                <div class="reviews-nav">
+                    <button class="nav-btn" id="rev-prev">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <div class="nav-line"><div class="nav-line-active" id="rev-progress"></div></div>
+                    <button class="nav-btn" id="rev-next">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                </div>
             </div>
 
-            <div class="reviews-wrapper mt-16">
-                <button class="carousel-btn btn-prev" id="rev-prev">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <button class="carousel-btn btn-next" id="rev-next">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
-
-                <div class="reviews-container" id="rev-container">
-                    <div class="reviews-track" id="rev-track">
-                        <!-- Review 1 -->
-                        <div class="review-card reveal-up" style="transition-delay: 100ms;">
-                            <p class="review-text">The "Weaponized AI" training transformed my workflow. I used to spend days on boilerplate; now I strike with 10x speed. FAANG recruiters finally noticed the edge.</p>
-                            <div class="review-footer">
-                                <div class="warrior-info">
-                                    <h4>WARRIOR ARJUN</h4>
-                                    <span>CLAN: IIT DELHI</span>
-                                </div>
+            <div class="reviews-carousel reveal-up">
+                <div class="reviews-track" id="rev-track">
+                    <!-- Review 1 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                            </div>
+                            <p class="bubble-text">"The AI Agent curriculum is unlike anything else. Building agents that actually solve LeetCode and automate my freelance work in Week 3 was mind-blowing."</p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=aryan" alt="Aryan">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>WARRIOR ARYAN</h4>
+                                <span>IIT BOMBAY · 1 week ago</span>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Review 2 -->
-                        <div class="review-card reveal-up" style="transition-delay: 200ms;">
-                            <p class="review-text">Most courses teach you to code. Shadow Dojo teaches you to fight. The Django + AI Agent path is the most lethal curriculum I've ever encountered.</p>
-                            <div class="review-footer">
-                                <div class="warrior-info">
-                                    <h4>DISCIPLE SARA</h4>
-                                    <span>CLAN: LPU ELITE</span>
-                                </div>
+                    <!-- Review 2 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                            </div>
+                            <p class="bubble-text">"I came for the code, stayed for the clan. The networking with students from top colleges helped me land a referral at Google before the trial even ended."</p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=ishita" alt="Ishita">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>DISCIPLE ISHITA</h4>
+                                <span>NIT TRICHY · 10 days ago</span>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Review 3 -->
-                        <div class="review-card reveal-up" style="transition-delay: 300ms;">
-                            <p class="review-text">From fragmented focus to Zen-like precision. The MERN Domination path helped me secure a 24 LPA package before the trial even ended. Truly legendary.</p>
-                            <div class="review-footer">
-                                <div class="warrior-info">
-                                    <h4>WARRIOR VIKAS</h4>
-                                    <span>CLAN: DTU WARRIORS</span>
-                                </div>
+                    <!-- Review 3 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                            </div>
+                            <p class="bubble-text">"The 45-day trial is intense but worth every second. The 'Shadow System' architecture we built for our project now handles real-time data for 10k users."</p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=raghav" alt="Raghav">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>WARRIOR RAGHAV</h4>
+                                <span>BITS PILANI · 2 weeks ago</span>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Review 4 -->
-                        <div class="review-card reveal-up" style="transition-delay: 400ms;">
-                            <p class="review-text">The Allied Clans network is real. Being able to collaborate with warriors from top colleges gave me the tactical intelligence I needed to win the hackathon.</p>
-                            <div class="review-footer">
-                                <div class="warrior-info">
-                                    <h4>DISCIPLE NEHA</h4>
-                                    <span>CLAN: NIT SURAT</span>
-                                </div>
+                    <!-- Review 4 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                            </div>
+                            <p class="bubble-text">"Weaponized Next.js and Django are the perfect stack. Sensei's approach to clean, scalable architecture changed how I look at software forever."</p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=ananya" alt="Ananya">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>DISCIPLE ANANYA</h4>
+                                <span>DTU DELHI · 1 month ago</span>
                             </div>
                         </div>
                     </div>
@@ -2074,6 +2370,7 @@
          FINAL GATE SECTION — ADMISSIONS
          ===================================================== -->
     <section id="final-gate">
+        <div class="gate-samurai-bg"></div>
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="reveal-up">
                 <h2 class="gate-title">
@@ -2285,12 +2582,18 @@
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
-                // Katana blade progress bar (top)
-                bladeFill.style.width = scrollPercent + '%';
-                if (scrollPercent > 1) {
-                    bladeFill.classList.add('drawing');
+                // Katana blade progress bar (top) — Static and visible on mobile
+                if (window.innerWidth > 768) {
+                    bladeFill.style.width = scrollPercent + '%';
+                    if (scrollPercent > 1) {
+                        bladeFill.classList.add('drawing');
+                    } else {
+                        bladeFill.classList.remove('drawing');
+                    }
                 } else {
-                    bladeFill.classList.remove('drawing');
+                    // Always visible on phone
+                    bladeFill.style.width = '100%';
+                    bladeFill.classList.add('drawing');
                 }
 
                 // Chapter label
@@ -2315,24 +2618,30 @@
                     heroTitle.style.opacity    = Math.max(0, 1 - scrollY * 0.001);
                     katanaBlade.style.transform = `translateY(${scrollY * 0.15}px)`;
 
-                    // ── Scroll-driven unsheathe (0–60% of hero height) ──
-                    const heroH      = window.innerHeight;
-                    const unsheatheP = Math.min(1, scrollY / (heroH * 0.6));
-                    const bladeW     = Math.round(unsheatheP * BLADE_FULL_W);
-                    bladeClipRect.setAttribute('width', bladeW);
+                    // ── Scroll-driven unsheathe (0–60% of hero height) — Always visible on mobile ──
+                    if (window.innerWidth > 768) {
+                        const heroH      = window.innerHeight;
+                        const unsheatheP = Math.min(1, scrollY / (heroH * 0.6));
+                        const bladeW     = Math.round(unsheatheP * BLADE_FULL_W);
+                        bladeClipRect.setAttribute('width', bladeW);
 
-                    // Heat glow tiers
-                    katanaStand.classList.remove('heated-1', 'heated-2');
-                    if (unsheatheP > 0.7)       katanaStand.classList.add('heated-2');
-                    else if (unsheatheP > 0.35)  katanaStand.classList.add('heated-1');
+                        // Heat glow tiers
+                        katanaStand.classList.remove('heated-1', 'heated-2');
+                        if (unsheatheP > 0.7)       katanaStand.classList.add('heated-2');
+                        else if (unsheatheP > 0.35)  katanaStand.classList.add('heated-1');
 
-                    // Gleam at full unsheathe (fires once)
-                    if (unsheatheP >= 0.98 && !gleamFired) {
-                        gleamFired = true;
-                        katanaGleam.classList.add('flash');
-                        setTimeout(() => katanaGleam.classList.remove('flash'), 350);
-                    } else if (unsheatheP < 0.9) {
-                        gleamFired = false;
+                        // Gleam at full unsheathe (fires once)
+                        if (unsheatheP >= 0.98 && !gleamFired) {
+                            gleamFired = true;
+                            katanaGleam.classList.add('flash');
+                            setTimeout(() => katanaGleam.classList.remove('flash'), 350);
+                        } else if (unsheatheP < 0.9) {
+                            gleamFired = false;
+                        }
+                    } else {
+                        // Always visible on phone
+                        bladeClipRect.setAttribute('width', BLADE_FULL_W);
+                        katanaStand.classList.add('heated-2');
                     }
                 }
 
@@ -2755,56 +3064,102 @@
         });
 
         /* =====================================================
-           10. REVIEWS CAROUSEL LOGIC
+           10. REVIEWS CAROUSEL LOGIC — SEAMLESS INFINITE LOOP
            ===================================================== */
-        const track = document.getElementById('rev-track');
-        const nextBtn = document.getElementById('rev-next');
-        const prevBtn = document.getElementById('rev-prev');
-        const container = document.getElementById('rev-container');
+        (function() {
+            const track = document.getElementById('rev-track');
+            const nextBtn = document.getElementById('rev-next');
+            const prevBtn = document.getElementById('rev-prev');
+            const progressLine = document.getElementById('rev-progress');
 
-        if (track && container) {
+            if (!track) return;
+
+            const cards = Array.from(track.children);
+            const cardCount = cards.length;
             let index = 0;
+            let isTransitioning = false;
+            let autoRotateTimer = null;
+            const ROTATION_SPEED = 6000;
+
+            // 1. Setup Clones for Seamless Loop
+            const firstClone = cards[0].cloneNode(true);
+            const lastClone = cards[cardCount - 1].cloneNode(true);
             
-            const getSlideWidth = () => {
-                const card = track.querySelector('.review-card');
-                const gap = 30;
-                return card.offsetWidth + gap;
-            };
+            track.appendChild(firstClone);
+            track.insertBefore(lastClone, cards[0]);
 
-            const updateCarousel = () => {
-                const maxIndex = track.children.length - (window.innerWidth > 1024 ? 3 : (window.innerWidth > 768 ? 2 : 1));
-                if (index < 0) index = 0;
-                if (index > maxIndex) index = maxIndex;
+            // Adjust initial position (start at first real card)
+            const getCardWidth = () => {
+                const card = track.querySelector('.review-bubble');
+                // Capture the exact width + gap (40px)
+                return card.offsetWidth + 40;
+            };
+            
+            const updateUI = (instant = false) => {
+                if (instant) track.style.transition = 'none';
+                else track.style.transition = 'transform 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
                 
-                const moveX = index * getSlideWidth();
-                track.style.transform = `translateX(-${moveX}px)`;
+                // Offset +1 because of the prepended lastClone
+                track.style.transform = `translateX(-${(index + 1) * getCardWidth()}px)`;
+                
+                if (progressLine) {
+                    const realIndex = (index + cardCount) % cardCount;
+                    progressLine.style.width = `${((realIndex + 1) / cardCount) * 100}%`;
+                }
+
+                if (instant) {
+                    // Force reflow
+                    track.offsetHeight; 
+                }
             };
 
-            nextBtn.addEventListener('click', () => {
+            const next = () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
                 index++;
-                updateCarousel();
-            });
+                updateUI();
+            };
 
-            prevBtn.addEventListener('click', () => {
+            const prev = () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
                 index--;
-                updateCarousel();
-            });
+                updateUI();
+            };
 
-            // Touch Support
-            let startX, moveX;
-            container.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
-            container.addEventListener('touchmove', (e) => {
-                moveX = e.touches[0].clientX;
-                const diff = startX - moveX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) index++; else index--;
-                    startX = moveX;
-                    updateCarousel();
+            track.addEventListener('transitionend', () => {
+                isTransitioning = false;
+                
+                // Snap checks
+                if (index >= cardCount) {
+                    index = 0; // Jump to real first card
+                    updateUI(true);
+                } else if (index <= -1) {
+                    index = cardCount - 1; // Jump to real last card
+                    updateUI(true);
                 }
             });
 
-            window.addEventListener('resize', updateCarousel);
-        }
+            // Controls
+            nextBtn?.addEventListener('click', () => { next(); startAuto(); });
+            prevBtn?.addEventListener('click', () => { prev(); startAuto(); });
+
+            // Auto-rotation
+            const startAuto = () => {
+                stopAuto();
+                autoRotateTimer = setInterval(next, ROTATION_SPEED);
+            };
+            const stopAuto = () => clearInterval(autoRotateTimer);
+
+            track.addEventListener('mouseenter', stopAuto);
+            track.addEventListener('mouseleave', startAuto);
+
+            window.addEventListener('resize', () => updateUI(true));
+            
+            // Init
+            updateUI(true);
+            startAuto();
+        })();
 
 
         /* =====================================================
