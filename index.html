@@ -1271,7 +1271,6 @@
             border-radius: 20px;
         }
 
-        /* The Chassis (Laptop Frame) - Disabling layout triggers */
         .comparison-container::after {
             content: '';
             position: absolute;
@@ -1294,7 +1293,6 @@
             opacity: 0;
         }
 
-        /* Webcam dot */
         .comparison-container::before {
             content: '';
             position: absolute;
@@ -1322,9 +1320,7 @@
             justify-content: center;
             cursor: pointer;
             flex: 1;
-            /* Restore the 'Sliding Door' layout effect for premium feel */
             transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: flex;
             backface-visibility: hidden;
             transform: translate3d(0,0,0);
             contain: paint;
@@ -1341,21 +1337,21 @@
 
         .panel-bg {
             position: absolute;
-            inset: -40px;
+            inset: -2px; /* Slight bleed for safe scaling */
             z-index: 1;
             will-change: transform;
-            transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0) scale(1);
             transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
             backface-visibility: hidden;
+            pointer-events: none;
         }
 
-        /* Premium Depth: Shift background slightly opposite to hover direction */
         .panel-before:hover .panel-bg {
-            transform: translate3d(15px, 0, 0);
+            transform: translate3d(15px, 0, 0) scale(1.05); /* GPU Accelerated Zoom & Pan */
         }
         
         .panel-after:hover .panel-bg {
-            transform: translate3d(-15px, 0, 0);
+            transform: translate3d(-15px, 0, 0) scale(1.05); /* GPU Accelerated Zoom & Pan */
         }
 
         .panel-overlay {
@@ -1386,38 +1382,28 @@
 
         .panel-before {
             border-right: 2px solid rgba(255, 106, 42, 0.4);
-            box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.8);
             z-index: 10;
             background-color: #080808;
         }
-
-        .panel-before .panel-bg {
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-            background-size: 30px 30px;
-            background-position: center center;
+        
+        .panel-before .panel-overlay {
+            box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.8);
         }
-
-        .split-panel.panel-before:hover .panel-bg {
-            transform: translate3d(30px, 0, 0);
+        
+        .panel-before .panel-bg {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('./assets/samurai/shadow.png');
+            background-size: cover;
+            background-position: center;
         }
 
         .panel-after {
             background-color: #0a0300;
         }
-
+        
         .panel-after .panel-bg {
-            background-image:
-                radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.25) 0%, transparent 70%),
-                linear-gradient(rgba(255, 106, 42, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 106, 42, 0.08) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-            background-position: center center;
-        }
-
-        .split-panel.panel-after:hover .panel-bg {
-            transform: translate3d(-30px, 0, 0);
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url('https://i.pinimg.com/736x/fb/96/47/fb96471c067458dfafaf0cb963396acf.jpg');
+            background-size: cover;
+            background-position: center;
         }
 
         .after-fire-flicker {
@@ -1434,7 +1420,6 @@
         .split-panel.panel-after:hover .after-fire-flicker {
             opacity: 1;
         }
-
 
         .status-tag {
             display: inline-block;
@@ -1466,15 +1451,7 @@
             letter-spacing: 4px;
             margin-bottom: 20px;
             line-height: 1.1;
-        }
-
-        .panel-before .trans-title {
-            color: #555;
-        }
-
-        .panel-after .trans-title {
-            color: #fff;
-            text-shadow: 0 0 30px rgba(255, 106, 42, 0.6);
+            color: white;
         }
 
         .trans-desc {
@@ -1484,13 +1461,6 @@
             line-height: 1.8;
             max-width: 300px;
             margin: 0 auto;
-        }
-
-        .panel-before .trans-desc {
-            color: #666;
-        }
-
-        .panel-after .trans-desc {
             color: #ccc;
         }
 
@@ -1535,6 +1505,7 @@
                 transform: none !important;
             }
         }
+
 
         /* =====================================================
            FAQ SECTION
@@ -2483,7 +2454,7 @@
          ===================================================== -->
     <section id="transformation">
         <div class="trans-header text-center">
-            <div class="reveal-up">
+            <div class="reveal-up is-visible">
                 <span class="japan-font text-[#666] text-sm tracking-widest block mb-4">意志の進化</span>
                 <h2 class="cinzel-font text-3xl md:text-6xl font-black mb-4">THE REBIRTH</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto"></div>
