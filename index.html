@@ -7,7 +7,9 @@
     <title>Shadow Dojo | Master the Hidden Arts</title>
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;400;600;800;900&family=Permanent+Marker&family=Noto+Sans+JP:wght@900&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;400;600;800;900&family=Permanent+Marker&family=Noto+Sans+JP:wght@900&family=Dela+Gothic+One&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -19,7 +21,11 @@
             --ninja-red: #cc0000;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -28,9 +34,17 @@
             overflow-x: hidden;
         }
 
-        .japan-font { font-family: 'Dela Gothic One', cursive; }
-        .cinzel-font { font-family: 'Cinzel', serif; }
-        .jp-font { font-family: 'Noto Sans JP', sans-serif; }
+        .japan-font {
+            font-family: 'Dela Gothic One', cursive;
+        }
+
+        .cinzel-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        .jp-font {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
 
         /* =====================================================
            LOADING SCREEN — CINEMATIC PRELUDE
@@ -73,13 +87,27 @@
         }
 
         @keyframes kanjiPulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.02); }
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.02);
+            }
         }
 
         @keyframes kanjiReveal {
-            0% { clip-path: inset(100% 0 0 0); }
-            100% { clip-path: inset(0% 0 0 0); }
+            0% {
+                clip-path: inset(100% 0 0 0);
+            }
+
+            100% {
+                clip-path: inset(0% 0 0 0);
+            }
         }
 
         .loader-subtitle {
@@ -93,7 +121,9 @@
         }
 
         @keyframes fadeInSlow {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
 
         /* Progress Bar */
@@ -129,7 +159,8 @@
         }
 
         /* Curtain Reveal Effect */
-        .curtain-left, .curtain-right {
+        .curtain-left,
+        .curtain-right {
             position: fixed;
             top: 0;
             width: 50%;
@@ -139,21 +170,37 @@
             transition: transform 1.2s cubic-bezier(0.87, 0, 0.13, 1);
         }
 
-        .curtain-left { left: 0; transform-origin: left; }
-        .curtain-right { right: 0; transform-origin: right; }
+        .curtain-left {
+            left: 0;
+            transform-origin: left;
+        }
 
-        .curtains-open .curtain-left { transform: translateX(-100%); }
-        .curtains-open .curtain-right { transform: translateX(100%); }
+        .curtain-right {
+            right: 0;
+            transform-origin: right;
+        }
+
+        .curtains-open .curtain-left {
+            transform: translateX(-100%);
+        }
+
+        .curtains-open .curtain-right {
+            transform: translateX(100%);
+        }
 
         /* =====================================================
            KATANA PROGRESS INDICATOR (replaces generic bar)
            ===================================================== */
-        #scroll-progress { display: none; }
+        #scroll-progress {
+            display: none;
+        }
 
         #katana-progress {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
             z-index: 99999;
             pointer-events: none;
             overflow: visible;
@@ -164,13 +211,14 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         /* Drawn blade fill */
         #katana-blade-fill {
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             height: 3px;
             width: 0%;
             background: linear-gradient(90deg, var(--ninja-red) 0%, var(--flame-orange) 70%, #fff 100%);
@@ -182,14 +230,18 @@
         #katana-blade-fill::after {
             content: '';
             position: absolute;
-            right: -6px; top: -2px;
-            width: 12px; height: 7px;
-            background: radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, transparent 80%);
+            right: -6px;
+            top: -2px;
+            width: 12px;
+            height: 7px;
+            background: radial-gradient(ellipse, rgba(255, 255, 255, 0.9) 0%, transparent 80%);
             opacity: 0;
             transition: opacity 0.2s ease;
         }
 
-        #katana-blade-fill.drawing::after { opacity: 1; }
+        #katana-blade-fill.drawing::after {
+            opacity: 1;
+        }
 
         /* =====================================================
            CHAPTER LABEL (Side)
@@ -218,24 +270,6 @@
         /* =====================================================
            GLOW CURSOR
            ===================================================== */
-        #glow-cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 300px; height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 106, 42, 0.12) 0%, transparent 60%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9998;
-            transition: width 0.4s ease, height 0.4s ease;
-            mix-blend-mode: screen;
-        }
-
-        #glow-cursor.hovering {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, transparent 60%);
-        }
 
         /* =====================================================
            HEADER
@@ -279,7 +313,9 @@
         }
 
         @media (min-width: 768px) {
-            .hero-title { font-size: clamp(6rem, 18vw, 14rem); }
+            .hero-title {
+                font-size: clamp(6rem, 18vw, 14rem);
+            }
         }
 
         .hero-object-container {
@@ -298,14 +334,24 @@
         .shimmer-effect::after {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
             transform: skewX(-20deg);
             animation: shimmer 4s infinite;
         }
 
-        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
 
         /* =====================================================
            KATANA UNSHEATHE — scroll-driven blade reveal
@@ -325,7 +371,7 @@
             inset: 0;
             pointer-events: none;
             opacity: 0;
-            background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+            background: linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
             transition: opacity 0.15s ease;
             border-radius: 0;
         }
@@ -335,9 +381,19 @@
         }
 
         @keyframes gleamSweep {
-            0%   { opacity: 0; background-position: -100% 0; }
-            30%  { opacity: 1; }
-            100% { opacity: 0; background-position: 200% 0; }
+            0% {
+                opacity: 0;
+                background-position: -100% 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                background-position: 200% 0;
+            }
         }
 
         /* Heat glow around blade — intensifies on scroll */
@@ -377,7 +433,7 @@
             left: -10%;
             width: 120%;
             height: 4px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), var(--flame-orange), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), var(--flame-orange), transparent);
             transform: rotate(-12deg) scaleX(0);
             transform-origin: left center;
             opacity: 0;
@@ -386,7 +442,7 @@
         .slash-streak.s2 {
             top: 50%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(204,0,0,0.7), transparent);
+            background: linear-gradient(90deg, transparent, rgba(204, 0, 0, 0.7), transparent);
             transform: rotate(-12deg) scaleX(0);
         }
 
@@ -401,7 +457,7 @@
         #slash-screen-flash {
             position: absolute;
             inset: 0;
-            background: rgba(255,255,255,0);
+            background: rgba(255, 255, 255, 0);
             transition: background 0.08s ease;
         }
 
@@ -410,17 +466,42 @@
         }
 
         @keyframes slashAnim {
-            0%   { transform: rotate(-12deg) scaleX(0) translateX(-5%); opacity: 0; }
-            10%  { opacity: 1; }
-            60%  { transform: rotate(-12deg) scaleX(1) translateX(0%); opacity: 1; }
-            100% { transform: rotate(-12deg) scaleX(1) translateX(0%); opacity: 0; }
+            0% {
+                transform: rotate(-12deg) scaleX(0) translateX(-5%);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            60% {
+                transform: rotate(-12deg) scaleX(1) translateX(0%);
+                opacity: 1;
+            }
+
+            100% {
+                transform: rotate(-12deg) scaleX(1) translateX(0%);
+                opacity: 0;
+            }
         }
 
         @keyframes screenFlash {
-            0%   { background: rgba(255,255,255,0); }
-            15%  { background: rgba(255,255,255,0.08); }
-            40%  { background: rgba(255,255,255,0.03); }
-            100% { background: rgba(255,255,255,0); }
+            0% {
+                background: rgba(255, 255, 255, 0);
+            }
+
+            15% {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            40% {
+                background: rgba(255, 255, 255, 0.03);
+            }
+
+            100% {
+                background: rgba(255, 255, 255, 0);
+            }
         }
 
         .pattern-border {
@@ -429,30 +510,49 @@
             background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23ff6a2a' fill-opacity='0.03'/%3E%3C/svg%3E");
             background-repeat: repeat-x;
             position: absolute;
-            bottom: 0; left: 0;
+            bottom: 0;
+            left: 0;
             border-top: 1px solid rgba(255, 106, 42, 0.05);
         }
 
         .fire-glow-overlay {
             position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 40%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
             background: radial-gradient(ellipse at bottom, rgba(255, 106, 42, 0.15), transparent 70%);
             z-index: 1;
             pointer-events: none;
             animation: fireFlicker 4s infinite ease-in-out;
+            animation-play-state: paused;
+        }
+
+        .is-visible .fire-glow-overlay {
+            animation-play-state: running;
         }
 
         @keyframes fireFlicker {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
         }
 
         /* Smoke Parallax */
         .smoke-blend-wrap {
             position: absolute;
-            bottom: -150px; left: 0;
-            width: 100%; height: 600px;
+            bottom: -150px;
+            left: 0;
+            width: 100%;
+            height: 600px;
             z-index: 5;
             pointer-events: none;
             overflow: hidden;
@@ -467,27 +567,62 @@
             animation: smokeDrift 15s infinite ease-in-out;
         }
 
-        .smoke-1 { width: 600px; height: 600px; bottom: -200px; left: -100px; }
-        .smoke-2 { width: 700px; height: 700px; bottom: -250px; right: -50px; animation-delay: 5s; }
-        .smoke-3 { width: 500px; height: 500px; bottom: -150px; left: 40%; animation-delay: 10s; }
+        .smoke-1 {
+            width: 600px;
+            height: 600px;
+            bottom: -200px;
+            left: -100px;
+        }
+
+        .smoke-2 {
+            width: 700px;
+            height: 700px;
+            bottom: -250px;
+            right: -50px;
+            animation-delay: 5s;
+        }
+
+        .smoke-3 {
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            left: 40%;
+            animation-delay: 10s;
+        }
 
         @keyframes smokeDrift {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
-            30% { opacity: 0.5; }
-            70% { opacity: 0.3; }
-            100% { transform: translate(60px, -60px) scale(1.2); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 0.5;
+            }
+
+            70% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translate(60px, -60px) scale(1.2);
+            }
         }
 
         .blend-gradient-overlay {
             position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(to bottom,
-                transparent 0%,
-                rgba(10, 10, 10, 0.3) 20%,
-                rgba(10, 10, 10, 0.7) 50%,
-                rgba(10, 10, 10, 0.95) 85%,
-                var(--bg-black) 100%);
+                    transparent 0%,
+                    rgba(10, 10, 10, 0.3) 20%,
+                    rgba(10, 10, 10, 0.7) 50%,
+                    rgba(10, 10, 10, 0.95) 85%,
+                    var(--bg-black) 100%);
         }
 
         /* CTA Button */
@@ -547,10 +682,25 @@
             display: block;
         }
 
-        .hero-stat .stat-value { font-size: 2.5rem; }
-        @media (min-width: 768px) { .hero-stat .stat-value { font-size: 5rem; } }
-        .small-stat .stat-value { font-size: 1.5rem; }
-        @media (min-width: 768px) { .small-stat .stat-value { font-size: 2.5rem; } }
+        .hero-stat .stat-value {
+            font-size: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-stat .stat-value {
+                font-size: 5rem;
+            }
+        }
+
+        .small-stat .stat-value {
+            font-size: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .small-stat .stat-value {
+                font-size: 2.5rem;
+            }
+        }
 
         .stat-label {
             font-size: 0.7rem;
@@ -561,7 +711,8 @@
         }
 
         .stat-icon svg {
-            width: 32px; height: 32px;
+            width: 32px;
+            height: 32px;
             stroke: var(--ninja-red);
             stroke-width: 1.5;
             fill: none;
@@ -571,7 +722,9 @@
             margin-bottom: 20px;
         }
 
-        .stat-card.is-visible .stat-icon svg { stroke-dashoffset: 0; }
+        .stat-card.is-visible .stat-icon svg {
+            stroke-dashoffset: 0;
+        }
 
         .clan-badge {
             font-size: 0.75rem;
@@ -600,8 +753,10 @@
 
         .corner-accent {
             position: absolute;
-            bottom: 0; right: 0;
-            width: 35%; height: 60%;
+            bottom: 0;
+            right: 0;
+            width: 35%;
+            height: 60%;
             background: linear-gradient(to top left, rgba(204, 0, 0, 0.03), transparent);
             clip-path: polygon(100% 0, 100% 100%, 0 100%);
             pointer-events: none;
@@ -662,7 +817,9 @@
             z-index: 0;
         }
 
-        .weapon-card:hover::before { opacity: 1; }
+        .weapon-card:hover::before {
+            opacity: 1;
+        }
 
         .weapon-card:hover {
             border-color: rgba(204, 0, 0, 0.5);
@@ -704,7 +861,8 @@
 
         .rank-tag {
             position: absolute;
-            top: 25px; right: 30px;
+            top: 25px;
+            right: 30px;
             font-size: 9px;
             font-weight: 700;
             color: #666;
@@ -723,8 +881,17 @@
             z-index: 1;
         }
 
-        .featured .weapon-title { font-size: 1.5rem; max-width: 100%; }
-        @media (min-width: 768px) { .featured .weapon-title { font-size: 4rem; max-width: 500px; } }
+        .featured .weapon-title {
+            font-size: 1.5rem;
+            max-width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .featured .weapon-title {
+                font-size: 4rem;
+                max-width: 500px;
+            }
+        }
 
         .weapon-desc {
             color: #888;
@@ -750,10 +917,13 @@
             z-index: 1;
         }
 
-        .deploy-link:hover { gap: 18px; }
+        .deploy-link:hover {
+            gap: 18px;
+        }
 
         .weapon-icon {
-            width: 32px; height: 32px;
+            width: 32px;
+            height: 32px;
             fill: var(--ninja-red);
             margin-bottom: 20px;
             position: relative;
@@ -768,8 +938,13 @@
         .highlight-red .weapon-title,
         .highlight-red .weapon-desc,
         .highlight-red .deploy-link,
-        .highlight-red .rank-tag { color: white; }
-        .highlight-red .weapon-icon { fill: white; }
+        .highlight-red .rank-tag {
+            color: white;
+        }
+
+        .highlight-red .weapon-icon {
+            fill: white;
+        }
 
         /* =====================================================
            MODAL
@@ -789,7 +964,10 @@
             padding: 20px;
         }
 
-        .weapon-modal.active { opacity: 1; pointer-events: auto; }
+        .weapon-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         .modal-content {
             background: linear-gradient(135deg, #151515 0%, #080808 100%);
@@ -810,11 +988,13 @@
 
         .modal-close {
             position: absolute;
-            top: 20px; right: 20px;
+            top: 20px;
+            right: 20px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -903,38 +1083,143 @@
            MOBILE
            ===================================================== */
         @media (max-width: 768px) {
-            html, body { overflow-x: hidden !important; max-width: 100vw !important; }
-            header { padding: 10px 14px !important; }
-            .hero-section { padding: 70px 16px 40px !important; min-height: auto !important; }
-            .hero-title { font-size: clamp(3rem, 14vw, 5rem) !important; }
-            .vertical-label, .cloud-icon { display: none !important; }
-            .hero-object-container { max-width: 100% !important; margin-top: -10px !important; overflow: hidden; }
-            .hero-object-container svg { height: 100px; max-width: 100%; }
-            .btn-urgency { padding: 12px 28px !important; font-size: 0.85rem !important; letter-spacing: 1px !important; }
-            #intel { padding: 50px 16px !important; }
-            .cinzel-font { font-size: 2rem !important; letter-spacing: -1px !important; }
-            .stat-card { padding: 20px !important; clip-path: none !important; }
-            .hero-stat .stat-value { font-size: 2.8rem !important; }
-            .small-stat .stat-value { font-size: 1.8rem !important; }
-            #arsenal { padding: 50px 16px !important; }
-            .arsenal-header { font-size: 2.2rem !important; }
-            .bento-grid { grid-template-columns: 1fr !important; gap: 12px !important; grid-auto-rows: auto !important; }
-            .weapon-card { padding: 22px !important; min-height: auto !important; }
-            .weapon-card.featured { grid-column: span 1 !important; grid-row: span 1 !important; padding: 24px !important; }
-            .weapon-title { font-size: 1.2rem !important; }
-            .featured .weapon-title { font-size: 1.5rem !important; max-width: 100% !important; }
-            #about { padding: 50px 16px !important; }
-            #glow-cursor, .chapter-label { display: none !important; }
-            .loader-kanji { font-size: 5rem !important; }
+
+            html,
+            body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+
+            header {
+                padding: 10px 14px !important;
+            }
+
+            .hero-section {
+                padding: 70px 16px 40px !important;
+                min-height: auto !important;
+            }
+
+            .hero-title {
+                font-size: clamp(3rem, 14vw, 5rem) !important;
+            }
+
+            .vertical-label,
+            .cloud-icon {
+                display: none !important;
+            }
+
+            .hero-object-container {
+                max-width: 100% !important;
+                margin-top: -10px !important;
+                overflow: hidden;
+            }
+
+            .hero-object-container svg {
+                height: 100px;
+                max-width: 100%;
+            }
+
+            .btn-urgency {
+                padding: 12px 28px !important;
+                font-size: 0.85rem !important;
+                letter-spacing: 1px !important;
+            }
+
+            #intel {
+                padding: 50px 16px !important;
+            }
+
+            .cinzel-font {
+                font-size: 2rem !important;
+                letter-spacing: -1px !important;
+            }
+
+            .stat-card {
+                padding: 20px !important;
+                clip-path: none !important;
+            }
+
+            .hero-stat .stat-value {
+                font-size: 2.8rem !important;
+            }
+
+            .small-stat .stat-value {
+                font-size: 1.8rem !important;
+            }
+
+            #arsenal {
+                padding: 50px 16px !important;
+            }
+
+            .arsenal-header {
+                font-size: 2.2rem !important;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+                grid-auto-rows: auto !important;
+            }
+
+            .weapon-card {
+                padding: 22px !important;
+                min-height: auto !important;
+            }
+
+            .weapon-card.featured {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+                padding: 24px !important;
+            }
+
+            .weapon-title {
+                font-size: 1.2rem !important;
+            }
+
+            .featured .weapon-title {
+                font-size: 1.5rem !important;
+                max-width: 100% !important;
+            }
+
+            #about {
+                padding: 50px 16px !important;
+            }
+
+            #glow-cursor,
+            .chapter-label {
+                display: none !important;
+            }
+
+            .loader-kanji {
+                font-size: 5rem !important;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero-title { font-size: clamp(2.5rem, 16vw, 4rem) !important; }
-            .btn-urgency { padding: 10px 20px !important; font-size: 0.75rem !important; }
-            .cinzel-font { font-size: 1.6rem !important; }
-            .hero-stat .stat-value { font-size: 2.2rem !important; }
-            .small-stat .stat-value { font-size: 1.5rem !important; }
-            .arsenal-header { font-size: 1.8rem !important; }
+            .hero-title {
+                font-size: clamp(2.5rem, 16vw, 4rem) !important;
+            }
+
+            .btn-urgency {
+                padding: 10px 20px !important;
+                font-size: 0.75rem !important;
+            }
+
+            .cinzel-font {
+                font-size: 1.6rem !important;
+            }
+
+            .hero-stat .stat-value {
+                font-size: 2.2rem !important;
+            }
+
+            .small-stat .stat-value {
+                font-size: 1.5rem !important;
+            }
+
+            .arsenal-header {
+                font-size: 1.8rem !important;
+            }
         }
 
         /* =====================================================
@@ -942,7 +1227,7 @@
            ===================================================== */
         #transformation {
             background: #050505;
-            min-height: 250vh; 
+            min-height: 250vh;
             position: relative;
             padding: 0;
             overflow: visible;
@@ -977,12 +1262,13 @@
             height: 600px;
             position: relative;
             background: #000;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
             overflow: hidden;
             pointer-events: auto;
             will-change: transform;
             transform-origin: center center;
             display: flex;
+            border-radius: 20px;
         }
 
         /* The Chassis (Laptop Frame) - Disabling layout triggers */
@@ -997,6 +1283,11 @@
             z-index: 100;
             transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: opacity;
+        }
+
+        .comparison-container.is-fullscreen {
+            border-radius: 0;
+            transition: border-radius 0.3s ease;
         }
 
         .comparison-container.is-fullscreen::after {
@@ -1024,39 +1315,54 @@
         }
 
         .split-panel {
-            flex: 1;
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
+            flex: 1;
+            /* Restore the 'Sliding Door' layout effect for premium feel */
+            transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: flex;
             backface-visibility: hidden;
-            transform: translateZ(0);
+            transform: translate3d(0,0,0);
+            contain: paint;
         }
 
         .comparison-container:hover .split-panel {
-            flex: 0.7;
+            flex: 0.65;
         }
+
         .comparison-container .split-panel:hover {
-            flex: 1.6;
+            flex: 1.35;
+            z-index: 2;
         }
 
         .panel-bg {
             position: absolute;
-            inset: -20px;
+            inset: -40px;
             z-index: 1;
-            will-change: transform, opacity;
-            transform: translate3d(0,0,0);
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            backface-visibility: hidden;
+        }
+
+        /* Premium Depth: Shift background slightly opposite to hover direction */
+        .panel-before:hover .panel-bg {
+            transform: translate3d(15px, 0, 0);
+        }
+        
+        .panel-after:hover .panel-bg {
+            transform: translate3d(-15px, 0, 0);
         }
 
         .panel-overlay {
             position: absolute;
             inset: 0;
             z-index: 2;
-            transition: background 0.6s ease;
+            transition: opacity 0.5s ease;
         }
 
         .panel-content {
@@ -1065,52 +1371,36 @@
             text-align: center;
             padding: 40px;
             width: 100%;
-            min-width: 350px; 
-            transition: transform 0.6s ease, opacity 0.6s ease;
-            opacity: 0.7;
+            min-width: 350px;
+            opacity: 0.6;
             will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform: translate3d(0, 0, 0) scale(1);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
         }
 
         .split-panel:hover .panel-content {
             opacity: 1;
-            transform: scale(1.05);
+            transform: translate3d(0, 0, 0) scale(1.05);
         }
 
         .panel-before {
             border-right: 2px solid rgba(255, 106, 42, 0.4);
-            box-shadow: inset -10px 0 30px rgba(0,0,0,0.8);
+            box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.8);
             z-index: 10;
             background-color: #080808;
         }
 
         .panel-before .panel-bg {
-            background-image: 
+            background-image:
                 linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             background-size: 30px 30px;
             background-position: center center;
-            transition: transform 0.8s ease;
-        }
-
-        /* Hover texture layer (GPU Optimized) */
-        .panel-before .panel-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-            background-size: 30px 30px;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .split-panel.panel-before:hover .panel-bg::after {
-            opacity: 1;
         }
 
         .split-panel.panel-before:hover .panel-bg {
-            transform: scale(1.05);
+            transform: translate3d(30px, 0, 0);
         }
 
         .panel-after {
@@ -1118,51 +1408,33 @@
         }
 
         .panel-after .panel-bg {
-            background-image: 
+            background-image:
                 radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.25) 0%, transparent 70%),
                 linear-gradient(rgba(255, 106, 42, 0.08) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 106, 42, 0.08) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
             background-position: center center;
-            transition: transform 0.8s ease;
-        }
-
-        /* Hover texture layer (GPU Optimized) */
-        .panel-after .panel-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.4) 0%, transparent 80%),
-                linear-gradient(rgba(255, 106, 42, 0.12) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 106, 42, 0.12) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .split-panel.panel-after:hover .panel-bg::after {
-            opacity: 1;
         }
 
         .split-panel.panel-after:hover .panel-bg {
-            transform: scale(1.05);
+            transform: translate3d(-30px, 0, 0);
         }
 
         .after-fire-flicker {
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at center, rgba(255, 106, 42, 0.15), transparent 70%);
-            animation: fireFlicker 4s infinite;
             z-index: 3;
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
             transform: translateZ(0);
+            will-change: opacity;
         }
 
         .split-panel.panel-after:hover .after-fire-flicker {
             opacity: 1;
         }
+
 
         .status-tag {
             display: inline-block;
@@ -1178,12 +1450,12 @@
         .panel-before .status-tag {
             color: #888;
             border: 1px solid #333;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .panel-after .status-tag {
             color: var(--flame-orange);
-            border: 1px solid rgba(255,106,42,0.3);
+            border: 1px solid rgba(255, 106, 42, 0.3);
             background: rgba(255, 106, 42, 0.05);
             box-shadow: 0 0 15px rgba(255, 106, 42, 0.1);
         }
@@ -1227,30 +1499,35 @@
                 min-height: auto !important;
                 padding-bottom: 60px;
             }
+
             .trans-header {
                 height: auto;
                 padding: 60px 20px 40px;
             }
+
             .laptop-frame {
                 position: relative;
                 height: auto;
                 top: auto;
             }
-            .comparison-container { 
+
+            .comparison-container {
                 flex-direction: column;
-                height: auto; 
-                margin-top: 0; 
+                height: auto;
+                margin-top: 0;
                 border: none;
                 box-shadow: none;
                 transform: none !important;
             }
+
             .split-panel {
-                flex: none !important; 
+                flex: none !important;
                 height: 400px;
                 border-right: none;
                 border-bottom: 2px solid rgba(255, 106, 42, 0.4);
                 transform: none !important;
             }
+
             .panel-content {
                 min-width: 100%;
                 padding: 40px 20px;
@@ -1314,7 +1591,8 @@
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .faq-icon::before, .faq-icon::after {
+        .faq-icon::before,
+        .faq-icon::after {
             content: '';
             position: absolute;
             background: currentColor;
@@ -1347,7 +1625,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .faq-answer-content {
@@ -1422,10 +1700,12 @@
             .reviews-grid {
                 display: block;
             }
+
             .reviews-sidebar {
                 margin-bottom: 60px;
                 text-align: center;
             }
+
             .reviews-nav {
                 justify-content: center;
             }
@@ -1463,7 +1743,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             background: transparent;
             color: #fff;
             display: flex;
@@ -1481,7 +1761,7 @@
         .nav-line {
             width: 100px;
             height: 1px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             position: relative;
         }
 
@@ -1499,30 +1779,37 @@
         .reviews-carousel {
             overflow: hidden;
             width: 100%;
-            padding: 30px 0; /* Vertical safety buffer */
-            margin: -30px 0; /* Offset the padding to maintain layout */
+            padding: 30px 0;
+            /* Vertical safety buffer */
+            margin: -30px 0;
+            /* Offset the padding to maintain layout */
             position: relative;
         }
 
         .reviews-track {
             display: flex;
-            gap: 40px; /* Increased gap for better framing */
+            gap: 40px;
+            /* Increased gap for better framing */
             transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
             will-change: transform;
-            padding-left: 5px; /* Tiny starting offset to show first bubble tail */
+            padding-left: 5px;
+            /* Tiny starting offset to show first bubble tail */
         }
 
         .review-bubble {
-            width: 500px; /* Explicit width for better math */
-            max-width: 85vw; /* Safety for smaller layouts */
+            width: 500px;
+            /* Explicit width for better math */
+            max-width: 85vw;
+            /* Safety for smaller layouts */
             flex-shrink: 0;
             user-select: none;
         }
 
         .bubble-content {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 50px 60px; /* More internal breathing room */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 50px 60px;
+            /* More internal breathing room */
             border-radius: 20px;
             position: relative;
             margin-bottom: 25px;
@@ -1532,8 +1819,8 @@
         }
 
         .review-bubble:hover .bubble-content {
-            border-color: rgba(255,106,42,0.5);
-            background: rgba(255,255,255,0.04);
+            border-color: rgba(255, 106, 42, 0.5);
+            background: rgba(255, 255, 255, 0.04);
             transform: translateY(-5px);
         }
 
@@ -1546,12 +1833,12 @@
             width: 30px;
             height: 30px;
             background: #0d0d0d;
-            border-right: 1px solid rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             transform: rotate(45deg);
             z-index: 1;
         }
-        
+
         .review-stars {
             display: flex;
             gap: 6px;
@@ -1586,9 +1873,9 @@
             height: 55px;
             border-radius: 50%;
             overflow: hidden;
-            border: 2px solid rgba(255,106,42,0.3);
+            border: 2px solid rgba(255, 106, 42, 0.3);
             flex-shrink: 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .reviewer-avatar img {
@@ -1612,7 +1899,7 @@
         }
 
         .reviewer-meta span {
-            color: rgba(255,255,255,0.4);
+            color: rgba(255, 255, 255, 0.4);
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -1624,9 +1911,11 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
+
             .review-bubble {
                 min-width: calc(100vw - 80px);
             }
+
             .sidebar-title {
                 font-size: 2rem;
                 margin-bottom: 20px;
@@ -1634,9 +1923,17 @@
         }
 
         @media (max-width: 768px) {
-            .review-card { min-width: 100%; }
-            .reviews-wrapper { padding: 0 20px; }
-            .carousel-btn { display: none; }
+            .review-card {
+                min-width: 100%;
+            }
+
+            .reviews-wrapper {
+                padding: 0 20px;
+            }
+
+            .carousel-btn {
+                display: none;
+            }
         }
 
         /* =====================================================
@@ -1712,9 +2009,11 @@
             position: absolute;
             inset: 0;
             background: url('https://i.pinimg.com/736x/e1/ca/61/e1ca61a3a5a7af393edf9c4b37a7ec4d.jpg') center/cover no-repeat;
-            opacity: 0.1; /* Reduced opacity by ~15% for less fatigue */
+            opacity: 0.1;
+            /* Reduced opacity by ~15% for less fatigue */
             z-index: 0;
-            filter: saturate(0.8) contrast(1.1) brightness(0.6); /* Desaturated slightly to reduce red intensity */
+            filter: saturate(0.8) contrast(1.1) brightness(0.6);
+            /* Desaturated slightly to reduce red intensity */
             pointer-events: none;
             animation: slowDrift 30s infinite alternate ease-in-out;
             will-change: transform;
@@ -1723,38 +2022,44 @@
         .intel-gradient-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, 
-                rgba(10, 10, 10, 0.95) 0%, 
-                rgba(10, 10, 10, 0.7) 30%, 
-                rgba(10, 10, 10, 0) 100%);
+            background: linear-gradient(to right,
+                    rgba(10, 10, 10, 0.95) 0%,
+                    rgba(10, 10, 10, 0.7) 30%,
+                    rgba(10, 10, 10, 0) 100%);
             z-index: 1;
             pointer-events: none;
         }
 
         @keyframes slowDrift {
-            0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.15) translate(-2%, -1%); }
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.15) translate(-2%, -1%);
+            }
         }
 
         #transformation .panel-after {
-            background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://i.pinimg.com/736x/fb/96/47/fb96471c067458dfafaf0cb963396acf.jpg') !important;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url('https://i.pinimg.com/736x/fb/96/47/fb96471c067458dfafaf0cb963396acf.jpg') !important;
             background-size: cover !important;
             background-position: center !important;
         }
 
         #transformation .panel-before {
-            background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('./assets/samurai/shadow.png') !important;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('./assets/samurai/shadow.png') !important;
             background-size: cover !important;
             background-position: center !important;
         }
 
         #transformation .panel-before .trans-title {
             color: #ffffff;
-            text-shadow: 0 0 30px rgba(255,255,255,0.1);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
         }
 
         #transformation .panel-before .trans-desc {
-            color: #e4e4e7; /* text-zinc-200 */
+            color: #e4e4e7;
+            /* text-zinc-200 */
         }
 
         #final-gate .gate-samurai-bg {
@@ -1808,36 +2113,38 @@
         <span>I</span> — THE AWAKENING
     </div>
 
-    <!-- Custom Cursor -->
-    <div id="glow-cursor"></div>
 
     <!-- =====================================================
          HEADER
          ===================================================== -->
-    <header class="fixed top-0 w-full z-50 px-3 py-2 md:px-10 md:py-5 flex justify-between items-center" style="transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
+    <header class="fixed top-0 w-full z-50 px-3 py-2 md:px-10 md:py-5 flex justify-between items-center"
+        style="transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
         <div class="flex gap-4 opacity-40">
             <a href="#" class="hover:text-[#ff6a2a] transition">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                    <path
+                        d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                 </svg>
             </a>
             <a href="#" class="hover:text-[#ff6a2a] transition">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
             </a>
         </div>
         <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">
             <a href="#intel" class="hover:text-white transition nav-link">Tactics</a>
-            <a href="#about" class="hover:text-white transition nav-link">Academy</a>
+            <a href="#transformation" class="hover:text-white transition nav-link">Academy</a>
             <a href="#" class="flex items-center gap-2">
                 <span class="text-[#ff6a2a] font-black japan-font text-xl">SHADOW</span>
             </a>
             <a href="#arsenal" class="hover:text-white transition nav-link">Path</a>
-            <a href="#contact" class="hover:text-white transition nav-link">Summon</a>
+            <a href="#final-gate" class="hover:text-white transition nav-link">Summon</a>
         </nav>
         <div class="flex items-center gap-4">
-            <button class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff6a2a] pb-1 hover:text-[#ff6a2a] transition">Entrance</button>
+            <button
+                class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff6a2a] pb-1 hover:text-[#ff6a2a] transition">Entrance</button>
             <div class="w-8 h-[2px] bg-white"></div>
         </div>
     </header>
@@ -1845,23 +2152,29 @@
     <!-- =====================================================
          HERO / ENTRY SECTION
          ===================================================== -->
-    <section id="hero" class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
-        <canvas id="fireParticles" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
+    <section id="hero"
+        class="hero-section relative min-h-screen flex flex-col items-center justify-center pt-24 overflow-hidden">
+        <canvas id="fireParticles"
+            class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
         <div class="fire-glow-overlay"></div>
 
         <div class="vertical-label jp-font">プレミアムな選択</div>
 
         <div class="text-center z-20 px-3 md:px-0">
-            <p class="text-[8px] md:text-[10px] font-bold uppercase tracking-[2px] md:tracking-[8px] text-[var(--text-secondary)] mb-6 hero-element" style="opacity:0; transform:translateY(30px);">
+            <p class="text-[8px] md:text-[10px] font-bold uppercase tracking-[2px] md:tracking-[8px] text-[var(--text-secondary)] mb-6 hero-element"
+                style="opacity:0; transform:translateY(30px);">
                 Mastery through Discipline
             </p>
-            <h1 class="hero-title japan-font hero-element" id="hero-title-main" style="opacity:0; transform:translateY(40px);">FLAMES</h1>
+            <h1 class="hero-title japan-font hero-element" id="hero-title-main"
+                style="opacity:0; transform:translateY(40px);">FLAMES</h1>
 
-            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 hero-element" style="opacity:0; transform:translateY(40px);">
+            <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 hero-element"
+                style="opacity:0; transform:translateY(40px);">
                 <div class="flex items-center gap-5">
                     <div class="w-1 h-14 bg-[#cc0000]"></div>
                     <div class="flex flex-col text-left">
-                        <span class="text-[11px] uppercase tracking-[1.5px] text-[#a1a1aa] mb-1 font-semibold">The Final Gate Closes In</span>
+                        <span class="text-[11px] uppercase tracking-[1.5px] text-[#a1a1aa] mb-1 font-semibold">The Final
+                            Gate Closes In</span>
                         <div class="flex items-baseline gap-1 md:gap-2 text-xl md:text-4xl font-black font-['Inter']">
                             <span id="cd-days">02</span><span class="text-sm text-[#777] ml-[-4px]">D</span>
                             <span class="text-[#cc0000] pb-1 animate-pulse">:</span>
@@ -1874,49 +2187,56 @@
 
                 <div class="flex flex-col items-center gap-3">
                     <button class="btn-urgency magnetic-target" id="hero-btn">Enter The Dojo</button>
-                    <span class="text-[10px] uppercase tracking-[1px] text-[#666] font-semibold">Limited to 150 Disciples</span>
+                    <span class="text-[10px] uppercase tracking-[1px] text-[#666] font-semibold">Limited to 150
+                        Disciples</span>
                 </div>
             </div>
         </div>
 
         <div class="hero-object-container hero-element" style="opacity:0; transform:translateY(50px);">
-        <div class="relative katana-stand" id="katana-blade">
-            <div id="katana-gleam"></div>
-            <svg width="100%" height="250" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet" style="overflow:visible;">
-                <defs>
-                    <clipPath id="blade-clip">
-                        <rect id="blade-clip-rect" x="0" y="0" width="0" height="200" />
-                    </clipPath>
-                    <filter id="blade-glow" x="-20%" y="-100%" width="140%" height="300%">
-                        <feGaussianBlur stdDeviation="3" result="blur"/>
-                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                    </filter>
-                </defs>
-                <!-- Sheath / stand base (always visible) -->
-                <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#222" stroke="#333" stroke-width="0.5" />
-                <rect x="280" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
-                <rect x="505" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
-                <!-- Handle (always visible) -->
-                <g transform="translate(100, 100) rotate(-2)">
-                    <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
-                    <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
-                    <rect x="0" y="-5" width="10" height="35" rx="2" fill="#333" />
-                </g>
-                <!-- Blade — revealed by clip path on scroll -->
-                <g clip-path="url(#blade-clip)">
+            <div class="relative katana-stand" id="katana-blade">
+                <div id="katana-gleam"></div>
+                <svg width="100%" height="250" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet"
+                    style="overflow:visible;">
+                    <defs>
+                        <clipPath id="blade-clip">
+                            <rect id="blade-clip-rect" x="0" y="0" width="0" height="200" />
+                        </clipPath>
+                        <filter id="blade-glow" x="-20%" y="-100%" width="140%" height="300%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Sheath / stand base (always visible) -->
+                    <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#222" stroke="#333" stroke-width="0.5" />
+                    <rect x="280" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
+                    <rect x="505" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
+                    <!-- Handle (always visible) -->
                     <g transform="translate(100, 100) rotate(-2)">
-                        <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#c8c8c8" id="blade-path-main" class="shimmer-effect" filter="url(#blade-glow)" />
-                        <!-- Edge highlight -->
-                        <path d="M0 10 Q 300 9 600 5 L 605 6 Q 300 11 0 11 Z" fill="rgba(255,255,255,0.4)" />
+                        <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
+                        <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
+                        <rect x="0" y="-5" width="10" height="35" rx="2" fill="#333" />
                     </g>
-                </g>
-                <defs>
-                    <pattern id="wrapPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <path d="M0 10 L10 0 M5 -5 L15 5 M-5 5 L5 15" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
-                    </pattern>
-                </defs>
-            </svg>
-        </div>
+                    <!-- Blade — revealed by clip path on scroll -->
+                    <g clip-path="url(#blade-clip)">
+                        <g transform="translate(100, 100) rotate(-2)">
+                            <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#c8c8c8" id="blade-path-main"
+                                class="shimmer-effect" filter="url(#blade-glow)" />
+                            <!-- Edge highlight -->
+                            <path d="M0 10 Q 300 9 600 5 L 605 6 Q 300 11 0 11 Z" fill="rgba(255,255,255,0.4)" />
+                        </g>
+                    </g>
+                    <defs>
+                        <pattern id="wrapPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                            <path d="M0 10 L10 0 M5 -5 L15 5 M-5 5 L5 15" stroke="rgba(255,255,255,0.15)"
+                                stroke-width="1" />
+                        </pattern>
+                    </defs>
+                </svg>
+            </div>
         </div>
 
         <div class="pattern-border"></div>
@@ -1939,7 +2259,9 @@
         style="background: radial-gradient(circle at 30% 30%, rgba(255,106,42,0.06), transparent 50%), radial-gradient(circle at 70% 70%, rgba(255,106,42,0.04), transparent 50%), var(--bg-black);">
         <div class="samurai-intel-bg"></div>
         <div class="intel-gradient-overlay"></div>
-        <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-60 z-10 pointer-events-none"></div>
+        <div
+            class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-black to-transparent opacity-60 z-10 pointer-events-none">
+        </div>
         <div class="pattern-bg"></div>
         <div class="corner-accent"></div>
 
@@ -1949,22 +2271,29 @@
             <div class="lg:col-span-5 reveal-up relative z-10">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-10 h-[1px] bg-red-600"></span>
-                    <span class="text-red-600 tracking-widest text-[10px] uppercase font-bold">Elite Training System</span>
+                    <span class="text-red-600 tracking-widest text-[10px] uppercase font-bold">Elite Training
+                        System</span>
                 </div>
-                <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words text-white" style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words text-white"
+                    style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
                     TACTICAL <br> SUPERIORITY
                 </h2>
-                <div class="text-white text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-full md:max-w-md opacity-90">
-                    <p class="mb-4">Get real-world skills through hands-on building. Work on live projects, stay consistent, and develop the discipline needed to stand out.</p>
-                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused execution.</p>
+                <div
+                    class="text-white text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-full md:max-w-md opacity-90">
+                    <p class="mb-4">Get real-world skills through hands-on building. Work on live projects, stay
+                        consistent, and develop the discipline needed to stand out.</p>
+                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused
+                        execution.</p>
                 </div>
-                
+
                 <div class="mb-10 py-4 border-y border-white/5">
-                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like a warrior. Build like a pro.</p>
+                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like
+                        a warrior. Build like a pro.</p>
                 </div>
 
                 <div class="border-t border-neutral-900 pt-10">
-                    <p class="text-[10px] uppercase tracking-[2px] md:tracking-[5px] text-neutral-500 mb-8 font-bold">Our Students Come From</p>
+                    <p class="text-[10px] uppercase tracking-[2px] md:tracking-[5px] text-neutral-500 mb-8 font-bold">
+                        Our Students Come From</p>
                     <div class="flex flex-wrap gap-2 md:gap-4">
                         <span class="clan-badge cinzel-font">IIT DELHI</span>
                         <span class="clan-badge cinzel-font">LPU</span>
@@ -1980,18 +2309,24 @@
 
                 <div class="stat-card hero-stat md:row-span-2 reveal-up">
                     <div class="stat-icon">
-                        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
                     </div>
                     <span class="stat-value" data-count="750" data-suffix="+">0</span>
                     <span class="stat-label">Students Transformed into Skilled Developers</span>
-                    <p class="mt-8 text-neutral-500 text-[11px] leading-relaxed uppercase tracking-widest font-semibold">
+                    <p
+                        class="mt-8 text-neutral-500 text-[11px] leading-relaxed uppercase tracking-widest font-semibold">
                         Confirmed mastery across all digital sectors.
                     </p>
                 </div>
 
                 <div class="stat-card small-stat reveal-up">
                     <div class="stat-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
                     </div>
                     <span class="stat-value text-4xl" data-count="160" data-suffix="+">0</span>
                     <span class="stat-label">Real-World Projects & Deployments</span>
@@ -2012,10 +2347,13 @@
                 <div class="stat-card small-stat md:col-span-2 reveal-up flex items-center justify-between">
                     <div>
                         <span class="stat-label">Program Duration</span>
-                        <span class="stat-value text-3xl md:text-5xl mt-3"><span data-count="45">0</span> Days of Focused Execution</span>
+                        <span class="stat-value text-3xl md:text-5xl mt-3"><span data-count="45">0</span> Days of
+                            Focused Execution</span>
                     </div>
                     <div class="stat-icon mb-0 opacity-30">
-                        <svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 4.5-8 9 0 3 2 5 2 8s-1 3-1 3h14s-1 0-1-3 2-5 2-8c0-4.5-4-9-8-9z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2c-4 0-8 4.5-8 9 0 3 2 5 2 8s-1 3-1 3h14s-1 0-1-3 2-5 2-8c0-4.5-4-9-8-9z" />
+                        </svg>
                     </div>
                 </div>
 
@@ -2029,16 +2367,19 @@
     <!-- =====================================================
          ARSENAL / POWER SECTION
          ===================================================== -->
-    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden" style="background-color: var(--bg-black);">
+    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden"
+        style="background-color: var(--bg-black);">
         <div class="pattern-bg" style="opacity: 0.05;"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-10 md:mb-24 reveal-up">
-                <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">THE ARSENAL</h2>
+                <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">THE ARSENAL
+                </h2>
                 <div class="arsenal-header-underline mb-6"></div>
                 <div class="text-neutral-400 max-w-lg">
                     <p class="text-sm md:text-base leading-relaxed">Choose your path. Master your craft.<br>
-                    <span class="text-white font-bold">Train with focus. Build with purpose.</span></p>
+                        <span class="text-white font-bold">Train with focus. Build with purpose.</span>
+                    </p>
                 </div>
             </div>
 
@@ -2047,64 +2388,87 @@
                 <div class="weapon-card featured reveal-scale" data-modal="modal-mern">
                     <span class="rank-tag">FEATURED PATH</span>
                     <h3 class="weapon-title">FULL STACK <br> + GEN AI MASTERY</h3>
-                    <p class="weapon-desc">Build modern web applications powered by AI. Learn frontend, backend, and deployment — everything needed to become job-ready.</p>
+                    <p class="weapon-desc">Build modern web applications powered by AI. Learn frontend, backend, and
+                        deployment — everything needed to become job-ready.</p>
                     <div class="mt-4 space-y-1 text-[10px] uppercase tracking-wider text-neutral-500 font-bold">
                         <div class="flex items-center gap-2"><span>&bull;</span> Work on real projects</div>
                         <div class="flex items-center gap-2"><span>&bull;</span> Ship production-level apps</div>
                         <div class="flex items-center gap-2"><span>&bull;</span> Stand out with skills that matter</div>
                     </div>
-                    <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">WEAPON SELECTION <span>&rarr;</span></a>
+                    <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">WEAPON SELECTION
+                        <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-data" style="transition-delay: 100ms;">
                     <span class="rank-tag">DATA ELITE</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                        </svg>
                     </div>
                     <h3 class="weapon-title">SHADOW INTELLIGENCE</h3>
-                    <p class="weapon-desc">Master Data Analytics and industry tools. Learn how to work with data, uncover insights, and make smarter decisions.</p>
+                    <p class="weapon-desc">Master Data Analytics and industry tools. Learn how to work with data,
+                        uncover insights, and make smarter decisions.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-dsa" style="transition-delay: 200ms;">
                     <span class="rank-tag">ELITE LOGIC</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
+                        </svg>
                     </div>
                     <h3 class="weapon-title">ALGORITHM BLADE</h3>
-                    <p class="weapon-desc">Master DSA with a structured approach. Improve problem-solving, speed, and logic for coding rounds and interviews.</p>
+                    <p class="weapon-desc">Master DSA with a structured approach. Improve problem-solving, speed, and
+                        logic for coding rounds and interviews.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-django" style="transition-delay: 300ms;">
                     <span class="rank-tag">ARCHITECT</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5z" />
+                        </svg>
                     </div>
                     <h3 class="weapon-title">ABYSS SCALING</h3>
-                    <p class="weapon-desc">Learn backend development with Django and AI integration. Build secure, scalable systems that power real applications.</p>
+                    <p class="weapon-desc">Learn backend development with Django and AI integration. Build secure,
+                        scalable systems that power real applications.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
                 <div class="weapon-card reveal-scale" data-modal="modal-mobile" style="transition-delay: 400ms;">
                     <span class="rank-tag">FRONT-LINE</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
+                        </svg>
                     </div>
                     <h3 class="weapon-title">AESTHETIC WARFARE</h3>
-                    <p class="weapon-desc">Learn mobile app development with strong UI/UX fundamentals. Design clean, modern interfaces and build apps users enjoy using.</p>
+                    <p class="weapon-desc">Learn mobile app development with strong UI/UX fundamentals. Design clean,
+                        modern interfaces and build apps users enjoy using.</p>
                     <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <div class="weapon-card highlight-red reveal-scale" data-modal="modal-bundle" style="transition-delay: 500ms;">
+                <div class="weapon-card highlight-red reveal-scale" data-modal="modal-bundle"
+                    style="transition-delay: 500ms;">
                     <span class="rank-tag">THE COMPLETE PATH</span>
                     <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" /></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" />
+                        </svg>
                     </div>
                     <h3 class="weapon-title text-xl">ASSASSINATION ARTS (BUNDLE)</h3>
-                    <p class="weapon-desc text-sm">Your complete path to becoming job-ready. Master DSA, Full Stack, and AI in one structured program. No gaps. No confusion.</p>
-                    
-                    <a href="#" class="deploy-link mt-10" onclick="event.preventDefault()">MISSION BRIEFING <span>&rarr;</span></a>
+                    <p class="weapon-desc text-sm">Your complete path to becoming job-ready. Master DSA, Full Stack, and
+                        AI in one structured program. No gaps. No confusion.</p>
+
+                    <a href="#" class="deploy-link mt-10" onclick="event.preventDefault()">MISSION BRIEFING
+                        <span>&rarr;</span></a>
                 </div>
 
             </div>
@@ -2128,7 +2492,7 @@
 
         <div class="laptop-frame">
             <div class="comparison-container" id="comp-slider">
-                
+
                 <!-- Before Panel -->
                 <div class="split-panel panel-before">
                     <div class="panel-bg"></div>
@@ -2136,7 +2500,8 @@
                     <div class="panel-content">
                         <span class="status-tag">THE SHADOW</span>
                         <h3 class="trans-title">BEFORE<br>FLAMES</h3>
-                        <p class="trans-desc italic text-zinc-400 mb-4">Lost in tutorials. Jumping from one thing to another. Learning, but not building anything real.</p>
+                        <p class="trans-desc italic text-zinc-400 mb-4">Lost in tutorials. Jumping from one thing to
+                            another. Learning, but not building anything real.</p>
                         <p class="trans-desc">No clear direction. No consistency. Just effort without results.</p>
                     </div>
                 </div>
@@ -2153,8 +2518,10 @@
                             <p>Clear path. Real skills.</p>
                             <p class="text-[var(--flame-orange)]">You build projects that actually matter.</p>
                         </div>
-                        <p class="trans-desc opacity-80 mb-4">Strong in fundamentals. Confident in interviews. Ready to step into the industry.</p>
-                        <p class="trans-desc font-black uppercase tracking-widest text-[#ff6a2a]">You don’t just learn — you become job-ready.</p>
+                        <p class="trans-desc opacity-80 mb-4">Strong in fundamentals. Confident in interviews. Ready to
+                            step into the industry.</p>
+                        <p class="trans-desc font-black uppercase tracking-widest text-[#ff6a2a]">You don’t just learn —
+                            you become job-ready.</p>
                     </div>
                 </div>
 
@@ -2182,7 +2549,8 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            While we start from the foundations, a basic understanding of logic is helpful. We provide "Pre-Scroll" materials to bring everyone up to speed before the trial begins.
+                            While we start from the foundations, a basic understanding of logic is helpful. We provide
+                            "Pre-Scroll" materials to bring everyone up to speed before the trial begins.
                         </div>
                     </div>
                 </div>
@@ -2195,7 +2563,8 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            The full transformation takes exactly 45 days of disciplined practice. This includes the implementation of all 6 master weapons in our arsenal.
+                            The full transformation takes exactly 45 days of disciplined practice. This includes the
+                            implementation of all 6 master weapons in our arsenal.
                         </div>
                     </div>
                 </div>
@@ -2208,7 +2577,8 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            Yes. Upon successful initiation, you gain lifetime access to the Shadow Dojo Network—an elite network of disciples from top clans like IIT, LPU, and GLA.
+                            Yes. Upon successful initiation, you gain lifetime access to the Shadow Dojo Network—an
+                            elite network of disciples from top clans like IIT, LPU, and GLA.
                         </div>
                     </div>
                 </div>
@@ -2221,7 +2591,8 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            There is no failure, only a longer path. You will have lifetime access to the scrolls (recorded sessions) to master the arts at your own pace if the live trial is too intense.
+                            There is no failure, only a longer path. You will have lifetime access to the scrolls
+                            (recorded sessions) to master the arts at your own pace if the live trial is too intense.
                         </div>
                     </div>
                 </div>
@@ -2238,11 +2609,14 @@
     <section id="reviews">
         <div class="reviews-header-large reveal-up">
             <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">戦士の証言</span>
-            <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4 uppercase">Read reviews, ride with confidence</h2>
+            <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4 uppercase">Read reviews, ride with confidence
+            </h2>
             <div class="reviews-badge">
                 <span>4.2/5</span>
                 <div class="trustpilot-icon">
-                    <svg class="trustpilot-star" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                    <svg class="trustpilot-star" viewBox="0 0 20 20">
+                        <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                    </svg>
                     Trustpilot
                 </div>
                 <span>Based on 5210 reviews</span>
@@ -2253,14 +2627,22 @@
             <div class="reviews-sidebar reveal-up">
                 <div class="quote-icon-large">“</div>
                 <h3 class="sidebar-title">What our students are saying</h3>
-                
+
                 <div class="reviews-nav">
                     <button class="nav-btn" id="rev-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
                     </button>
-                    <div class="nav-line"><div class="nav-line-active" id="rev-progress"></div></div>
+                    <div class="nav-line">
+                        <div class="nav-line-active" id="rev-progress"></div>
+                    </div>
                     <button class="nav-btn" id="rev-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -2271,13 +2653,25 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
-                            <p class="bubble-text">"The AI Agent curriculum is unlike anything else. Building agents that actually solve LeetCode and automate my freelance work in Week 3 was mind-blowing."</p>
+                            <p class="bubble-text">"The AI Agent curriculum is unlike anything else. Building agents
+                                that actually solve LeetCode and automate my freelance work in Week 3 was mind-blowing."
+                            </p>
                         </div>
                         <div class="bubble-footer">
                             <div class="reviewer-avatar">
@@ -2294,13 +2688,25 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
-                            <p class="bubble-text">"I came for the code, stayed for the clan. The networking with students from top colleges helped me land a referral at Google before the trial even ended."</p>
+                            <p class="bubble-text">"I came for the code, stayed for the clan. The networking with
+                                students from top colleges helped me land a referral at Google before the trial even
+                                ended."</p>
                         </div>
                         <div class="bubble-footer">
                             <div class="reviewer-avatar">
@@ -2317,13 +2723,25 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
-                            <p class="bubble-text">"The 45-day trial is intense but worth every second. The 'Shadow System' architecture we built for our project now handles real-time data for 10k users."</p>
+                            <p class="bubble-text">"The 45-day trial is intense but worth every second. The 'Shadow
+                                System' architecture we built for our project now handles real-time data for 10k users."
+                            </p>
                         </div>
                         <div class="bubble-footer">
                             <div class="reviewer-avatar">
@@ -2340,13 +2758,24 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z"/></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
-                            <p class="bubble-text">"Weaponized Next.js and Django are the perfect stack. Sensei's approach to clean, scalable architecture changed how I look at software forever."</p>
+                            <p class="bubble-text">"Weaponized Next.js and Django are the perfect stack. Sensei's
+                                approach to clean, scalable architecture changed how I look at software forever."</p>
                         </div>
                         <div class="bubble-footer">
                             <div class="reviewer-avatar">
@@ -2377,11 +2806,11 @@
                     THE FINAL<br>
                     <span>GATE</span> IS OPEN
                 </h2>
-                
+
                 <div class="mt-10">
                     <a href="#" class="btn-gate">JOIN THE CLAN</a>
                 </div>
-                
+
                 <p class="gate-subtitle">ADMISSIONS CLOSING SHORTLY</p>
             </div>
         </div>
@@ -2393,12 +2822,14 @@
     <footer class="py-10 md:py-20 bg-[#050505] border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col items-center">
             <div class="japan-font text-5xl md:text-6xl mb-10 text-neutral-800 footer-kanji cursor-pointer">影</div>
-            <div class="flex gap-4 md:gap-12 text-[10px] font-black uppercase tracking-[2px] md:tracking-[5px] text-[var(--text-secondary)]">
+            <div
+                class="flex gap-4 md:gap-12 text-[10px] font-black uppercase tracking-[2px] md:tracking-[5px] text-[var(--text-secondary)]">
                 <a href="#" class="hover:text-[#ff6a2a] transition">Twitter</a>
                 <a href="#" class="hover:text-[#ff6a2a] transition">Discord</a>
                 <a href="#" class="hover:text-[#ff6a2a] transition">Academy</a>
             </div>
-            <p class="mt-8 md:mt-12 text-[8px] md:text-[9px] text-[var(--text-secondary)] uppercase tracking-[0.15rem] md:tracking-[1rem] font-black">
+            <p
+                class="mt-8 md:mt-12 text-[8px] md:text-[9px] text-[var(--text-secondary)] uppercase tracking-[0.15rem] md:tracking-[1rem] font-black">
                 Shadow Dojo Academy &copy; 2024
             </p>
         </div>
@@ -2412,8 +2843,10 @@
             <div class="modal-close" onclick="closeModal()">✕</div>
             <span class="weapon-tag" id="modal-tag">FEATURED WEAPON</span>
             <h3 class="weapon-title text-2xl md:text-3xl mb-4" id="modal-title">WEAPON NAME</h3>
-            <p class="weapon-desc text-base md:text-lg mb-8" id="modal-desc">Detailed intelligence and technical background for this specific masterclass path.</p>
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-[rgba(255,255,255,0.1)] pt-6">
+            <p class="weapon-desc text-base md:text-lg mb-8" id="modal-desc">Detailed intelligence and technical
+                background for this specific masterclass path.</p>
+            <div
+                class="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-[rgba(255,255,255,0.1)] pt-6">
                 <button class="btn-urgency text-sm py-3 px-6" onclick="closeModal()">Secure Your Target</button>
                 <span class="text-xs text-neutral-500 tracking-widest uppercase">Immediate Access</span>
             </div>
@@ -2423,25 +2856,66 @@
 
     <script>
         /* =====================================================
+           DOM CACHE & INITIALIZATION
+           ===================================================== */
+        const DOM = {
+            loadingScreen: document.getElementById('loading-screen'),
+            loaderBar: document.getElementById('loader-bar'),
+            loaderPercent: document.getElementById('loader-percent'),
+            loaderCanvas: document.getElementById('loader-canvas'),
+            header: document.querySelector('header'),
+            heroTitle: document.getElementById('hero-title-main'),
+            katanaBlade: document.getElementById('katana-blade'),
+            smokeWrap: document.getElementById('smoke-parallax'),
+            chapterLabel: document.getElementById('chapter-label'),
+            bladeClipRect: document.getElementById('blade-clip-rect'),
+            katanaStand: document.getElementById('katana-blade'),
+            katanaGleam: document.getElementById('katana-gleam'),
+            bladeFill: document.getElementById('katana-blade-fill'),
+            hero: document.getElementById('hero'),
+            transSection: document.getElementById('transformation'),
+            compSlider: document.getElementById('comp-slider'),
+            cinematicImg: document.querySelector('.cinematic-image')
+        };
+
+        const loaderCtx = DOM.loaderCanvas.getContext('2d');
+        let loaderParticles = [];
+        let winWidth = window.innerWidth;
+        let winHeight = window.innerHeight;
+
+        const sectionCache = {};
+        const updateWinSize = () => {
+            winWidth = window.innerWidth;
+            winHeight = window.innerHeight;
+            DOM.loaderCanvas.width = winWidth;
+            DOM.loaderCanvas.height = winHeight;
+            
+            // Background Cache Layout to avoid getBoundingClientRect in loop
+            if (DOM.transSection) {
+                const rect = DOM.transSection.getBoundingClientRect();
+                sectionCache.transformation = {
+                    top: rect.top + window.scrollY,
+                    height: DOM.transSection.offsetHeight
+                };
+            }
+            if (DOM.cinematicImg) {
+                const rect = DOM.cinematicImg.getBoundingClientRect();
+                sectionCache.cinematic = {
+                    top: rect.top + window.scrollY,
+                    height: DOM.cinematicImg.offsetHeight
+                };
+            }
+        };
+        window.addEventListener('resize', updateWinSize, { passive: true });
+        updateWinSize();
+
+        /* =====================================================
            0. LOADING SCREEN — CINEMATIC PRELUDE
            ===================================================== */
-        const loadingScreen = document.getElementById('loading-screen');
-        const loaderBar = document.getElementById('loader-bar');
-        const loaderPercent = document.getElementById('loader-percent');
-        const loaderCanvas = document.getElementById('loader-canvas');
-        const loaderCtx = loaderCanvas.getContext('2d');
-
-        // Set loader canvas size
-        loaderCanvas.width = window.innerWidth;
-        loaderCanvas.height = window.innerHeight;
-
-        // Loader particles
-        let loaderParticles = [];
-
         class LoaderParticle {
             constructor() {
-                this.x = Math.random() * loaderCanvas.width;
-                this.y = Math.random() * loaderCanvas.height;
+                this.x = Math.random() * winWidth;
+                this.y = Math.random() * winHeight;
                 this.size = Math.random() * 2 + 0.5;
                 this.speedX = (Math.random() - 0.5) * 0.5;
                 this.speedY = (Math.random() - 0.5) * 0.5;
@@ -2451,10 +2925,10 @@
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x < 0) this.x = loaderCanvas.width;
-                if (this.x > loaderCanvas.width) this.x = 0;
-                if (this.y < 0) this.y = loaderCanvas.height;
-                if (this.y > loaderCanvas.height) this.y = 0;
+                if (this.x < 0) this.x = winWidth;
+                if (this.x > winWidth) this.x = 0;
+                if (this.y < 0) this.y = winHeight;
+                if (this.y > winHeight) this.y = 0;
             }
 
             draw() {
@@ -2465,40 +2939,41 @@
             }
         }
 
-        // Create loader particles
         for (let i = 0; i < 80; i++) {
             loaderParticles.push(new LoaderParticle());
         }
 
         function animateLoaderParticles() {
-            loaderCtx.clearRect(0, 0, loaderCanvas.width, loaderCanvas.height);
-            loaderParticles.forEach(p => {
+            loaderCtx.clearRect(0, 0, winWidth, winHeight);
+            const len = loaderParticles.length;
+            for (let i = 0; i < len; i++) {
+                const p = loaderParticles[i];
                 p.update();
                 p.draw();
-            });
 
-            // Draw connecting lines
-            loaderParticles.forEach((a, i) => {
-                loaderParticles.slice(i + 1).forEach(b => {
-                    const dist = Math.hypot(a.x - b.x, a.y - b.y);
+                // Optimized connection logic
+                for (let j = i + 1; j < len; j++) {
+                    const b = loaderParticles[j];
+                    const dx = p.x - b.x;
+                    const dy = p.y - b.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 120) {
                         loaderCtx.strokeStyle = `rgba(255, 106, 42, ${0.05 * (1 - dist / 120)})`;
                         loaderCtx.lineWidth = 0.5;
                         loaderCtx.beginPath();
-                        loaderCtx.moveTo(a.x, a.y);
+                        loaderCtx.moveTo(p.x, p.y);
                         loaderCtx.lineTo(b.x, b.y);
                         loaderCtx.stroke();
                     }
-                });
-            });
+                }
+            }
 
-            if (!loadingScreen.classList.contains('fade-out')) {
+            if (!DOM.loadingScreen.classList.contains('fade-out')) {
                 requestAnimationFrame(animateLoaderParticles);
             }
         }
         animateLoaderParticles();
 
-        // Simulate loading progress
         let loadProgress = 0;
         const loadInterval = setInterval(() => {
             loadProgress += Math.random() * 15 + 5;
@@ -2507,42 +2982,54 @@
                 clearInterval(loadInterval);
                 setTimeout(revealSite, 400);
             }
-            loaderBar.style.width = loadProgress + '%';
-            loaderPercent.textContent = Math.floor(loadProgress) + '%';
+            DOM.loaderBar.style.transform = `scaleX(${loadProgress / 100})`;
+            DOM.loaderPercent.textContent = Math.floor(loadProgress) + '%';
         }, 200);
 
-        // Reveal site with curtain effect
         function revealSite() {
-            loadingScreen.classList.add('fade-out');
+            DOM.loadingScreen.classList.add('fade-out');
             document.body.classList.add('curtains-open');
 
-            // Stagger hero elements
             const heroElements = document.querySelectorAll('.hero-element');
             heroElements.forEach((el, i) => {
                 setTimeout(() => {
                     el.style.transition = 'opacity 1s cubic-bezier(0.2, 1, 0.3, 1), transform 1s cubic-bezier(0.2, 1, 0.3, 1)';
                     el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
+                    el.style.transform = 'translate3d(0,0,0)';
+                    el.style.willChange = 'opacity, transform';
                 }, 800 + (i * 200));
             });
 
-            // Show header
             setTimeout(() => {
-                document.querySelector('header').style.transform = 'translateY(0)';
+                DOM.header.style.transform = 'translate3d(0,0,0)';
             }, 600);
 
-            // Remove loading screen from DOM after transition
             setTimeout(() => {
-                loadingScreen.style.display = 'none';
+                DOM.loadingScreen.style.display = 'none';
                 initLenis();
             }, 1500);
         }
 
-
         /* =====================================================
            1. LENIS SMOOTH SCROLL
            ===================================================== */
+        const chapters = [
+            { id: 'hero', label: 'I', name: 'THE AWAKENING' },
+            { id: 'intel', label: 'II', name: 'TACTICAL INTEL' },
+            { id: 'arsenal', label: 'III', name: 'THE ARSENAL' },
+            { id: 'transformation', label: 'IV', name: 'THE REBIRTH' },
+            { id: 'faq', label: 'V', name: 'DOJO INQUIRIES' },
+            { id: 'reviews', label: 'VI', name: 'CLIENT INTEL' },
+            { id: 'final-gate', label: 'VII', name: 'THE GATE' }
+        ];
+
         let lenis;
+        const BLADE_FULL_W = 710;
+        let gleamFired = false;
+        let rafPending = false;
+
+        // Cache persistent chapter elements
+        const chapterElements = chapters.map(ch => ({ ...ch, el: document.getElementById(ch.id) }));
 
         function initLenis() {
             lenis = new Lenis({
@@ -2552,185 +3039,125 @@
                 smooth: true
             });
 
-            const heroTitle   = document.getElementById('hero-title-main');
-            const katanaBlade = document.getElementById('katana-blade');
-            const smokeWrap   = document.getElementById('smoke-parallax');
-            const chapterLabel = document.getElementById('chapter-label');
-
-            const chapters = [
-                { id: 'hero', label: 'I', name: 'THE AWAKENING' },
-                { id: 'intel', label: 'II', name: 'TACTICAL INTEL' },
-                { id: 'arsenal', label: 'III', name: 'THE ARSENAL' },
-                { id: 'transformation', label: 'IV', name: 'THE REBIRTH' },
-                { id: 'faq', label: 'V', name: 'DOJO INQUIRIES' },
-                { id: 'reviews', label: 'VI', name: 'CLIENT INTEL' },
-                { id: 'final-gate', label: 'VII', name: 'THE GATE' }
-            ];
-
-            // ── Katana unsheathe state ──
-            const bladeClipRect  = document.getElementById('blade-clip-rect');
-            const katanaStand    = document.getElementById('katana-blade');
-            const katanaGleam    = document.getElementById('katana-gleam');
-            const bladeFill      = document.getElementById('katana-blade-fill');
-            const BLADE_FULL_W   = 710; // SVG viewBox units for full blade width (from x=100 to x=810)
-
-            let gleamFired = false;
-            let lastScrollPercent = -1;
-            let rafPending = false;
-
             function onScrollUpdate(scrollY) {
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight - winHeight;
                 const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
 
                 // Katana blade progress bar (top) — Static and visible on mobile
-                if (window.innerWidth > 768) {
-                    bladeFill.style.width = scrollPercent + '%';
-                    if (scrollPercent > 1) {
-                        bladeFill.classList.add('drawing');
-                    } else {
-                        bladeFill.classList.remove('drawing');
-                    }
+                if (winWidth > 768) {
+                    DOM.bladeFill.style.transform = `scaleX(${scrollPercent / 100})`;
+                    if (scrollPercent > 1) DOM.bladeFill.classList.add('drawing');
+                    else DOM.bladeFill.classList.remove('drawing');
                 } else {
-                    // Always visible on phone
-                    bladeFill.style.width = '100%';
-                    bladeFill.classList.add('drawing');
+                    DOM.bladeFill.style.transform = 'scaleX(1)';
+                    DOM.bladeFill.classList.add('drawing');
                 }
 
                 // Chapter label
                 let activeChapter = chapters[0];
-                const viewThreshold = window.innerHeight * 0.4;
-                chapters.forEach(ch => {
-                    const el = document.getElementById(ch.id);
-                    if (el) {
-                        const rect = el.getBoundingClientRect();
+                const viewThreshold = winHeight * 0.4;
+                for (const ch of chapterElements) {
+                    if (ch.el) {
+                        const rect = ch.el.getBoundingClientRect();
                         if (rect.top <= viewThreshold) activeChapter = ch;
                     }
-                });
-                if (chapterLabel.dataset.lastId !== activeChapter.id) {
-                    chapterLabel.dataset.lastId = activeChapter.id;
-                    chapterLabel.innerHTML = `<span>${activeChapter.label}</span> — ${activeChapter.name}`;
+                }
+                if (DOM.chapterLabel.dataset.lastId !== activeChapter.id) {
+                    DOM.chapterLabel.dataset.lastId = activeChapter.id;
+                    DOM.chapterLabel.innerHTML = `<span>${activeChapter.label}</span> — ${activeChapter.name}`;
                 }
 
                 // Hero parallax (only while in hero)
-                if (scrollY < window.innerHeight * 1.5) {
+                if (scrollY < winHeight * 1.5) {
                     const scale = Math.max(0.7, 1 - scrollY * 0.0004);
-                    heroTitle.style.transform  = `scale(${scale}) translateY(${scrollY * 0.25}px)`;
-                    heroTitle.style.opacity    = Math.max(0, 1 - scrollY * 0.001);
-                    katanaBlade.style.transform = `translateY(${scrollY * 0.15}px)`;
+                    const heroY = scrollY * 0.25;
+                    const bladeY = scrollY * 0.15;
 
-                    // ── Scroll-driven unsheathe (0–60% of hero height) — Always visible on mobile ──
-                    if (window.innerWidth > 768) {
-                        const heroH      = window.innerHeight;
-                        const unsheatheP = Math.min(1, scrollY / (heroH * 0.6));
-                        const bladeW     = Math.round(unsheatheP * BLADE_FULL_W);
-                        bladeClipRect.setAttribute('width', bladeW);
+                    DOM.heroTitle.style.transform = `translate3d(0,${heroY}px,0) scale(${scale})`;
+                    DOM.heroTitle.style.opacity = Math.max(0, 1 - scrollY * 0.001);
+                    DOM.katanaBlade.style.transform = `translate3d(0,${bladeY}px,0)`;
 
-                        // Heat glow tiers
-                        katanaStand.classList.remove('heated-1', 'heated-2');
-                        if (unsheatheP > 0.7)       katanaStand.classList.add('heated-2');
-                        else if (unsheatheP > 0.35)  katanaStand.classList.add('heated-1');
+                    // ── Scroll-driven unsheathe — Always visible on mobile ──
+                    if (winWidth > 768) {
+                        const unsheatheP = Math.min(1, scrollY / (winHeight * 0.6));
+                        const bladeW = Math.round(unsheatheP * BLADE_FULL_W);
+                        DOM.bladeClipRect.setAttribute('width', bladeW);
 
-                        // Gleam at full unsheathe (fires once)
+                        DOM.katanaStand.classList.remove('heated-1', 'heated-2');
+                        if (unsheatheP > 0.7) DOM.katanaStand.classList.add('heated-2');
+                        else if (unsheatheP > 0.35) DOM.katanaStand.classList.add('heated-1');
+
                         if (unsheatheP >= 0.98 && !gleamFired) {
                             gleamFired = true;
-                            katanaGleam.classList.add('flash');
-                            setTimeout(() => katanaGleam.classList.remove('flash'), 350);
-                        } else if (unsheatheP < 0.9) {
-                            gleamFired = false;
-                        }
+                            DOM.katanaGleam.classList.add('flash');
+                            setTimeout(() => DOM.katanaGleam.classList.remove('flash'), 350);
+                        } else if (unsheatheP < 0.9) gleamFired = false;
                     } else {
-                        // Always visible on phone
-                        bladeClipRect.setAttribute('width', BLADE_FULL_W);
-                        katanaStand.classList.add('heated-2');
+                        DOM.bladeClipRect.setAttribute('width', BLADE_FULL_W);
+                        DOM.katanaStand.classList.add('heated-2');
                     }
                 }
 
-                // ── Transformation section expansion (Laptop Zoom in -> Hold -> Zoom out) ──
-                const transSection = document.getElementById('transformation');
-                const compSlider = document.getElementById('comp-slider');
-                const header = document.querySelector('header');
-                
-                // Initialize Rebirth State if not exists 
-                if (!window._rebirthState) {
-                    window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
-                }
-
-                if (transSection && compSlider && window.innerWidth > 768) {
-                    const rect = transSection.getBoundingClientRect();
-                    const sectionH = transSection.offsetHeight;
-                    const viewH = window.innerHeight;
-                    const viewW = window.innerWidth;
+                // ── Transformation section expansion (LAYOUT-FREE MAPPING) ──
+                if (DOM.transSection && DOM.compSlider && winWidth > 768 && sectionCache.transformation) {
+                    const sectionTop = sectionCache.transformation.top;
+                    const sectionH = sectionCache.transformation.height;
+                    const maxScroll = sectionH - winHeight;
                     
-                    const maxScroll = sectionH - viewH;
+                    const relativeScroll = scrollY - sectionTop;
                     let progress = 0;
-                    if (rect.top <= 0) {
-                        progress = Math.min(1, Math.abs(rect.top) / maxScroll);
-                    }
-                    
+                    if (relativeScroll >= 0) progress = Math.min(1, relativeScroll / maxScroll);
+
                     let p = 0;
-                    if (progress < 0.25) {
-                        p = progress / 0.25; // Phase 1: Zoom In
-                    } else if (progress >= 0.25 && progress <= 0.75) {
-                        p = 1; // Phase 2: Hold
-                    } else {
-                        p = 1 - ((progress - 0.75) / 0.25); // Phase 3: Zoom Out
-                    }
-                    
-                    // State Guard: Only update if progress has changed significantly
+                    if (progress < 0.25) p = progress / 0.25;
+                    else if (progress >= 0.25 && progress <= 0.75) p = 1;
+                    else p = 1 - ((progress - 0.75) / 0.25);
+
+                    if (!window._rebirthState) window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
+
                     if (Math.abs(p - window._rebirthState.lastP) > 0.001) {
                         window._rebirthState.lastP = p;
-                        
-                        const scaleX = viewW / 1000;
-                        const scaleY = viewH / 600;
+                        const scaleX = winWidth / 1000;
+                        const scaleY = winHeight / 600;
                         const maxScale = Math.max(scaleX, scaleY);
-                        
-                        // Ease-in-out progress for smoother transitions
                         const easeP = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
 
-                        compSlider.style.transform = `scale(${1 + (maxScale - 1) * easeP}) translate3d(0,0,0)`;
-                        
-                        // Fullscreen State Guard
+                        DOM.compSlider.style.transform = `scale(${1 + (maxScale - 1) * easeP}) translate3d(0,0,0)`;
+
                         const isFull = easeP >= 0.95;
                         if (isFull !== window._rebirthState.lastFull) {
                             window._rebirthState.lastFull = isFull;
-                            compSlider.classList.toggle('is-fullscreen', isFull);
+                            DOM.compSlider.classList.toggle('is-fullscreen', isFull);
                         }
 
-                        // Navbar toggle synced with expansion (State Guarded)
-                        if (header) {
-                            const showNav = !(easeP > 0.02 && easeP < 1);
-                            if (showNav !== window._rebirthState.lastNav) {
-                                window._rebirthState.lastNav = showNav;
-                                header.style.transform = showNav ? 'translateY(0)' : 'translateY(-100%)';
+                        if (DOM.header) {
+                            const hideNav = easeP > 0.02;
+                            if (hideNav !== window._rebirthState.lastNav) {
+                                window._rebirthState.lastNav = hideNav;
+                                DOM.header.style.transform = hideNav ? 'translate3d(0,-100%,0)' : 'translate3d(0,0,0)';
                             }
                         }
                     }
-                } else if (compSlider && window.innerWidth <= 768) {
-                    // Cleanup for mobile/resize
+                } else if (DOM.compSlider && winWidth <= 768) {
                     if (window._rebirthState?.lastFull !== null) {
-                        compSlider.style.transform = '';
-                        compSlider.classList.remove('is-fullscreen');
-                        if (header) header.style.transform = '';
+                        DOM.compSlider.style.transform = '';
+                        DOM.compSlider.classList.remove('is-fullscreen');
+                        if (DOM.header) DOM.header.style.transform = '';
                         window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
                     }
                 }
 
-                // Smoke parallax
-                smokeWrap.style.transform = `translateY(${-scrollY * 0.3}px)`;
+                DOM.smokeWrap.style.transform = `translate3d(0,${-scrollY * 0.3}px,0)`;
 
-                // Cinematic image
-                const cinematicImg = document.querySelector('.cinematic-image');
-                if (cinematicImg) {
-                    const imgRect = cinematicImg.getBoundingClientRect();
-                    if (imgRect.top < window.innerHeight && imgRect.bottom > 0) {
-                        cinematicImg.classList.add('in-view');
+                if (DOM.cinematicImg && sectionCache.cinematic) {
+                    const cTop = sectionCache.cinematic.top;
+                    const cHeight = sectionCache.cinematic.height;
+                    if (scrollY + winHeight > cTop && scrollY < cTop + cHeight) {
+                        DOM.cinematicImg.classList.add('in-view');
                     }
                 }
-
-                lastScrollPercent = scrollPercent;
             }
 
-            // Initial call to set state
             onScrollUpdate(window.scrollY);
 
             lenis.on('scroll', (e) => {
@@ -2771,23 +3198,23 @@
         /* =====================================================
            3. FIRE PARTICLES (Interactive)
            ===================================================== */
-        const canvas = document.getElementById('fireParticles');
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight;
+        const fireCanvas = document.getElementById('fireParticles');
+        const fireCtx = fireCanvas.getContext('2d');
+        let fireParticles = [];
+        let mouseX = winWidth / 2;
+        let mouseY = winHeight;
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        });
+        }, { passive: true });
 
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', setCanvasSize);
-        setCanvasSize();
+        const updateFireCanvasSize = () => {
+            fireCanvas.width = winWidth;
+            fireCanvas.height = winHeight;
+        };
+        window.addEventListener('resize', updateFireCanvasSize, { passive: true });
+        updateFireCanvasSize();
 
         class FireParticle {
             constructor() {
@@ -2795,8 +3222,8 @@
             }
 
             reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 50;
+                this.x = Math.random() * winWidth;
+                this.y = winHeight + Math.random() * 50;
                 this.size = Math.random() * 4 + 1;
                 this.speedY = Math.random() * 2.5 + 0.8;
                 this.speedX = (Math.random() - 0.5) * 1.2;
@@ -2821,62 +3248,59 @@
             }
 
             draw() {
-                ctx.globalAlpha = this.life * 0.8;
-                ctx.fillStyle = this.colorBase + this.life + ')';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                const alpha = this.life * 0.8;
+                fireCtx.globalAlpha = alpha;
+                fireCtx.fillStyle = this.colorBase + this.life + ')';
+                fireCtx.beginPath();
+                fireCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                fireCtx.fill();
 
-                // Glow
-                ctx.globalAlpha = this.life * 0.3;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
-                ctx.fill();
+                // Glow (optimized to draw less frequently or simpler)
+                fireCtx.globalAlpha = alpha * 0.3;
+                fireCtx.beginPath();
+                fireCtx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+                fireCtx.fill();
             }
         }
 
         for (let i = 0; i < 80; i++) {
-            particlesArray.push(new FireParticle());
+            fireParticles.push(new FireParticle());
         }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particlesArray.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
+        let isFireVisible = true;
+        const fireObserver = new IntersectionObserver((entries) => {
+            isFireVisible = entries[0].isIntersecting;
+        }, { threshold: 0.1 });
+        if (DOM.hero) fireObserver.observe(DOM.hero);
+
+        function animateFireParticles() {
+            if (isFireVisible) {
+                fireCtx.clearRect(0, 0, winWidth, winHeight);
+                const len = fireParticles.length;
+                for (let i = 0; i < len; i++) {
+                    const p = fireParticles[i];
+                    p.update();
+                    p.draw();
+                }
+            }
+            requestAnimationFrame(animateFireParticles);
         }
-        animateParticles();
+        animateFireParticles();
 
 
-        /* =====================================================
-           4. CUSTOM GLOW CURSOR + MAGNETIC BUTTON
-           ===================================================== */
-        const cursor = document.getElementById('glow-cursor');
-
-        window.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Hover detection for interactive elements
-        document.querySelectorAll('a, button, .weapon-card, .clan-badge').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-        });
 
         // Magnetic button
         const magneticBtn = document.getElementById('hero-btn');
+        magneticBtn.style.willChange = 'transform';
         magneticBtn.addEventListener('mousemove', (e) => {
             const rect = magneticBtn.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            magneticBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-        });
+            magneticBtn.style.transform = `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`;
+        }, { passive: true });
         magneticBtn.addEventListener('mouseleave', () => {
-            magneticBtn.style.transform = 'translate(0, 0)';
-        });
+            magneticBtn.style.transform = 'translate3d(0, 0, 0)';
+        }, { passive: true });
 
         /* =====================================================
            CTA ACTIVATION — blade glows on hero button hover
@@ -2954,11 +3378,14 @@
                         }
                         requestAnimationFrame(animateCount);
                     });
+                } else {
+                    // Optimized: remove class to pause animations when out of view
+                    entry.target.classList.remove('is-visible');
                 }
             });
         }, { threshold: 0.2 });
 
-        document.querySelectorAll('.reveal-up, .reveal-scale, .stat-card').forEach(el => {
+        document.querySelectorAll('.reveal-up, .reveal-scale, .stat-card, #hero, #transformation').forEach(el => {
             revealObserver.observe(el);
         });
 
@@ -3011,51 +3438,66 @@
         /* =====================================================
            8. BEFORE VS AFTER SLIDER LOGIC
            ===================================================== */
-        const compSlider = document.getElementById('comp-slider');
-        const afterPanel = document.getElementById('after-panel');
-        const sliderHandle = document.getElementById('slider-handle');
+        (function () {
+            const compSlider = DOM.compSlider;
+            const afterPanel = document.getElementById('after-panel');
+            const sliderHandle = document.getElementById('slider-handle');
 
-        if (compSlider && window.innerWidth > 768) {
-            let isDragging = false;
+            if (compSlider && winWidth > 768) {
+                let isDragging = false;
+                let sliderRect = null;
 
-            const updateSlider = (x) => {
-                const rect = compSlider.getBoundingClientRect();
-                let position = ((x - rect.left) / rect.width) * 100;
-                
-                // Constraints
-                if (position < 2) position = 2;
-                if (position > 98) position = 98;
+                const updateSlider = (x) => {
+                    if (!sliderRect) sliderRect = compSlider.getBoundingClientRect();
+                    let position = ((x - sliderRect.left) / sliderRect.width) * 100;
 
-                afterPanel.style.clipPath = `inset(0 0 0 ${position}%)`;
-                sliderHandle.style.left = `${position}%`;
-            };
+                    // Constraints
+                    if (position < 2) position = 2;
+                    if (position > 98) position = 98;
 
-            compSlider.addEventListener('mousemove', (e) => {
-                if (!isDragging) updateSlider(e.clientX);
-            });
+                    // Transition to transform or just keep clipPath if it's already performant 
+                    // (Clip-path is generally fast on modern browsers but transform is safer)
+                    afterPanel.style.clipPath = `inset(0 0 0 ${position}%)`;
+                    sliderHandle.style.transform = `translate3d(${position}%, 0, 0)`;
+                };
 
-            compSlider.addEventListener('mousedown', () => isDragging = true);
-            window.addEventListener('mouseup', () => isDragging = false);
-            
-            compSlider.addEventListener('touchstart', (e) => updateSlider(e.touches[0].clientX));
-            compSlider.addEventListener('touchmove', (e) => updateSlider(e.touches[0].clientX));
-        }
+                compSlider.addEventListener('mousemove', (e) => {
+                    if (!isDragging) updateSlider(e.clientX);
+                }, { passive: true });
+
+                compSlider.addEventListener('mousedown', () => {
+                    isDragging = true;
+                    sliderRect = compSlider.getBoundingClientRect(); // Update rect on start
+                }, { passive: true });
+
+                window.addEventListener('mouseup', () => isDragging = false, { passive: true });
+
+                compSlider.addEventListener('touchstart', (e) => {
+                    sliderRect = compSlider.getBoundingClientRect();
+                    updateSlider(e.touches[0].clientX);
+                }, { passive: true });
+
+                compSlider.addEventListener('touchmove', (e) => {
+                    updateSlider(e.touches[0].clientX);
+                }, { passive: true });
+            }
+        })();
 
         /* =====================================================
            9. FAQ ACCORDION LOGIC
            ===================================================== */
         const faqItems = document.querySelectorAll('.faq-item');
-        
+
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
-                
+
                 // Close all other items
                 faqItems.forEach(otherItem => {
                     otherItem.classList.remove('active');
                 });
-                
+
                 // Toggle current
                 if (!isActive) {
                     item.classList.add('active');
@@ -3066,7 +3508,7 @@
         /* =====================================================
            10. REVIEWS CAROUSEL LOGIC — SEAMLESS INFINITE LOOP
            ===================================================== */
-        (function() {
+        (function () {
             const track = document.getElementById('rev-track');
             const nextBtn = document.getElementById('rev-next');
             const prevBtn = document.getElementById('rev-prev');
@@ -3084,7 +3526,7 @@
             // 1. Setup Clones for Seamless Loop
             const firstClone = cards[0].cloneNode(true);
             const lastClone = cards[cardCount - 1].cloneNode(true);
-            
+
             track.appendChild(firstClone);
             track.insertBefore(lastClone, cards[0]);
 
@@ -3094,14 +3536,14 @@
                 // Capture the exact width + gap (40px)
                 return card.offsetWidth + 40;
             };
-            
+
             const updateUI = (instant = false) => {
                 if (instant) track.style.transition = 'none';
                 else track.style.transition = 'transform 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
-                
+
                 // Offset +1 because of the prepended lastClone
                 track.style.transform = `translateX(-${(index + 1) * getCardWidth()}px)`;
-                
+
                 if (progressLine) {
                     const realIndex = (index + cardCount) % cardCount;
                     progressLine.style.width = `${((realIndex + 1) / cardCount) * 100}%`;
@@ -3109,7 +3551,7 @@
 
                 if (instant) {
                     // Force reflow
-                    track.offsetHeight; 
+                    track.offsetHeight;
                 }
             };
 
@@ -3129,7 +3571,7 @@
 
             track.addEventListener('transitionend', () => {
                 isTransitioning = false;
-                
+
                 // Snap checks
                 if (index >= cardCount) {
                     index = 0; // Jump to real first card
@@ -3155,7 +3597,7 @@
             track.addEventListener('mouseleave', startAuto);
 
             window.addEventListener('resize', () => updateUI(true));
-            
+
             // Init
             updateUI(true);
             startAuto();
