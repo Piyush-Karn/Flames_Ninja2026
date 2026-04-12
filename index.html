@@ -77,6 +77,7 @@
             width: 100%;
             height: 100%;
             display: block;
+            overflow: visible;
         }
 
         .logo-outline {
@@ -2165,7 +2166,7 @@
                 </div>
 
                 <div class="flex flex-col items-center gap-3">
-                    <button class="btn-urgency magnetic-target" id="hero-btn">Enter The Dojo</button>
+                    <a href="#arsenal" class="btn-urgency magnetic-target inline-block text-center no-underline" id="hero-btn">Enter The Dojo</a>
                     <span class="text-[10px] uppercase tracking-[1px] text-[#666] font-semibold">Limited to 150
                         Disciples</span>
                 </div>
@@ -2248,24 +2249,21 @@
             <div class="lg:col-span-5 reveal-up relative z-10">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-10 h-[1px] bg-red-600"></span>
-                    <span class="text-red-600 tracking-widest text-[10px] uppercase font-bold">Elite Training
+                    <span class="text-red-600 tracking-widest text-[10px] uppercase font-bold">Real World Learning
                         System</span>
                 </div>
                 <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words text-white"
                     style="text-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-                    TACTICAL <br> SUPERIORITY
+                    SKILL <br> MASTERY
                 </h2>
                 <div
                     class="text-white text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-full md:max-w-md opacity-90">
-                    <p class="mb-4">Get real-world skills through hands-on building. Work on live projects, stay
-                        consistent, and develop the discipline needed to stand out.</p>
-                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused
-                        execution.</p>
+                    <p class="mb-4">Build real-world skills through hands-on learning. Work on live projects, stay consistent, and gain the confidence needed to stand out.</p>
+                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused learning.</p>
                 </div>
 
                 <div class="mb-10 py-4 border-y border-white/5">
-                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like
-                        a warrior. Build like a pro.</p>
+                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like a learner. Build like a pro.</p>
                 </div>
 
                 <div class="border-t border-neutral-900 pt-10">
@@ -2291,7 +2289,7 @@
                         </svg>
                     </div>
                     <span class="stat-value" data-count="750" data-suffix="+">0</span>
-                    <span class="stat-label">Students Transformed into Skilled Developers</span>
+                    <span class="stat-label">Students Trained into Skilled Developers</span>
                     <p
                         class="mt-8 text-neutral-500 text-[11px] leading-relaxed uppercase tracking-widest font-semibold">
                         Confirmed mastery across all digital sectors.
@@ -2325,7 +2323,7 @@
                     <div>
                         <span class="stat-label">Program Duration</span>
                         <span class="stat-value text-3xl md:text-5xl mt-3"><span data-count="45">0</span> Days of
-                            Focused Execution</span>
+                            Focused Learning</span>
                     </div>
                     <div class="stat-icon mb-0 opacity-30">
                         <svg viewBox="0 0 24 24">
@@ -2360,92 +2358,169 @@
                 </div>
             </div>
 
-            <div class="bento-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense auto-rows-[minmax(240px,auto)] gap-4 lg:gap-5">
 
-                <div class="weapon-card featured reveal-scale" data-modal="modal-mern">
-                    <span class="rank-tag">FEATURED PATH</span>
-                    <h3 class="weapon-title">FULL STACK <br> + GEN AI MASTERY</h3>
-                    <p class="weapon-desc">Build modern web applications powered by AI. Learn frontend, backend, and
-                        deployment — everything needed to become job-ready.</p>
-                    <div class="mt-4 space-y-1 text-[10px] uppercase tracking-wider text-neutral-500 font-bold">
-                        <div class="flex items-center gap-2"><span>&bull;</span> Work on real projects</div>
-                        <div class="flex items-center gap-2"><span>&bull;</span> Ship production-level apps</div>
-                        <div class="flex items-center gap-2"><span>&bull;</span> Stand out with skills that matter</div>
+                <!-- 1. MERN (HERO - 2x2) -->
+                <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale" data-modal="modal-mern">
+                    <span class="rank-tag text-[var(--flame-orange)]">FEATURED</span>
+                    <h3 class="weapon-title">FULL STACK <br> + GEN AI</h3>
+                    <p class="text-[12px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build production-ready apps from day one</p>
+                    <p class="weapon-desc">Build real-world MERN apps with AI and deploy like a developer.</p>
+                    
+                    <div class="mt-8 z-10 relative flex-grow mb-6">
+                        <div class="flex flex-wrap gap-x-6 gap-y-4 max-w-[340px]">
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">MERN Stack</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Deployment</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Gen AI</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Testing</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">WEAPON SELECTION
-                        <span>&rarr;</span></a>
+                    
+                    <a href="#" class="deploy-link mt-auto inline-block z-10 relative" onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-data" style="transition-delay: 100ms;">
-                    <span class="rank-tag">DATA ELITE</span>
-                    <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                        </svg>
+                <!-- 2. Bundle (WIDE ACCENT - 2x1) -->
+                <div class="weapon-card highlight-red col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between" data-modal="modal-bundle" style="transition-delay: 100ms;">
+                    <span class="rank-tag text-white/70">FEATURED</span>
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 h-full">
+                        <div class="flex-1">
+                            <div class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
+                            </div>
+                            <h3 class="weapon-title mb-2 !text-2xl md:!text-3xl">COMPLETE PROGRAM <br><span class="text-white/70 text-lg md:text-xl">(BUNDLE)</span></h3>
+                            <p class="text-[14px] text-[#ffe066] font-extrabold tracking-wide mt-1 mb-3 italic drop-shadow-md">Your absolute path to tech dominance</p>
+                            <p class="weapon-desc text-white/90 max-w-sm mt-0 m-0">Your complete path to becoming job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
+                        </div>
+                        <div class="mt-auto md:mt-0 flex items-end md:h-full z-10 relative">
+                            <a href="#" class="deploy-link text-white pt-4 md:pt-0 pb-2" onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
+                        </div>
                     </div>
-                    <h3 class="weapon-title">SHADOW INTELLIGENCE</h3>
-                    <p class="weapon-desc">Master Data Analytics and industry tools. Learn how to work with data,
-                        uncover insights, and make smarter decisions.</p>
-                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-dsa" style="transition-delay: 200ms;">
-                    <span class="rank-tag">ELITE LOGIC</span>
-                    <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
-                        </svg>
+                <!-- 3. AIML (TALL - 1x2) -->
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-aiml" style="transition-delay: 200ms;">
+                    <span class="rank-tag">PATH</span>
+                    <div class="flex flex-col h-full justify-between">
+                        <div>
+                            <div class="weapon-icon">
+                                <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2" style="fill:none;"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13h4.5a2 2 0 0 1 0 4H15"/><path d="M9 13H4.5a2 2 0 0 0 0 4H9"/></svg>
+                            </div>
+                            <h3 class="weapon-title mb-2">AI & AGENTIC AI</h3>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Build intelligent, autonomous systems</p>
+                            <p class="weapon-desc m-0">Work with LLMs and prompt engineering to create autonomous Agentic AI that can think, plan, and execute tasks. Ship intelligent applications like chatbots.</p>
+                        </div>
+                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
                     </div>
-                    <h3 class="weapon-title">ALGORITHM BLADE</h3>
-                    <p class="weapon-desc">Master DSA with a structured approach. Improve problem-solving, speed, and
-                        logic for coding rounds and interviews.</p>
-                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-django" style="transition-delay: 300ms;">
-                    <span class="rank-tag">ARCHITECT</span>
-                    <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z" />
-                        </svg>
+                <!-- 4. DSA (STANDARD - 1x1) -->
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-dsa" style="transition-delay: 300ms;">
+                    <span class="rank-tag">PATH</span>
+                    <div class="flex flex-col h-full justify-between">
+                        <div>
+                            <div class="weapon-icon mb-4">
+                                <svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>
+                            </div>
+                            <h3 class="weapon-title text-xl mb-2">DSA WITH JAVA/C++</h3>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Crack coding interviews with confidence</p>
+                            <p class="weapon-desc text-xs line-clamp-3 m-0">Master Java fundamentals, OOPs, and key syntax. Learn pattern-based problem solving for technical interviews.</p>
+                        </div>
+                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
                     </div>
-                    <h3 class="weapon-title">ABYSS SCALING</h3>
-                    <p class="weapon-desc">Learn backend development with Django and AI integration. Build secure,
-                        scalable systems that power real applications.</p>
-                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <div class="weapon-card reveal-scale" data-modal="modal-mobile" style="transition-delay: 400ms;">
-                    <span class="rank-tag">FRONT-LINE</span>
-                    <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
-                        </svg>
+                <!-- 5. Django (WIDE - 2x1) -->
+                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between" data-modal="modal-django" style="transition-delay: 400ms;">
+                    <span class="rank-tag">PATH</span>
+                    <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
+                        <div class="weapon-icon shrink-0 mb-0">
+                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1 z-10 relative">
+                            <h3 class="weapon-title mb-2 text-2xl">FULL STACK WITH DJANGO</h3>
+                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build secure, scalable backend systems</p>
+                            <p class="weapon-desc m-0 max-w-lg">Build secure, scalable full-stack projects from scratch and seamlessly integrate AI into your systems.</p>
+                        </div>
+                        <div class="w-full sm:w-auto flex justify-end mt-4 sm:mt-0 z-10 relative">
+                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        </div>
                     </div>
-                    <h3 class="weapon-title">AESTHETIC WARFARE</h3>
-                    <p class="weapon-desc">Learn mobile app development with strong UI/UX fundamentals. Design clean,
-                        modern interfaces and build apps users enjoy using.</p>
-                    <a href="#" class="deploy-link" onclick="event.preventDefault()">DEPLOY <span>&rarr;</span></a>
                 </div>
 
-                <div class="weapon-card highlight-red reveal-scale" data-modal="modal-bundle"
-                    style="transition-delay: 500ms;">
-                    <span class="rank-tag">THE COMPLETE PATH</span>
-                    <div class="weapon-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.48 0-4.5 2.02-4.5 4.5s2.02 4.5 4.5 4.5 4.5-2.02 4.5-4.5-2.02-4.5-4.5-4.5z" />
-                        </svg>
+                <!-- 6. Data Analytics (TALL - 1x2) -->
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-data" style="transition-delay: 500ms;">
+                    <span class="rank-tag">PATH</span>
+                    <div class="flex flex-col h-full justify-between">
+                        <div>
+                            <div class="weapon-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
+                            </div>
+                            <h3 class="weapon-title mb-2 border-b border-transparent">DATA ANALYTICS & TOOLS</h3>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Turn data into real insights</p>
+                            <p class="weapon-desc m-0">Discover insights and empower decisions. Master data analysis, effective visualization, and machine learning insights through real-world cases.</p>
+                        </div>
+                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
                     </div>
-                    <h3 class="weapon-title text-xl">ASSASSINATION ARTS (BUNDLE)</h3>
-                    <p class="weapon-desc text-sm">Your complete path to becoming job-ready. Master DSA, Full Stack, and
-                        AI in one structured program. No gaps. No confusion.</p>
+                </div>
 
-                    <a href="#" class="deploy-link mt-10" onclick="event.preventDefault()">MISSION BRIEFING
-                        <span>&rarr;</span></a>
+                <!-- 7. Mobile App (STANDARD - 1x1) -->
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-mobile" style="transition-delay: 600ms;">
+                    <span class="rank-tag">PATH</span>
+                    <div class="flex flex-col h-full justify-between">
+                        <div>
+                            <div class="weapon-icon mb-4">
+                                <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" /></svg>
+                            </div>
+                            <h3 class="weapon-title text-xl mb-2">MOBILE APP + GEN AI</h3>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Design and ship modern Android apps</p>
+                            <p class="weapon-desc text-xs mb-4 m-0">Master Android development using Java.</p>
+                            <div class="space-y-2 mb-2 z-10 relative">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full"></span>
+                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">UI Design</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full"></span>
+                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">Database Mgt</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <!-- 8. Offline Full Stack (WIDE - 2x1) -->
+                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between" data-modal="modal-offline" style="transition-delay: 700ms;">
+                    <span class="rank-tag">PATH</span>
+                    <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
+                        <div class="weapon-icon shrink-0 mb-0">
+                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2" style="fill:none;"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                        </div>
+                        <div class="flex-1 z-10 relative">
+                            <h3 class="weapon-title mb-2 text-2xl">OFFLINE FULL STACK (IN-OFFICE)</h3>
+                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience real-world office workflows</p>
+                            <p class="weapon-desc m-0 max-w-lg">Code in Office. Build Real Projects. Launch your career with practical exposure to workflows and REST APIs.</p>
+                        </div>
+                        <div class="w-full sm:w-auto flex justify-end mt-4 sm:mt-0 z-10 relative">
+                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -3305,9 +3380,9 @@
             // Fire the slash
             slashOverlay.classList.add('firing');
 
-            // Scroll to intel section after slash
+            // Scroll to arsenal section after slash
             setTimeout(() => {
-                const target = document.querySelector('#intel');
+                const target = document.querySelector('#arsenal');
                 if (target && lenis) {
                     lenis.scrollTo(target, { offset: -80, duration: 1.2 });
                 }
