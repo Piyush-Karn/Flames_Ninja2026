@@ -65,6 +65,7 @@
             opacity: 0;
             visibility: hidden;
         }
+
         .loader-logo-wrap {
             width: clamp(150px, 40vw, 250px);
             height: auto;
@@ -320,6 +321,26 @@
             will-change: transform;
         }
 
+        /* CTA Button */
+        .btn-urgency {
+            background: #a80000;
+            color: #fff;
+            padding: 16px 45px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        }
+
+        .btn-urgency:hover {
+            background: #cc0000;
+            box-shadow: 0 15px 40px rgba(204, 0, 0, 0.5);
+        }
+
         @media (min-width: 768px) {
             .hero-title {
                 font-size: clamp(6rem, 18vw, 14rem);
@@ -425,7 +446,7 @@
         }
 
         /* =====================================================
-           SLASH TRANSITION OVERLAY
+           PREMIUM SLASH TRANSITION OVERLAY
            ===================================================== */
         #slash-overlay {
             position: fixed;
@@ -435,213 +456,196 @@
             overflow: hidden;
         }
 
-        .slash-streak {
+        #slash-screen-flash {
             position: absolute;
-            top: -20%;
-            left: -10%;
-            width: 120%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), var(--flame-orange), transparent);
-            transform: rotate(-12deg) scaleX(0);
+            inset: 0;
+            background: transparent;
+        }
+
+        /* The Anime-style Impact Flash */
+        #slash-overlay.firing #slash-screen-flash {
+            animation: impactFlash 0.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+
+        /* STRICT CENTERING ALGORITHM 
+           Using calculated viewports guarantees absolute locking to the screen's dead center
+           regardless of scroll-bars, overflowing layouts, or mobile quirks. */
+        .slash-streak,
+        #slash-particles {
+            position: absolute;
+            top: calc(50% - 1px);
+            left: calc(50% - 100vmax);
+            width: 200vmax;
+            height: 2px;
+            transform: rotate(-35deg);
+            transform-origin: center;
+        }
+
+        #slash-particles {
+            z-index: 3;
+        }
+
+        .slash-streak::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 50px;
+            transform: scaleX(0);
             transform-origin: left center;
             opacity: 0;
         }
 
-        .slash-streak.s2 {
-            top: 50%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(204, 0, 0, 0.7), transparent);
-            transform: rotate(-12deg) scaleX(0);
+        /* The Main White-Hot Blade Core */
+        .slash-streak.primary::before {
+            box-shadow: 0 0 10px 3px #fff, 0 0 30px 10px var(--flame-orange), 0 0 80px 25px var(--ninja-red);
+            z-index: 2;
         }
 
-        #slash-overlay.firing .slash-streak {
-            animation: slashAnim 0.45s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+        /* The Displaced Energy Trail */
+        .slash-streak.secondary {
+            /* translateY moves the trail perpendicular to the already-rotated angle */
+            transform: rotate(-35deg) translateY(20px);
+            filter: blur(6px);
         }
 
-        #slash-overlay.firing .slash-streak.s2 {
-            animation: slashAnim 0.35s 0.05s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+        .slash-streak.secondary::before {
+            background: var(--flame-orange);
+            box-shadow: 0 0 50px 20px var(--ninja-red);
+            height: 8px;
         }
 
-        #slash-screen-flash {
+        /* Spark Particles */
+        .slash-spark {
             position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0);
-            transition: background 0.08s ease;
+            width: 25px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px 4px var(--flame-orange);
+            opacity: 0;
+            margin-top: -1px;
+            /* Align to the 2px container */
         }
 
-        #slash-overlay.firing #slash-screen-flash {
-            animation: screenFlash 0.4s ease forwards;
+        /* Firing Animations (Restored to Full Speed) */
+        #slash-overlay.firing .slash-streak.primary::before {
+            animation: sliceMain 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
         }
 
-        @keyframes slashAnim {
+        #slash-overlay.firing .slash-streak.secondary::before {
+            animation: sliceTrail 0.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+            animation-delay: 0.05s;
+        }
+
+        #slash-overlay.firing .slash-spark {
+            animation: sparkExplode 0.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+
+        @keyframes impactFlash {
             0% {
-                transform: rotate(-12deg) scaleX(0) translateX(-5%);
-                opacity: 0;
+                background: transparent;
             }
 
             10% {
-                opacity: 1;
+                background: rgba(255, 255, 255, 0.95);
             }
 
-            60% {
-                transform: rotate(-12deg) scaleX(1) translateX(0%);
-                opacity: 1;
+            25% {
+                background: rgba(255, 106, 42, 0.3);
             }
 
             100% {
-                transform: rotate(-12deg) scaleX(1) translateX(0%);
-                opacity: 0;
+                background: transparent;
             }
         }
 
-        @keyframes screenFlash {
+        @keyframes sliceMain {
             0% {
-                background: rgba(255, 255, 255, 0);
+                transform: scaleX(0) scaleY(1);
+                opacity: 1;
             }
 
             15% {
-                background: rgba(255, 255, 255, 0.08);
-            }
-
-            40% {
-                background: rgba(255, 255, 255, 0.03);
-            }
-
-            100% {
-                background: rgba(255, 255, 255, 0);
-            }
-        }
-
-
-
-        .fire-glow-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40%;
-            background: radial-gradient(ellipse at bottom, rgba(255, 106, 42, 0.15), transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-            animation: fireFlicker 4s infinite ease-in-out;
-            animation-play-state: paused;
-        }
-
-        .is-visible .fire-glow-overlay {
-            animation-play-state: running;
-        }
-
-        @keyframes fireFlicker {
-
-            0%,
-            100% {
-                opacity: 0.5;
-                transform: scale(1);
+                transform: scaleX(1) scaleY(4);
+                opacity: 1;
             }
 
             50% {
+                transform: scaleX(1) scaleY(0.5);
                 opacity: 0.8;
-                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scaleX(1.1) scaleY(0);
+                opacity: 0;
             }
         }
 
-        /* Smoke Parallax */
-        .smoke-blend-wrap {
-            position: absolute;
-            bottom: -250px;
-            left: 0;
-            width: 100%;
-            height: 800px;
-            z-index: 5;
-            pointer-events: none;
-            overflow: hidden;
-            will-change: transform;
-        }
-
-        .smoke-particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(10, 10, 10, 0.8) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(60px);
-            animation: smokeDrift 15s infinite ease-in-out;
-        }
-
-        .smoke-1 {
-            width: 600px;
-            height: 600px;
-            bottom: -200px;
-            left: -100px;
-        }
-
-        .smoke-2 {
-            width: 700px;
-            height: 700px;
-            bottom: -250px;
-            right: -50px;
-            animation-delay: 5s;
-        }
-
-        .smoke-3 {
-            width: 500px;
-            height: 500px;
-            bottom: -150px;
-            left: 40%;
-            animation-delay: 10s;
-        }
-
-        @keyframes smokeDrift {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0;
+        @keyframes sliceTrail {
+            0% {
+                transform: scaleX(0) scaleY(1);
+                opacity: 0.9;
             }
 
             30% {
-                opacity: 0.5;
-            }
-
-            70% {
-                opacity: 0.3;
+                transform: scaleX(1) scaleY(5);
+                opacity: 0.6;
             }
 
             100% {
-                transform: translate(60px, -60px) scale(1.2);
+                transform: scaleX(1.05) scaleY(0);
+                opacity: 0;
             }
         }
 
-        .blend-gradient-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom,
-                    transparent 0%,
-                    rgba(10, 10, 10, 0.3) 20%,
-                    rgba(10, 10, 10, 0.7) 50%,
-                    rgba(10, 10, 10, 0.95) 85%,
-                    var(--bg-black) 100%);
+        @keyframes sparkExplode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0) rotate(45deg);
+            }
         }
 
-        /* CTA Button */
-        .btn-urgency {
-            background: #a80000;
-            color: #fff;
-            padding: 16px 45px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        /* Screen Shake Effect 
+           Applied to header/sections ONLY, not the body, 
+           so the fixed overlay doesn't inherit the bounding box distortion */
+        body.shaking header,
+        body.shaking section {
+            animation: dojoShake 0.4s cubic-bezier(.36, .07, .19, .97) both;
         }
 
-        .btn-urgency:hover {
-            background: #cc0000;
-            box-shadow: 0 15px 40px rgba(204, 0, 0, 0.5);
+        @keyframes dojoShake {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            10% {
+                transform: translate(-15px, 10px) rotate(-1deg);
+            }
+
+            20% {
+                transform: translate(10px, -8px) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(-6px, 6px) rotate(-0.5deg);
+            }
+
+            40% {
+                transform: translate(6px, -4px) rotate(0.5deg);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
         }
 
         /* =====================================================
@@ -2060,9 +2064,11 @@
         <div class="loader-logo-wrap">
             <svg viewBox="0 0 448 512" class="loader-logo" xmlns="http://www.w3.org/2000/svg">
                 <!-- Outline path (fa-fire) -->
-                <path class="logo-outline" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                <path class="logo-outline"
+                    d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
                 <!-- Fill path (fa-fire) -->
-                <path class="logo-fill" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                <path class="logo-fill"
+                    d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
             </svg>
         </div>
         <p class="loader-subtitle">Shadow Dojo</p>
@@ -2084,8 +2090,9 @@
     <!-- Slash Transition Overlay -->
     <div id="slash-overlay">
         <div id="slash-screen-flash"></div>
-        <div class="slash-streak"></div>
-        <div class="slash-streak s2"></div>
+        <div class="slash-streak primary"></div>
+        <div class="slash-streak secondary"></div>
+        <div id="slash-particles"></div>
     </div>
 
     <!-- Chapter Label -->
@@ -2166,7 +2173,7 @@
                 </div>
 
                 <div class="flex flex-col items-center gap-3">
-                    <a href="#arsenal" class="btn-urgency magnetic-target inline-block text-center no-underline" id="hero-btn">Enter The Dojo</a>
+                    <button class="btn-urgency magnetic-target" id="hero-btn">Enter The Dojo</button>
                     <span class="text-[10px] uppercase tracking-[1px] text-[#666] font-semibold">Limited to 150
                         Disciples</span>
                 </div>
@@ -2258,12 +2265,15 @@
                 </h2>
                 <div
                     class="text-white text-sm md:text-lg leading-relaxed mb-8 md:mb-10 max-w-full md:max-w-md opacity-90">
-                    <p class="mb-4">Build real-world skills through hands-on learning. Work on live projects, stay consistent, and gain the confidence needed to stand out.</p>
-                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused learning.</p>
+                    <p class="mb-4">Build real-world skills through hands-on learning. Work on live projects, stay
+                        consistent, and gain the confidence needed to stand out.</p>
+                    <p class="text-neutral-400 text-sm italic">No more random tutorials. No more confusion. Just focused
+                        learning.</p>
                 </div>
 
                 <div class="mb-10 py-4 border-y border-white/5">
-                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like a learner. Build like a pro.</p>
+                    <p class="text-[var(--flame-orange)] font-bold tracking-[2px] uppercase text-xs italic">⚡ Train like
+                        a learner. Build like a pro.</p>
                 </div>
 
                 <div class="border-t border-neutral-900 pt-10">
@@ -2358,95 +2368,135 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense auto-rows-[minmax(240px,auto)] gap-4 lg:gap-5">
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense auto-rows-[minmax(240px,auto)] gap-4 lg:gap-5">
 
                 <!-- 1. MERN (HERO - 2x2) -->
-                <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale" data-modal="modal-mern">
+                <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale"
+                    data-modal="modal-mern">
                     <span class="rank-tag text-[var(--flame-orange)]">FEATURED</span>
                     <h3 class="weapon-title">FULL STACK <br> + GEN AI</h3>
-                    <p class="text-[12px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build production-ready apps from day one</p>
+                    <p class="text-[12px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build
+                        production-ready apps from day one</p>
                     <p class="weapon-desc">Build real-world MERN apps with AI and deploy like a developer.</p>
-                    
+
                     <div class="mt-8 z-10 relative flex-grow mb-6">
                         <div class="flex flex-wrap gap-x-6 gap-y-4 max-w-[340px]">
                             <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span>
                                 <span class="text-xs text-white uppercase tracking-widest font-bold">MERN Stack</span>
                             </div>
                             <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span>
                                 <span class="text-xs text-white uppercase tracking-widest font-bold">Deployment</span>
                             </div>
                             <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span>
                                 <span class="text-xs text-white uppercase tracking-widest font-bold">Gen AI</span>
                             </div>
                             <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span> 
+                                <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full shrink-0"></span>
                                 <span class="text-xs text-white uppercase tracking-widest font-bold">Testing</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <a href="#" class="deploy-link mt-auto inline-block z-10 relative" onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
+
+                    <a href="#" class="deploy-link mt-auto inline-block z-10 relative"
+                        onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
                 </div>
 
                 <!-- 2. Bundle (WIDE ACCENT - 2x1) -->
-                <div class="weapon-card highlight-red col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between" data-modal="modal-bundle" style="transition-delay: 100ms;">
+                <div class="weapon-card highlight-red col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
+                    data-modal="modal-bundle" style="transition-delay: 100ms;">
                     <span class="rank-tag text-white/70">FEATURED</span>
                     <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 h-full">
                         <div class="flex-1">
-                            <div class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
-                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
+                            <div
+                                class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-white" stroke-width="2.5">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <circle cx="12" cy="12" r="4" />
+                                    <line x1="22" x2="18" y1="12" y2="12" />
+                                    <line x1="6" x2="2" y1="12" y2="12" />
+                                    <line x1="12" x2="12" y1="6" y2="2" />
+                                    <line x1="12" x2="12" y1="22" y2="18" />
+                                </svg>
                             </div>
-                            <h3 class="weapon-title mb-2 !text-2xl md:!text-3xl">COMPLETE PROGRAM <br><span class="text-white/70 text-lg md:text-xl">(BUNDLE)</span></h3>
-                            <p class="text-[14px] text-[#ffe066] font-extrabold tracking-wide mt-1 mb-3 italic drop-shadow-md">Your absolute path to tech dominance</p>
-                            <p class="weapon-desc text-white/90 max-w-sm mt-0 m-0">Your complete path to becoming job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
+                            <h3 class="weapon-title mb-2 !text-2xl md:!text-3xl">COMPLETE PROGRAM <br><span
+                                    class="text-white/70 text-lg md:text-xl">(BUNDLE)</span></h3>
+                            <p
+                                class="text-[14px] text-[#ffe066] font-extrabold tracking-wide mt-1 mb-3 italic drop-shadow-md">
+                                Your absolute path to tech dominance</p>
+                            <p class="weapon-desc text-white/90 max-w-sm mt-0 m-0">Your complete path to becoming
+                                job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
                         </div>
                         <div class="mt-auto md:mt-0 flex items-end md:h-full z-10 relative">
-                            <a href="#" class="deploy-link text-white pt-4 md:pt-0 pb-2" onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
+                            <a href="#" class="deploy-link text-white pt-4 md:pt-0 pb-2"
+                                onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 3. AIML (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-aiml" style="transition-delay: 200ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-aiml"
+                    style="transition-delay: 200ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
                             <div class="weapon-icon">
-                                <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2" style="fill:none;"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13h4.5a2 2 0 0 1 0 4H15"/><path d="M9 13H4.5a2 2 0 0 0 0 4H9"/></svg>
+                                <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2"
+                                    style="fill:none;">
+                                    <path
+                                        d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                                    <path
+                                        d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+                                    <path d="M15 13h4.5a2 2 0 0 1 0 4H15" />
+                                    <path d="M9 13H4.5a2 2 0 0 0 0 4H9" />
+                                </svg>
                             </div>
                             <h3 class="weapon-title mb-2">AI & AGENTIC AI</h3>
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Build intelligent, autonomous systems</p>
-                            <p class="weapon-desc m-0">Work with LLMs and prompt engineering to create autonomous Agentic AI that can think, plan, and execute tasks. Ship intelligent applications like chatbots.</p>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Build
+                                intelligent, autonomous systems</p>
+                            <p class="weapon-desc m-0">Work with LLMs and prompt engineering to create autonomous
+                                Agentic AI that can think, plan, and execute tasks. Ship intelligent applications like
+                                chatbots.</p>
                         </div>
-                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full"
+                            onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
                     </div>
                 </div>
 
                 <!-- 4. DSA (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-dsa" style="transition-delay: 300ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-dsa"
+                    style="transition-delay: 300ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
                             <div class="weapon-icon mb-4">
-                                <svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" /></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
+                                </svg>
                             </div>
                             <h3 class="weapon-title text-xl mb-2">DSA WITH JAVA/C++</h3>
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Crack coding interviews with confidence</p>
-                            <p class="weapon-desc text-xs line-clamp-3 m-0">Master Java fundamentals, OOPs, and key syntax. Learn pattern-based problem solving for technical interviews.</p>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Crack
+                                coding interviews with confidence</p>
+                            <p class="weapon-desc text-xs line-clamp-3 m-0">Master Java fundamentals, OOPs, and key
+                                syntax. Learn pattern-based problem solving for technical interviews.</p>
                         </div>
-                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM
+                            <span>&rarr;</span></a>
                     </div>
                 </div>
 
                 <!-- 5. Django (WIDE - 2x1) -->
-                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between" data-modal="modal-django" style="transition-delay: 400ms;">
+                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
+                    data-modal="modal-django" style="transition-delay: 400ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
                         <div class="weapon-icon shrink-0 mb-0">
-                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                                 <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                                 <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
@@ -2454,71 +2504,102 @@
                         </div>
                         <div class="flex-1 z-10 relative">
                             <h3 class="weapon-title mb-2 text-2xl">FULL STACK WITH DJANGO</h3>
-                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build secure, scalable backend systems</p>
-                            <p class="weapon-desc m-0 max-w-lg">Build secure, scalable full-stack projects from scratch and seamlessly integrate AI into your systems.</p>
+                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build
+                                secure, scalable backend systems</p>
+                            <p class="weapon-desc m-0 max-w-lg">Build secure, scalable full-stack projects from scratch
+                                and seamlessly integrate AI into your systems.</p>
                         </div>
                         <div class="w-full sm:w-auto flex justify-end mt-4 sm:mt-0 z-10 relative">
-                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM
+                                <span>&rarr;</span></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 6. Data Analytics (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-data" style="transition-delay: 500ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-data"
+                    style="transition-delay: 500ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
                             <div class="weapon-icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" /></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                                </svg>
                             </div>
                             <h3 class="weapon-title mb-2 border-b border-transparent">DATA ANALYTICS & TOOLS</h3>
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Turn data into real insights</p>
-                            <p class="weapon-desc m-0">Discover insights and empower decisions. Master data analysis, effective visualization, and machine learning insights through real-world cases.</p>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Turn data
+                                into real insights</p>
+                            <p class="weapon-desc m-0">Discover insights and empower decisions. Master data analysis,
+                                effective visualization, and machine learning insights through real-world cases.</p>
                         </div>
-                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full"
+                            onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
                     </div>
                 </div>
 
                 <!-- 7. Mobile App (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-mobile" style="transition-delay: 600ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-mobile"
+                    style="transition-delay: 600ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
                             <div class="weapon-icon mb-4">
-                                <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" /></svg>
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
+                                </svg>
                             </div>
                             <h3 class="weapon-title text-xl mb-2">MOBILE APP + GEN AI</h3>
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Design and ship modern Android apps</p>
+                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Design and
+                                ship modern Android apps</p>
                             <p class="weapon-desc text-xs mb-4 m-0">Master Android development using Java.</p>
                             <div class="space-y-2 mb-2 z-10 relative">
                                 <div class="flex items-center gap-2">
                                     <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full"></span>
-                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">UI Design</span>
+                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">UI
+                                        Design</span>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full"></span>
-                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">Database Mgt</span>
+                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">Database
+                                        Mgt</span>
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM
+                            <span>&rarr;</span></a>
                     </div>
                 </div>
 
                 <!-- 8. Offline Full Stack (WIDE - 2x1) -->
-                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between" data-modal="modal-offline" style="transition-delay: 700ms;">
+                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
+                    data-modal="modal-offline" style="transition-delay: 700ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
                         <div class="weapon-icon shrink-0 mb-0">
-                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2" style="fill:none;"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2"
+                                style="fill:none;">
+                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+                                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+                                <path d="M10 6h4" />
+                                <path d="M10 10h4" />
+                                <path d="M10 14h4" />
+                                <path d="M10 18h4" />
+                            </svg>
                         </div>
                         <div class="flex-1 z-10 relative">
                             <h3 class="weapon-title mb-2 text-2xl">OFFLINE FULL STACK (IN-OFFICE)</h3>
-                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience real-world office workflows</p>
-                            <p class="weapon-desc m-0 max-w-lg">Code in Office. Build Real Projects. Launch your career with practical exposure to workflows and REST APIs.</p>
+                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience
+                                real-world office workflows</p>
+                            <p class="weapon-desc m-0 max-w-lg">Code in Office. Build Real Projects. Launch your career
+                                with practical exposure to workflows and REST APIs.</p>
                         </div>
                         <div class="w-full sm:w-auto flex justify-end mt-4 sm:mt-0 z-10 relative">
-                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM
+                                <span>&rarr;</span></a>
                         </div>
                     </div>
                 </div>
@@ -3341,8 +3422,40 @@
 
 
 
-        // Magnetic button
+        // =====================================================
+        // BUTTON INTERACTIONS & SLASH TRANSITION
+        // =====================================================
         const magneticBtn = document.getElementById('hero-btn');
+        const katanaStandEl = document.getElementById('katana-blade');
+        const slashOverlay = document.getElementById('slash-overlay');
+        const particlesContainer = document.getElementById('slash-particles');
+        let slashUsed = false;
+
+        // Spark Generator
+        function createSparks() {
+            particlesContainer.innerHTML = '';
+            // Generate 25 random sparks
+            for (let i = 0; i < 25; i++) {
+                let spark = document.createElement('div');
+                spark.className = 'slash-spark';
+
+                // Position sparks randomly along the *visible* middle portion of the blade
+                spark.style.left = (35 + Math.random() * 30) + '%';
+                spark.style.top = '50%';
+
+                // Calculate random explosion physics
+                let angle = Math.random() * Math.PI * 2;
+                let distance = 60 + Math.random() * 200; // How far they fly
+                spark.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                spark.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+
+                // Add slight delay variation
+                spark.style.animationDelay = (Math.random() * 0.1) + 's';
+                particlesContainer.appendChild(spark);
+            }
+        }
+
+        // Magnetic effect
         magneticBtn.style.willChange = 'transform';
         magneticBtn.addEventListener('mousemove', (e) => {
             const rect = magneticBtn.getBoundingClientRect();
@@ -3350,47 +3463,46 @@
             const y = e.clientY - rect.top - rect.height / 2;
             magneticBtn.style.transform = `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`;
         }, { passive: true });
+
         magneticBtn.addEventListener('mouseleave', () => {
             magneticBtn.style.transform = 'translate3d(0, 0, 0)';
         }, { passive: true });
 
-        /* =====================================================
-           CTA ACTIVATION — blade glows on hero button hover
-           ===================================================== */
-        const katanaStandEl = document.getElementById('katana-blade');
-        if (katanaStandEl) {
-            magneticBtn.addEventListener('mouseenter', () => {
-                katanaStandEl.classList.add('cta-active');
-            });
-            magneticBtn.addEventListener('mouseleave', () => {
-                katanaStandEl.classList.remove('cta-active');
-            });
-        }
+        // Blade glowing on hover
+        magneticBtn.addEventListener('mouseenter', () => {
+            katanaStandEl.classList.add('cta-active');
+        });
+        magneticBtn.addEventListener('mouseleave', () => {
+            katanaStandEl.classList.remove('cta-active');
+        });
 
-        /* =====================================================
-           SLASH TRANSITION — fires once on "Enter The Dojo"
-           ===================================================== */
-        const slashOverlay = document.getElementById('slash-overlay');
-        let slashUsed = false;
-
+        // Slash logic (click to fire)
         magneticBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             if (slashUsed) return;
             slashUsed = true;
 
-            // Fire the slash
-            slashOverlay.classList.add('firing');
+            // Generate sparks before firing
+            createSparks();
 
-            // Scroll to arsenal section after slash
+            // Fire the slash and screen shake
+            slashOverlay.classList.add('firing');
+            document.body.classList.add('shaking');
+
+            // Scroll down slightly after the impact frame restored
             setTimeout(() => {
                 const target = document.querySelector('#arsenal');
                 if (target && lenis) {
-                    lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+                    lenis.scrollTo(target, { offset: -80, duration: 1.5 });
+                } else if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
-            }, 200);
+            }, 250);
 
-            // Clean up overlay
+            // Reset classes
             setTimeout(() => {
                 slashOverlay.classList.remove('firing');
+                document.body.classList.remove('shaking');
                 slashUsed = false;
             }, 600);
         });
