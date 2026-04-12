@@ -504,16 +504,7 @@
             }
         }
 
-        .pattern-border {
-            height: 40px;
-            width: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0l20 20-20 20L0 20z' fill='%23ff6a2a' fill-opacity='0.03'/%3E%3C/svg%3E");
-            background-repeat: repeat-x;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            border-top: 1px solid rgba(255, 106, 42, 0.05);
-        }
+
 
         .fire-glow-overlay {
             position: absolute;
@@ -549,10 +540,10 @@
         /* Smoke Parallax */
         .smoke-blend-wrap {
             position: absolute;
-            bottom: -150px;
+            bottom: -250px;
             left: 0;
             width: 100%;
-            height: 600px;
+            height: 800px;
             z-index: 5;
             pointer-events: none;
             overflow: hidden;
@@ -1322,7 +1313,7 @@
             flex: 1;
             transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             backface-visibility: hidden;
-            transform: translate3d(0,0,0);
+            transform: translate3d(0, 0, 0);
             contain: paint;
         }
 
@@ -1337,7 +1328,8 @@
 
         .panel-bg {
             position: absolute;
-            inset: -2px; /* Slight bleed for safe scaling */
+            inset: -2px;
+            /* Slight bleed for safe scaling */
             z-index: 1;
             will-change: transform;
             transform: translate3d(0, 0, 0) scale(1);
@@ -1347,11 +1339,13 @@
         }
 
         .panel-before:hover .panel-bg {
-            transform: translate3d(15px, 0, 0) scale(1.05); /* GPU Accelerated Zoom & Pan */
+            transform: translate3d(15px, 0, 0) scale(1.05);
+            /* GPU Accelerated Zoom & Pan */
         }
-        
+
         .panel-after:hover .panel-bg {
-            transform: translate3d(-15px, 0, 0) scale(1.05); /* GPU Accelerated Zoom & Pan */
+            transform: translate3d(-15px, 0, 0) scale(1.05);
+            /* GPU Accelerated Zoom & Pan */
         }
 
         .panel-overlay {
@@ -1385,11 +1379,11 @@
             z-index: 10;
             background-color: #080808;
         }
-        
+
         .panel-before .panel-overlay {
             box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.8);
         }
-        
+
         .panel-before .panel-bg {
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('./assets/samurai/shadow.png');
             background-size: cover;
@@ -1399,7 +1393,7 @@
         .panel-after {
             background-color: #0a0300;
         }
-        
+
         .panel-after .panel-bg {
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url('https://i.pinimg.com/736x/fb/96/47/fb96471c067458dfafaf0cb963396acf.jpg');
             background-size: cover;
@@ -2137,7 +2131,7 @@
                 Mastery through Discipline
             </p>
             <h1 class="hero-title japan-font hero-element" id="hero-title-main"
-                style="opacity:0; transform:translateY(40px);">FLAMES</h1>
+                style="opacity:0; transform:translateY(40px);">FLAMES '26</h1>
 
             <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 hero-element"
                 style="opacity:0; transform:translateY(40px);">
@@ -2182,18 +2176,18 @@
                         </filter>
                     </defs>
                     <!-- Sheath / stand base (always visible) -->
-                    <path d="M250 160 L550 160 L570 180 L230 180 Z" fill="#222" stroke="#333" stroke-width="0.5" />
-                    <rect x="280" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
-                    <rect x="505" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
+                    <path d="M275 160 L575 160 L595 180 L255 180 Z" fill="#222" stroke="#333" stroke-width="0.5" />
+                    <rect x="305" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
+                    <rect x="530" y="110" width="15" height="50" fill="#222" stroke="#333" stroke-width="0.5" />
                     <!-- Handle (always visible) -->
-                    <g transform="translate(100, 100) rotate(-2)">
+                    <g transform="translate(125, 100) rotate(-2)">
                         <rect x="-120" y="5" width="120" height="15" rx="5" fill="#a83c00" />
                         <path d="M-120 5 h120 v15 h-120 z" fill="url(#wrapPattern)" />
                         <rect x="0" y="-5" width="10" height="35" rx="2" fill="#333" />
                     </g>
                     <!-- Blade — revealed by clip path on scroll -->
                     <g clip-path="url(#blade-clip)">
-                        <g transform="translate(100, 100) rotate(-2)">
+                        <g transform="translate(125, 100) rotate(-2)">
                             <path d="M0 10 Q 300 10 600 5 L 605 8 Q 300 15 0 15 Z" fill="#c8c8c8" id="blade-path-main"
                                 class="shimmer-effect" filter="url(#blade-glow)" />
                             <!-- Edge highlight -->
@@ -2209,8 +2203,6 @@
                 </svg>
             </div>
         </div>
-
-        <div class="pattern-border"></div>
 
         <div class="smoke-blend-wrap" id="smoke-parallax">
             <div class="smoke-particle smoke-1"></div>
@@ -2860,7 +2852,7 @@
             winHeight = window.innerHeight;
             DOM.loaderCanvas.width = winWidth;
             DOM.loaderCanvas.height = winHeight;
-            
+
             // Background Cache Layout to avoid getBoundingClientRect in loop
             if (DOM.transSection) {
                 const rect = DOM.transSection.getBoundingClientRect();
@@ -3074,7 +3066,7 @@
                     const sectionTop = sectionCache.transformation.top;
                     const sectionH = sectionCache.transformation.height;
                     const maxScroll = sectionH - winHeight;
-                    
+
                     const relativeScroll = scrollY - sectionTop;
                     let progress = 0;
                     if (relativeScroll >= 0) progress = Math.min(1, relativeScroll / maxScroll);
@@ -3118,7 +3110,7 @@
                     }
                 }
 
-                DOM.smokeWrap.style.transform = `translate3d(0,${-scrollY * 0.3}px,0)`;
+                DOM.smokeWrap.style.transform = `translate3d(0,${-scrollY * 0.05}px,0)`;
 
                 if (DOM.cinematicImg && sectionCache.cinematic) {
                     const cTop = sectionCache.cinematic.top;
