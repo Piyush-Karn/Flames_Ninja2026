@@ -43,7 +43,7 @@ const COURSE_DATA = {
                     "modules": [
                         { "title": "Professional Communication", "desc": "Learn how to give updates & report issues like a pro" },
                         { "title": "Career Opportunities", "desc": "Get direct exposure to working professionals for mentorship + future referrals" },
-                        { "title": "Startup Mindset 🚀", "desc": "If your project is top notch, stand a chance to get Angel Investment!" }
+                        { "title": "Startup Mindset", "desc": "If your project is top notch, stand a chance to get Angel Investment!" }
                     ]
                 }
             ]
@@ -57,45 +57,42 @@ const COURSE_DATA = {
     "bundle": {
         "hero": {
             "tag": "究極のマスター",
-            "title": "COMPLETE<br>DEVELOPER<br>BUNDLE"
+            "title": "BUNDLE OFFER<br>(DSA+ WEBD)"
         },
         "overlay": {
             "tag": "全知の境地",
-            "title": "ZERO TO<br>MASTER<br>TRACK"
+            "title": "DSA + FULL STACK<br>+ AI AGENT"
         },
         "curriculum": {
-            "stats": "24 Modules.<br>6 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Full Dominance.</span>",
+            "stats": "3 Core Topics.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Full Dominance.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
-                    "title": "DSA Mastery",
+                    "title": "Web Development",
                     "modules": [
-                        { "title": "Data Structures", "desc": "Arrays, Lists, Trees, and Graphs" },
-                        { "title": "Algorithms", "desc": "Sorting, Searching, and Dynamic Programming" }
+                        { "title": "Django Framework", "desc": "Web Development using Django" }
                     ]
                 },
                 {
                     "tag": "Phase Two",
-                    "title": "MERN Mastery",
+                    "title": "Artificial Intelligence",
                     "modules": [
-                        { "title": "Frontend & Backend", "desc": "Full stack architecture and state management" },
-                        { "title": "API Design", "desc": "RESTful services and security best practices" }
+                        { "title": "Intelligent Systems", "desc": "AI Agents" }
                     ]
                 },
                 {
                     "tag": "Phase Three",
-                    "title": "AI Integration",
+                    "title": "Data Structures",
                     "modules": [
-                        { "title": "Agentic AI", "desc": "Building autonomous AI agents" },
-                        { "title": "LLM Workflows", "desc": "RAG and prompt engineering at scale" }
+                        { "title": "Algorithms & Logic", "desc": "DSA using Java" }
                     ]
                 }
             ]
         },
         "pricing": {
-            "oldPrice": "₹12999.00",
-            "newPrice": "₹7999.00",
-            "offer": "🚀 Best Value Pack"
+            "oldPrice": "₹5999.00",
+            "newPrice": "₹3999.00",
+            "offer": "🔥 Limited-time offer"
         }
     },
     "aiml": {
@@ -137,109 +134,110 @@ const COURSE_DATA = {
     "dsa": {
         "hero": {
             "tag": "アルゴリズム",
-            "title": "DSA WITH<br>JAVA &<br>C++"
+            "title": "MASTER DSA<br>WITH<br>JAVA/C++"
         },
         "overlay": {
             "tag": "論理の研磨",
             "title": "INTERVIEW<br>READY<br>LOGIC"
         },
         "curriculum": {
-            "stats": "15 Modules.<br>4 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Efficient Logic.</span>",
+            "stats": "5 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Efficient Logic.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
-                    "title": "Language Mastery",
+                    "title": "Language & Syntax",
                     "modules": [
-                        { "title": "Java/C++ Basics", "desc": "Syntax, types, and control flow" },
-                        { "title": "OOPs Concepts", "desc": "Classes, Objects, Inheritance, and Polymorphism" }
+                        { "title": "Java Fundamentals", "desc": "Master Java fundamentals" },
+                        { "title": "Object-Oriented Programming", "desc": "OOPs, and key syntax" }
                     ]
                 },
                 {
                     "tag": "Phase Two",
-                    "title": "Core DSA",
+                    "title": "Problem Solving & Interviews",
                     "modules": [
-                        { "title": "Linear Data Structures", "desc": "Arrays, Linked Lists, Stacks, and Queues" },
-                        { "title": "Recursion & Backtracking", "desc": "The foundation of advanced problem solving" }
+                        { "title": "Pattern-Based Solving", "desc": "Learn the art of pattern-based problem solving to crack DSA questions efficiently" },
+                        { "title": "Placement Readiness", "desc": "Build speed, logic, and confidence for placements and tech interviews through daily practice" },
+                        { "title": "Mentorship & Application", "desc": "Mentorship, and real-world problem sets" }
                     ]
                 }
             ]
         },
         "pricing": {
             "oldPrice": "₹3999.00",
-            "newPrice": "₹2499.00",
-            "offer": "⚔️ Crack Interviews"
+            "newPrice": "₹2999.00",
+            "offer": "🔥 Limited-time offer"
         }
     },
     "django": {
         "hero": {
             "tag": "バックエンドマスター",
-            "title": "FULL STACK<br>WITH<br>DJANGO"
+            "title": "FULL STACK<br>WITH DJANGO<br>& AI AGENTS"
         },
         "overlay": {
             "tag": "堅牢な構築",
-            "title": "SCALABLE<br>PYTHON<br>APPS"
+            "title": "BACKEND TO<br>INTELLIGENT<br>APPS"
         },
         "curriculum": {
-            "stats": "10 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Rapid Dev.</span>",
+            "stats": "4 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Smart Backend.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
-                    "title": "Django Core",
+                    "title": "Backend Foundation",
                     "modules": [
-                        { "title": "MTV Architecture", "desc": "Models, Templates, and Views" },
-                        { "title": "Admin & Auth", "desc": "Leveraging Django's built-in power" }
+                        { "title": "Django Core", "desc": "Django framework from scratch" },
+                        { "title": "Architecture", "desc": "Best practices for scalability and security" }
                     ]
                 },
                 {
                     "tag": "Phase Two",
-                    "title": "Django Rest Framework",
+                    "title": "Modern Applications",
                     "modules": [
-                        { "title": "API Development", "desc": "Building robust backends for modern frontends" },
-                        { "title": "PostgreSQL Integration", "desc": "Scaling with relational databases" }
+                        { "title": "AI Integration", "desc": "Integrating AI into applications" },
+                        { "title": "Project Development", "desc": "Full-stack project development" }
                     ]
                 }
             ]
         },
         "pricing": {
-            "oldPrice": "₹4499.00",
+            "oldPrice": "₹3999.00",
             "newPrice": "₹2999.00",
-            "offer": "🐍 Python Power"
+            "offer": "🔥 Limited-time offer"
         }
     },
     "data": {
         "hero": {
             "tag": "データ分析",
-            "title": "DATA ANALYTICS<br>& AI<br>INSIGHTS"
+            "title": "DATA ANALYTICS<br>& INDUSTRY<br>TOOLS"
         },
         "overlay": {
             "tag": "情報の洞察",
-            "title": "INSIGHT<br>DRIVEN<br>RESULTS"
+            "title": "DISCOVER<br>INSIGHTS &<br>DECISIONS"
         },
         "curriculum": {
-            "stats": "8 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Data Driven.</span>",
+            "stats": "4 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Data Driven.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
-                    "title": "Data Visualization",
+                    "title": "Analysis & Visualization",
                     "modules": [
-                        { "title": "Excel & PowerBI", "desc": "Transforming rows into narratives" },
-                        { "title": "SQL for Analysts", "desc": "Querying the foundations of data" }
+                        { "title": "Data Analysis", "desc": "Fundamentals of data analysis" },
+                        { "title": "Data Visualization", "desc": "Visualizing data effectively" }
                     ]
                 },
                 {
                     "tag": "Phase Two",
-                    "title": "Python for Data",
+                    "title": "Machine Learning & Application",
                     "modules": [
-                        { "title": "NumPy & Pandas", "desc": "The workhorses of data manipulation" },
-                        { "title": "Matplotlib & Seaborn", "desc": "Advanced plotting and aesthetics" }
+                        { "title": "Machine Learning", "desc": "Insights with machine learning" },
+                        { "title": "Case Studies", "desc": "Real-world project case studies" }
                     ]
                 }
             ]
         },
         "pricing": {
-            "oldPrice": "₹4499.00",
+            "oldPrice": "₹4999.00",
             "newPrice": "₹2999.00",
-            "offer": "📊 Insight Mastery"
+            "offer": "🔥 Limited-time offer"
         }
     },
     "mobile": {
@@ -281,37 +279,46 @@ const COURSE_DATA = {
     "offline": {
         "hero": {
             "tag": "対面研修",
-            "title": "OFFLINE<br>FULL STACK<br>TRAINING"
+            "title": "FULL STACK<br>(OFFLINE)<br>WITH GEN AI"
         },
         "overlay": {
             "tag": "現場の力",
-            "title": "IN-OFFICE<br>CORE<br>DOMINANCE"
+            "title": "CODE IN<br>OFFICE &<br>BUILD PROJECTS"
         },
         "curriculum": {
-            "stats": "16 Modules.<br>4 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Pro Experience.</span>",
+            "stats": "7 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">In-Office Mastery.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
-                    "title": "Office Workflow",
+                    "title": "Full Stack Foundation",
                     "modules": [
-                        { "title": "Agile & Scrum", "desc": "Daily standups and real industry cycles" },
-                        { "title": "Collaborative Coding", "desc": "Pair programming and code reviews" }
+                        { "title": "MERN Stack Development", "desc": "Build complete web applications using MongoDB, Express.js, React.js, and Node.js" },
+                        { "title": "API Development", "desc": "Develop and connect REST APIs with frontend applications" }
                     ]
                 },
                 {
                     "tag": "Phase Two",
-                    "title": "Production Deployment",
+                    "title": "AI & Quality Assurance",
                     "modules": [
-                        { "title": "CI/CD Pipelines", "desc": "Automating the delivery of software" },
-                        { "title": "Server Management", "desc": "Hands-on with production infrastructure" }
+                        { "title": "Gen AI Integration", "desc": "Integrate Generative AI features (chatbots, automation, smart tools) into your projects using OpenAI" },
+                        { "title": "Software Testing", "desc": "Understand and apply software testing basics to ensure quality applications" }
+                    ]
+                },
+                {
+                    "tag": "Phase Three",
+                    "title": "Production & Career",
+                    "modules": [
+                        { "title": "Cloud Deployment", "desc": "Deploy live projects on platforms like AWS and Digital Ocean" },
+                        { "title": "Office Workflows", "desc": "Work in a real office environment with practical exposure to development workflows" },
+                        { "title": "Career Readiness", "desc": "Gain job-ready skills for Full Stack Developer and related roles" }
                     ]
                 }
             ]
         },
         "pricing": {
-            "oldPrice": "₹15999.00",
-            "newPrice": "₹9999.00",
-            "offer": "🏢 Limited In-Office"
+            "oldPrice": "₹39999.00",
+            "newPrice": "₹24999.00",
+            "offer": "🔥 Limited-time offer"
         }
     }
 };
