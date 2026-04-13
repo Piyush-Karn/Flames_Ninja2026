@@ -2373,7 +2373,7 @@
 
                 <!-- 1. MERN (HERO - 2x2) -->
                 <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale"
-                    data-modal="modal-mern">
+                    onclick="window.location.href='course.html?course=mern'">
                     <span class="rank-tag text-[var(--flame-orange)]">FEATURED</span>
                     <h3 class="weapon-title">FULL STACK <br> + GEN AI</h3>
                     <p class="text-[12px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build
@@ -2407,7 +2407,7 @@
 
                 <!-- 2. Bundle (WIDE ACCENT - 2x1) -->
                 <div class="weapon-card highlight-red col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
-                    data-modal="modal-bundle" style="transition-delay: 100ms;">
+                    onclick="window.location.href='course.html?course=bundle'" style="transition-delay: 100ms;">
                     <span class="rank-tag text-white/70">FEATURED</span>
                     <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 h-full">
                         <div class="flex-1">
@@ -2438,7 +2438,7 @@
                 </div>
 
                 <!-- 3. AIML (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-aiml"
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" onclick="window.location.href='course.html?course=aiml'"
                     style="transition-delay: 200ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
@@ -2467,7 +2467,7 @@
                 </div>
 
                 <!-- 4. DSA (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-dsa"
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" onclick="window.location.href='course.html?course=dsa'"
                     style="transition-delay: 300ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
@@ -2491,7 +2491,7 @@
 
                 <!-- 5. Django (WIDE - 2x1) -->
                 <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
-                    data-modal="modal-django" style="transition-delay: 400ms;">
+                    onclick="window.location.href='course.html?course=django'" style="transition-delay: 400ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
                         <div class="weapon-icon shrink-0 mb-0">
@@ -2517,7 +2517,7 @@
                 </div>
 
                 <!-- 6. Data Analytics (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" data-modal="modal-data"
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" onclick="window.location.href='course.html?course=data'"
                     style="transition-delay: 500ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
@@ -2540,7 +2540,7 @@
                 </div>
 
                 <!-- 7. Mobile App (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" data-modal="modal-mobile"
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" onclick="window.location.href='course.html?course=mobile'"
                     style="transition-delay: 600ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
@@ -2575,7 +2575,7 @@
 
                 <!-- 8. Offline Full Stack (WIDE - 2x1) -->
                 <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
-                    data-modal="modal-offline" style="transition-delay: 700ms;">
+                    onclick="window.location.href='course.html?course=offline'" style="transition-delay: 700ms;">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
                         <div class="weapon-icon shrink-0 mb-0">
@@ -2971,20 +2971,7 @@
     <!-- =====================================================
          MODAL
          ===================================================== -->
-    <div class="weapon-modal" id="modal-container">
-        <div class="modal-content">
-            <div class="modal-close" onclick="closeModal()">✕</div>
-            <span class="weapon-tag" id="modal-tag">FEATURED WEAPON</span>
-            <h3 class="weapon-title text-2xl md:text-3xl mb-4" id="modal-title">WEAPON NAME</h3>
-            <p class="weapon-desc text-base md:text-lg mb-8" id="modal-desc">Detailed intelligence and technical
-                background for this specific masterclass path.</p>
-            <div
-                class="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-[rgba(255,255,255,0.1)] pt-6">
-                <button class="btn-urgency text-sm py-3 px-6" onclick="closeModal()">Secure Your Target</button>
-                <span class="text-xs text-neutral-500 tracking-widest uppercase">Immediate Access</span>
-            </div>
-        </div>
-    </div>
+
 
 
     <script>
@@ -3563,41 +3550,7 @@
         });
 
 
-        /* =====================================================
-           6. WEAPON CARDS — MODAL (Tilt Removed)
-           ===================================================== */
-        const weaponCards = document.querySelectorAll('.weapon-card');
-        const modal = document.getElementById('modal-container');
-        const modalTag = document.getElementById('modal-tag');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDesc = document.getElementById('modal-desc');
 
-        weaponCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('.weapon-title').innerText;
-                const desc = card.querySelector('.weapon-desc').innerText;
-                const tag = card.querySelector('.rank-tag').innerText;
-
-                modalTag.innerText = tag;
-                modalTitle.innerText = title;
-                modalDesc.innerText = desc;
-                modal.classList.add('active');
-            });
-        });
-
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-
-        // Close modal on background click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // Close on escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
 
         /* =====================================================
            8. BEFORE VS AFTER SLIDER LOGIC
