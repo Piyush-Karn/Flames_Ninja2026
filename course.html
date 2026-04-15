@@ -220,6 +220,33 @@
             width: 80%;
         }
 
+        /* Kendo Slash Buttons */
+        .btn-kendo-primary {
+            background: #0a0a0a; color: #fff; padding: 16px 40px; font-weight: 800; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; z-index: 1; transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-kendo-primary::after { content: ''; position: absolute; width: 200%; height: 2px; background: #fff; top: -50%; left: -50%; transform: rotate(-45deg) translateY(-40px); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 15px #fff; z-index: -1; }
+        .btn-kendo-primary:hover { border-color: #fff; box-shadow: inset 0 0 20px rgba(255,255,255,0.1); }
+        .btn-kendo-primary:hover::after { transform: rotate(-45deg) translateY(120px); }
+
+        .btn-kendo-outline { background: transparent; color: var(--flame-orange); padding: 16px 40px; font-weight: 800; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 1px solid rgba(255, 106, 42, 0.2); position: relative; overflow: hidden; z-index: 1; transition: color 0.3s ease; }
+        .btn-kendo-outline::after { content: ''; position: absolute; width: 200%; height: 2px; background: var(--flame-orange); top: -50%; left: -50%; transform: rotate(-45deg) translateY(-40px); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 15px var(--flame-orange); z-index: -1; }
+        .btn-kendo-outline:hover { color: #fff; border-color: var(--flame-orange); }
+        .btn-kendo-outline:hover::after { transform: rotate(-45deg) translateY(120px); }
+
+        /* Shadow Step Buttons (from showcase1.html) - Enlarged */
+        .btn-shadowstep-primary {
+            background: var(--flame-orange); color: #000; padding: 20px 48px; font-weight: 900; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em;
+            border: 3.5px solid var(--flame-orange); display: inline-flex; align-items: center; justify-content: center; gap: 14px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 7px 7px 0px var(--ninja-red);
+        }
+        .btn-shadowstep-primary:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0px var(--ninja-red); }
+        .btn-shadowstep-primary:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--ninja-red); }
+
+        .btn-shadowstep-outline {
+            background: var(--bg-black); color: var(--flame-orange); padding: 20px 48px; font-weight: 900; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em;
+            border: 3.5px solid var(--flame-orange); display: inline-flex; align-items: center; justify-content: center; gap: 14px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 7px 7px 0px var(--flame-orange);
+        }
+        .btn-shadowstep-outline:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0px var(--flame-orange); background: rgba(255, 106, 42, 0.05); }
+
         /* Zen Ink (from showcase1.html) */
         .btn-zen-primary {
             background: var(--flame-orange); color: #000; padding: 16px 40px; font-weight: 900; font-size: 1.1rem;
@@ -463,9 +490,16 @@
                     <h2 id="hero-title" class="cinzel-font text-[14vw] md:text-[9vw] font-black leading-[0.85] text-center tracking-tighter uppercase text-white drop-shadow-2xl">
                         MASTER<br>THE MERN<br>STACK
                     </h2>
-                    <p class="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mt-12 text-neutral-500">
-                        The Curriculum
-                    </p>
+                    
+                    <!-- Hero CTAs (Dark Theme) -->
+                    <div class="mt-12 flex flex-col sm:flex-row items-center gap-6">
+                        <a href="#apply" class="btn-shadowstep-primary">
+                            Apply Now <i data-lucide="sword" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#vertical-stepper" class="btn-shadowstep-outline">
+                            Review Curriculum <i data-lucide="scroll" class="w-6 h-6"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Top Layer (Blood/Fire Mask Overlay) -->
@@ -480,9 +514,16 @@
                     <h2 id="overlay-title" class="cinzel-font text-[14vw] md:text-[9vw] font-black leading-[0.85] text-center tracking-tighter uppercase text-white relative z-10 shadow-black drop-shadow-2xl">
                         PRODUCTION<br>LEVEL<br>SKILLS
                     </h2>
-                    <p class="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mt-12 text-white/70 relative z-10">
-                        Scroll To Discover &darr;
-                    </p>
+                    
+                    <!-- Hero CTAs (Red/White Theme Override) -->
+                    <div class="mt-12 flex flex-col sm:flex-row items-center gap-6 relative z-10">
+                        <a href="#apply" class="btn-shadowstep-primary !bg-white !text-[#cc0000] !border-white" style="box-shadow: 7px 7px 0px #8b0000;">
+                            Apply Now <i data-lucide="sword" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#vertical-stepper" class="btn-shadowstep-outline !bg-transparent !text-white !border-white" style="box-shadow: 7px 7px 0px #fff;">
+                            Review Curriculum <i data-lucide="scroll" class="w-6 h-6"></i>
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -1188,9 +1229,11 @@
             </div>
         </section>
 
-        <!-- SECTION 6: CTA / FOOTER -->
-        <section class="relative flex flex-col items-center justify-center w-full py-32 bg-[#000] z-[50] overflow-hidden">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(204,0,0,0.1),transparent_70%)] pointer-events-none"></div>
+        <!-- SECTION 6: CTA / REDESIGNED HORIZONTAL CARD -->
+        <section class="relative flex flex-col items-center justify-center w-full py-32 bg-[#050505] z-[50] overflow-hidden">
+            <!-- Background Ambient Glow -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%3Cpath d=%22M0 20h40v1H0z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3Cpath d=%22M20 0h1v40h-1z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3C/svg%3E')] opacity-[0.2]"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,106,42,0.08),transparent_70%)] pointer-events-none"></div>
 
             <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center relative z-10">
                 <div class="flex flex-col items-center mb-6 reveal-cinematic">
@@ -1218,7 +1261,7 @@
                         Apply for This Track <i data-lucide="pen-tool" class="w-5 h-5"></i>
                     </a>
                     <a href="#vertical-stepper" class="btn-zen-outline">
-                        <i data-lucide="scroll" class="w-5 h-5"></i> What You'll Learn
+                        <i data-lucide="scroll" class="w-6 h-6"></i> What You'll Learn
                     </a>
                 </div>
             </div>
@@ -1278,11 +1321,14 @@
                 document.getElementById('overlay-tag-jp').innerHTML = data.overlay.tag;
                 document.getElementById('overlay-title').innerHTML = data.overlay.title;
 
-                // Update Pricing
+                // Update Pricing (Updated to work with new horizontal layout)
                 document.getElementById('old-price').innerText = data.pricing.oldPrice;
                 document.getElementById('new-price').innerText = data.pricing.newPrice;
                 const offerEl = document.getElementById('price-offer');
-                if (offerEl) offerEl.innerHTML = `🔥 ${data.pricing.offer}`;
+                if (offerEl) offerEl.innerHTML = `${data.pricing.offer}`;
+
+                // Update all hero level prices
+                document.querySelectorAll('.hero-price-display').forEach(el => el.innerText = data.pricing.newPrice);
 
                 // Update Curriculum Header
                 document.getElementById('curriculum-stats').innerHTML = data.curriculum.stats;
@@ -1291,45 +1337,49 @@
                 const scrollScreen = document.getElementById('scroll-screen');
                 scrollScreen.innerHTML = ''; // Clear existing
                 
-                data.curriculum.phases.forEach((phase, index) => {
-                    const slide = document.createElement('div');
-                    slide.className = `screen-slide ${index === 0 ? 'active' : ''}`;
-                    slide.setAttribute('data-slide', index + 1);
-                    
-                    let modulesHtml = '';
-                    phase.modules.forEach(mod => {
-                        modulesHtml += `
-                            <div class="replica-section">
-                                <h3 class="replica-section-title">${mod.title}</h3>
-                                <p class="replica-section-list">${mod.desc}</p>
+                if (data.curriculum.phases) {
+                    data.curriculum.phases.forEach((phase, index) => {
+                        const slide = document.createElement('div');
+                        slide.className = `screen-slide ${index === 0 ? 'active' : ''}`;
+                        slide.setAttribute('data-slide', index + 1);
+                        
+                        let modulesHtml = '';
+                        phase.modules.forEach(mod => {
+                            modulesHtml += `
+                                <div class="replica-section">
+                                    <h3 class="replica-section-title">${mod.title}</h3>
+                                    <p class="replica-section-list">${mod.desc}</p>
+                                </div>
+                            `;
+                        });
+
+                        slide.innerHTML = `
+                            <div><span class="replica-vol">${phase.tag}</span></div>
+                            <h2 class="replica-title-brush">${phase.title}</h2>
+                            <div class="replica-subtitle">
+                                THE KNOWLEDGE <span class="replica-stamp-core">NINJA</span>
+                            </div>
+                            ${modulesHtml}
+                            <div class="replica-stamp-master">
+                                <div class="replica-stamp-master-inner">MASTER<br>SKILL</div>
                             </div>
                         `;
+                        scrollScreen.appendChild(slide);
                     });
-
-                    slide.innerHTML = `
-                        <div><span class="replica-vol">${phase.tag}</span></div>
-                        <h2 class="replica-title-brush">${phase.title}</h2>
-                        <div class="replica-subtitle">
-                            THE KNOWLEDGE <span class="replica-stamp-core">NINJA</span>
-                        </div>
-                        ${modulesHtml}
-                        <div class="replica-stamp-master">
-                            <div class="replica-stamp-master-inner">MASTER<br>SKILL</div>
-                        </div>
-                    `;
-                    scrollScreen.appendChild(slide);
-                });
+                }
 
                 // Update Phase Dots in Sidebar
                 const phaseDotsContainer = document.getElementById('phase-dots');
                 phaseDotsContainer.innerHTML = '';
-                data.curriculum.phases.forEach((phase, index) => {
-                    const dot = document.createElement('div');
-                    dot.className = `phase-dot ${index === 0 ? 'active' : ''}`;
-                    dot.setAttribute('data-dot', index + 1);
-                    dot.innerHTML = `<div class="dot-circle"></div><span class="dot-label">${phase.title}</span>`;
-                    phaseDotsContainer.appendChild(dot);
-                });
+                if(data.curriculum.phases) {
+                    data.curriculum.phases.forEach((phase, index) => {
+                        const dot = document.createElement('div');
+                        dot.className = `phase-dot ${index === 0 ? 'active' : ''}`;
+                        dot.setAttribute('data-dot', index + 1);
+                        dot.innerHTML = `<div class="dot-circle"></div><span class="dot-label">${phase.title}</span>`;
+                        phaseDotsContainer.appendChild(dot);
+                    });
+                }
             }
 
             renderCourse();
@@ -1435,6 +1485,9 @@
                 const params = new URLSearchParams(window.location.search);
                 const courseId = params.get('course') || 'mern';
                 const data = COURSE_DATA[courseId] || COURSE_DATA['mern'];
+                
+                if (!data.curriculum.phases || data.curriculum.phases.length === 0) return;
+
                 const numPhases = data.curriculum.phases.length;
 
                 let progress = -rect.top / scrollable;
