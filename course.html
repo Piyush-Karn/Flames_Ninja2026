@@ -1069,6 +1069,56 @@
                     transform: translateY(0);
                     pointer-events: auto;
                 }
+
+                /* =====================================================
+                   MOBILE RESPONSIVENESS (SCROLL & LAST SECTION)
+                   ===================================================== */
+                @media (max-width: 768px) {
+                    .scroll-mockup {
+                        max-width: 100%;
+                        transform: perspective(1000px) rotateX(1deg) scale(0.9);
+                        margin-top: 10px;
+                    }
+                    .scroll-mockup:hover {
+                        transform: perspective(1000px) rotateX(0deg) scale(0.95);
+                    }
+                    
+                    .scroll-paper-inner {
+                        padding: 25px 15px;
+                    }
+                    
+                    .replica-vol { font-size: 0.9rem; padding: 3px 10px; margin-bottom: 10px; }
+                    .replica-title-brush { font-size: 2.2rem; margin-bottom: 10px; }
+                    .replica-subtitle { font-size: 1.5rem; gap: 8px; margin-bottom: 15px; }
+                    .replica-section-title { font-size: 1.4rem; }
+                    .replica-section-list { font-size: 0.95rem; }
+                    .replica-stamp-core { font-size: 0.7rem; padding: 1px 4px; }
+                    
+                    .scroll-cap { width: 22px; }
+                    .scroll-roller { height: 32px; width: 112%; margin-left: -6%; }
+                    .scroll-paper { border-left-width: 25px; border-right-width: 25px; margin: -16px 0; }
+                    .scroll-paper::before, .scroll-paper::after { width: 25px; background-size: 100% 100px; }
+                    .scroll-paper::before { left: -25px; }
+                    .scroll-paper::after { right: -25px; }
+
+                    .scroll-wax-seal { width: 45px; height: 45px; right: 40px; bottom: -18px; }
+                    .scroll-wax-seal::before { width: 34px; height: 34px; font-size: 0.55rem; }
+
+                    #vertical-stepper .sticky {
+                        padding-top: 10vh;
+                        padding-bottom: 5vh;
+                        align-items: flex-start;
+                        overflow-y: auto;
+                    }
+                    #vertical-stepper .max-w-7xl {
+                        gap: 40px;
+                        padding-bottom: 40px;
+                    }
+                    #vertical-stepper .py-20 {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
+                }
             </style>
 
             <div class="sticky top-0 h-screen w-full flex items-center">
@@ -1238,7 +1288,7 @@
             <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center relative z-10">
                 <div class="flex flex-col items-center mb-6 reveal-cinematic">
                     <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.4em] block mb-2">究極の道</span>
-                    <h2 class="cinzel-font text-5xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center">
+                    <h2 class="cinzel-font text-4xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center break-words max-w-[90vw]">
                         FORGE YOUR<br>
                         <span class="text-[#ff6a2a] drop-shadow-[0_0_20px_rgba(255,106,42,0.3)]">LEGACY</span>
                     </h2>
@@ -1250,10 +1300,10 @@
 
                 <!-- NEW CTA & Pricing Component -->
                 <!-- Shadow Step Pricing Component -->
-                <div class="price-v5-wrapper reveal-cinematic">
-                    <div id="price-offer" class="price-v5-badge">🔥 Limited Time Offer</div>
-                    <span id="old-price" class="price-v5-old">₹3999.00</span>
-                    <span id="new-price" class="price-v5-new">₹2999.00</span>
+                <div class="price-v5-wrapper reveal-cinematic w-full max-w-[320px] sm:max-w-none px-6 py-10">
+                    <div id="price-offer" class="price-v5-badge text-[10px] sm:text-xs">🔥 Limited Time Offer</div>
+                    <span id="old-price" class="price-v5-old text-xl sm:text-2xl">₹3999.00</span>
+                    <span id="new-price" class="price-v5-new text-5xl sm:text-7xl">₹2999.00</span>
                 </div>
 
                 <div class="flex flex-col sm:flex-row items-center gap-6 w-full justify-center mb-10 reveal-cinematic">
