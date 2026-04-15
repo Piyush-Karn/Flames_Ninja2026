@@ -30,6 +30,18 @@
             --text-secondary: #a1a1aa;
             --border-dark: rgba(255, 255, 255, 0.08);
             --ninja-red: #cc0000;
+            
+            /* Transition Effect Variables */
+            --trans-bg: #050505;
+            --trans-dimmed: rgba(255, 255, 255, 0.25); /* Increased opacity for readability */
+            --trans-accent: #ff6a2a;
+            --trans-font-size: clamp(1.8rem, 5vw, 4.5rem); /* Scaled slightly to prevent excessive wrapping */
+            --trans-line-height: 1.1;
+            
+            /* Fixed slot height ensures items never overlap even if they wrap to 2-3 lines */
+            --trans-item-height: 22vh; 
+            /* Anchor the highlight towards the bottom exactly like the image */
+            --trans-start: 65vh; 
         }
 
         html {
@@ -49,238 +61,129 @@
         }
 
         /* =====================================================
-           TRANSITION OVERLAY
+           TRANSITION OVERLAY (SCROLL REVEAL EFFECT)
            ===================================================== */
         #dojo-transition {
             position: fixed;
             inset: 0;
             z-index: 99999999;
-            background: #050505;
+            background: var(--trans-bg);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                        visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         #dojo-transition.trans-exit {
             opacity: 0;
             visibility: hidden;
         }
+
         #transition-particles {
             position: absolute;
             inset: 0;
             pointer-events: none;
             z-index: 0;
+            opacity: 0.3; /* Subtle particle layer */
         }
-        .trans-ink-wash {
+        
+        .zen-glow {
             position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(204, 0, 0, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 30%, rgba(255, 106, 42, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(204, 0, 0, 0.03) 0%, transparent 40%);
-            z-index: 1;
-            animation: inkWashDrift 8s ease-in-out infinite alternate;
-        }
-        @keyframes inkWashDrift {
-            0% { opacity: 0.6; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.05); }
-        }
-        .trans-center {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .trans-kanji-ring {
-            position: absolute;
-            width: 280px;
-            height: 280px;
-            animation: kanjiRingSpin 20s linear infinite;
-        }
-        .trans-kanji-ring span {
-            position: absolute;
+            width: 60vh;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(204, 0, 0, 0.04) 0%, transparent 60%);
             top: 50%;
             left: 50%;
-            font-family: 'Noto Serif JP', 'Dela Gothic One', serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: rgba(204, 0, 0, 0.12);
-            transform-origin: 0 0;
+            transform: translate(-50%, -50%);
+            animation: zenBreathe 4s ease-in-out infinite alternate;
+            z-index: 1;
         }
-        .trans-kanji-ring span:nth-child(1) { transform: rotate(0deg) translateX(140px) rotate(0deg); }
-        .trans-kanji-ring span:nth-child(2) { transform: rotate(45deg) translateX(140px) rotate(-45deg); }
-        .trans-kanji-ring span:nth-child(3) { transform: rotate(90deg) translateX(140px) rotate(-90deg); }
-        .trans-kanji-ring span:nth-child(4) { transform: rotate(135deg) translateX(140px) rotate(-135deg); }
-        .trans-kanji-ring span:nth-child(5) { transform: rotate(180deg) translateX(140px) rotate(-180deg); }
-        .trans-kanji-ring span:nth-child(6) { transform: rotate(225deg) translateX(140px) rotate(-225deg); }
-        .trans-kanji-ring span:nth-child(7) { transform: rotate(270deg) translateX(140px) rotate(-270deg); }
-        .trans-kanji-ring span:nth-child(8) { transform: rotate(315deg) translateX(140px) rotate(-315deg); }
-        @keyframes kanjiRingSpin {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to   { transform: translate(-50%, -50%) rotate(360deg); }
+        
+        @keyframes zenBreathe {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
         }
-        .trans-kanji-main {
-            font-family: 'Noto Serif JP', serif;
-            font-size: clamp(6rem, 20vw, 10rem);
-            font-weight: 900;
-            color: transparent;
-            background: linear-gradient(180deg, #cc0000 0%, #ff6a2a 50%, #cc0000 100%);
-            background-size: 100% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-            filter: drop-shadow(0 0 40px rgba(204, 0, 0, 0.3));
-            animation: transKanjiPulse 3s ease-in-out infinite, transKanjiGradient 4s ease-in-out infinite;
-            position: relative;
-            z-index: 2;
-        }
-        @keyframes transKanjiPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 40px rgba(204, 0, 0, 0.3)); }
-            50% { transform: scale(1.04); filter: drop-shadow(0 0 60px rgba(204, 0, 0, 0.5)); }
-        }
-        @keyframes transKanjiGradient {
-            0%, 100% { background-position: 0% 0%; }
-            50% { background-position: 0% 100%; }
-        }
-        .trans-subtitle {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-top: 30px;
+
+        /* Smooth outward fade on exit */
+        #dojo-transition.trans-exit .chassis {
+            transform: scale(1.05);
             opacity: 0;
-            animation: transFadeUp 0.8s 0.3s ease-out forwards;
+            filter: blur(8px);
         }
-        .trans-line-left, .trans-line-right {
-            display: block;
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(204, 0, 0, 0.5));
-        }
-        .trans-line-right {
-            background: linear-gradient(90deg, rgba(204, 0, 0, 0.5), transparent);
-        }
-        .trans-subtitle-text {
-            font-family: 'Cinzel', 'Inter', serif;
-            font-size: 0.65rem;
-            font-weight: 900;
-            letter-spacing: 6px;
-            color: rgba(255, 255, 255, 0.3);
-            text-transform: uppercase;
-        }
-        @keyframes transFadeUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .trans-progress-track {
-            width: 200px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.05);
-            margin-top: 35px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
-            opacity: 0;
-            animation: transFadeUp 0.6s 0.5s ease-out forwards;
-        }
-        .trans-progress-brush {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #cc0000, #ff6a2a);
-            border-radius: 2px;
-            position: relative;
-            transition: width 0.15s ease;
-        }
-        .trans-progress-brush::after {
-            content: '';
-            position: absolute;
-            right: -3px;
-            top: -3px;
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #ff6a2a;
-            box-shadow: 0 0 12px rgba(255, 106, 42, 0.8), 0 0 25px rgba(255, 106, 42, 0.4);
-        }
-        .trans-loading-text {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            opacity: 0;
-            animation: transFadeUp 0.5s 0.7s ease-out forwards;
-        }
-        .trans-jp-text {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.25);
-            letter-spacing: 3px;
-        }
-        .trans-dots span {
-            font-size: 1rem;
-            color: rgba(255, 106, 42, 0.5);
-            animation: transDotPulse 1.4s ease-in-out infinite;
-        }
-        .trans-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .trans-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes transDotPulse {
-            0%, 80%, 100% { opacity: 0.2; }
-            40% { opacity: 1; }
-        }
-        .trans-seal {
-            position: absolute;
-            bottom: 40px;
-            right: 40px;
-            z-index: 10;
-            opacity: 0;
-            animation: transSealStamp 0.6s 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-        }
-        .trans-seal-inner {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(204, 0, 0, 0.4);
+
+        /* Custom Scroll Sticky Text Chassis */
+        .chassis {
+            height: 100vh;
+            width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.4rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease, filter 1s ease;
+        }
+
+        .transition-content {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .list-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden; /* Programmatic GSAP scroll */
+        }
+
+        .list-container ul {
+            margin: 0;
+            /* Precise padding to align the final item perfectly to --trans-start */
+            padding-top: calc(var(--trans-start) - (var(--trans-item-height) * 0.5));
+            padding-bottom: calc(100vh - var(--trans-start) - (var(--trans-item-height) * 0.5));
+            list-style: none;
+        }
+
+        .list-container li {
+            font-size: var(--trans-font-size);
             font-weight: 900;
-            color: rgba(204, 0, 0, 0.5);
-            transform: rotate(12deg);
-            border-radius: 4px;
-        }
-        @keyframes transSealStamp {
-            0% { opacity: 0; transform: scale(2) rotate(30deg); }
-            60% { opacity: 1; transform: scale(0.95) rotate(10deg); }
-            100% { opacity: 0.6; transform: scale(1) rotate(12deg); }
-        }
-        /* Exit animations */
-        #dojo-transition.trans-exit .trans-kanji-main {
-            animation: transKanjiExit 0.5s ease-in forwards;
-        }
-        @keyframes transKanjiExit {
-            0% { transform: scale(1); opacity: 1; }
-            30% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(0.8) translateY(-30px); opacity: 0; filter: blur(8px); }
-        }
-        #dojo-transition.trans-exit .trans-subtitle,
-        #dojo-transition.trans-exit .trans-progress-track,
-        #dojo-transition.trans-exit .trans-loading-text,
-        #dojo-transition.trans-exit .trans-seal {
-            opacity: 0 !important;
-            transition: opacity 0.3s ease;
-        }
-        #dojo-transition.trans-exit .trans-kanji-ring {
-            animation: transRingScatter 0.6s ease-in forwards;
-        }
-        @keyframes transRingScatter {
-            to { transform: translate(-50%, -50%) rotate(180deg) scale(2); opacity: 0; }
+            line-height: var(--trans-line-height);
+            letter-spacing: -0.02em;
+            height: var(--trans-item-height); /* Uses generous fixed height to stop overlap */
+            width: 100%;
+            padding: 0 4vw; /* Inner padding prevents touching very edges of screen */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif; /* Matching Dojo aesthetic */
+            
+            /* Text Masking Gradient Logic - Scaled properly to dynamic heights */
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                transparent calc(var(--trans-start) - (var(--trans-item-height) * 2.2)),
+                rgba(255, 255, 255, 0.05) calc(var(--trans-start) - (var(--trans-item-height) * 1.5)),
+                var(--trans-dimmed) calc(var(--trans-start) - (var(--trans-item-height) * 0.7)),
+                var(--trans-accent) calc(var(--trans-start) - (var(--trans-item-height) * 0.35)),
+                var(--trans-accent) calc(var(--trans-start) + (var(--trans-item-height) * 0.35)),
+                var(--trans-dimmed) calc(var(--trans-start) + (var(--trans-item-height) * 0.7)),
+                rgba(255, 255, 255, 0.05) calc(var(--trans-start) + (var(--trans-item-height) * 1.5)),
+                transparent calc(var(--trans-start) + (var(--trans-item-height) * 2.2)),
+                transparent 100%
+            );
+            background-attachment: fixed;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
         }
 
         /* Typography */
@@ -317,78 +220,44 @@
             width: 80%;
         }
 
-        /* Dojo Button */
-        .btn-urgency {
-            background: #a80000;
-            color: #fff;
-            padding: 16px 45px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-            display: inline-flex;
+        /* Zen Ink (from showcase1.html) */
+        .btn-zen-primary {
+            background: var(--flame-orange); color: #000; padding: 16px 40px; font-weight: 900; font-size: 1.1rem;
+            display: inline-flex; align-items: center; gap: 12px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent;
+        }
+        .btn-zen-primary:hover {
+            border-radius: 15px 255px 15px 225px / 255px 15px 225px 15px; background: transparent;
+            color: var(--flame-orange); border-color: var(--flame-orange); transform: scale(1.05);
+        }
+        .btn-zen-outline {
+            background: transparent; color: #fff; padding: 16px 40px; font-weight: 800; font-size: 1.1rem;
+            display: inline-flex; align-items: center; gap: 12px; border-radius: 15px 255px 15px 225px / 255px 15px 225px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; z-index: 1;
+        }
+        .btn-zen-outline::before {
+            content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: inherit; transform: scale(0); transition: transform 0.4s ease; z-index: -1;
+        }
+        .btn-zen-outline:hover { border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; border-color: #fff; }
+        .btn-zen-outline:hover::before { transform: scale(1); }
+
+        /* Shadow Step Pricing (from priceshowcase1.html) */
+        .price-v5-wrapper {
+            background: var(--bg-black);
+            border: 3px solid var(--flame-orange);
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            box-shadow: 8px 8px 0px var(--ninja-red);
+            transition: transform 0.2s, box-shadow 0.2s;
+            transform: translate(-4px, -4px);
+            margin-bottom: 2.5rem;
         }
-
-        .btn-urgency:hover {
-            background: #cc0000;
-            box-shadow: 0 15px 40px rgba(204, 0, 0, 0.5);
-            transform: translateY(-2px);
-        }
-
-        /* New Pill Buttons */
-        .pricing-pill {
-            background: rgba(255, 106, 42, 0.05);
-            border: 1px solid rgba(255, 106, 42, 0.2);
-            border-radius: 999px;
-            padding: 10px 24px;
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .btn-pill-primary {
-            background: linear-gradient(135deg, #ff8a4c, #ff6a2a);
-            color: #fff;
-            padding: 16px 36px;
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 10px 30px rgba(255, 106, 42, 0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .btn-pill-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(255, 106, 42, 0.6);
-        }
-
-        .btn-pill-outline {
-            background: transparent;
-            color: var(--flame-orange);
-            border: 1px solid rgba(255, 106, 42, 0.4);
-            padding: 16px 36px;
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s ease;
-        }
-
-        .btn-pill-outline:hover {
-            background: rgba(255, 106, 42, 0.1);
-        }
+        .price-v5-wrapper:hover { transform: translate(0, 0); box-shadow: 0px 0px 0px var(--ninja-red); }
+        .price-v5-badge { background: var(--ninja-red); color: #fff; font-weight: 900; font-size: 0.8rem; padding: 4px 12px; text-transform: uppercase; letter-spacing: 1px; width: 100%; text-align: center; border-bottom: 3px solid #8b0000; margin-bottom: 12px; }
+        .price-v5-old { color: #666; font-size: 1.2rem; text-decoration: line-through; font-weight: 800; }
+        .price-v5-new { color: var(--flame-orange); font-size: 3.5rem; font-weight: 900; line-height: 1; }
 
         /* Dojo Cards */
         .dojo-card {
@@ -551,38 +420,25 @@
             transform: translateY(0);
         }
     </style>
-    <script src="transition.js"></script>
 </head>
 
 <body class="selection:bg-red-500/30">
 
     <!-- =====================================================
-         TRANSITION LOADING SCREEN — renders immediately, hides MERN flash
+         TRANSITION LOADING SCREEN (SCROLL TEXT REVEAL)
          ===================================================== -->
     <div id="dojo-transition">
         <canvas id="transition-particles"></canvas>
-        <div class="trans-ink-wash"></div>
-        <div class="trans-center">
-            <div class="trans-kanji-ring">
-                <span>忍</span><span>術</span><span>道</span><span>場</span>
-                <span>修</span><span>行</span><span>鍛</span><span>錬</span>
-            </div>
-            <div class="trans-kanji-main">道</div>
-            <div class="trans-subtitle">
-                <span class="trans-line-left"></span>
-                <span class="trans-subtitle-text">PREPARING YOUR PATH</span>
-                <span class="trans-line-right"></span>
-            </div>
-            <div class="trans-progress-track">
-                <div class="trans-progress-brush" id="trans-progress-brush"></div>
-            </div>
-            <div class="trans-loading-text">
-                <span class="trans-jp-text">読み込み中</span>
-                <span class="trans-dots"><span>.</span><span>.</span><span>.</span></span>
-            </div>
-        </div>
-        <div class="trans-seal">
-            <div class="trans-seal-inner">影</div>
+        <div class="zen-glow"></div>
+        
+        <div class="chassis">
+            <section class="transition-content">
+                <div class="list-container" id="transition-list-container">
+                    <ul id="transition-list">
+                        <!-- Content dynamically injected by JS based on ALL courses -->
+                    </ul>
+                </div>
+            </section>
         </div>
     </div>
 
@@ -1337,30 +1193,32 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(204,0,0,0.1),transparent_70%)] pointer-events-none"></div>
 
             <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center relative z-10">
-                <h2 class="cinzel-font text-5xl md:text-7xl font-black text-white leading-[1] tracking-tighter mb-4 uppercase reveal-cinematic">
-                    THE FINAL<br>
-                    <span class="text-[#ff6a2a]">GATE</span> IS OPEN
-                </h2>
+                <div class="flex flex-col items-center mb-6 reveal-cinematic">
+                    <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.4em] block mb-2">究極の道</span>
+                    <h2 class="cinzel-font text-5xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center">
+                        FORGE YOUR<br>
+                        <span class="text-[#ff6a2a] drop-shadow-[0_0_20px_rgba(255,106,42,0.3)]">LEGACY</span>
+                    </h2>
+                </div>
 
-                <p class="text-xs tracking-[6px] text-neutral-500 uppercase font-bold mb-10 reveal-cinematic">
-                    Admissions closing shortly
+                <p class="text-[10px] md:text-xs tracking-[8px] md:tracking-[12px] text-neutral-500 uppercase font-black mb-12 reveal-cinematic">
+                    ADMISSIONS CLOSING SHORTLY
                 </p>
 
                 <!-- NEW CTA & Pricing Component -->
-                <div class="pricing-pill mb-10 reveal-cinematic">
-                    <span id="old-price" class="text-neutral-500 line-through text-lg">₹3999.00</span>
-                    <span id="new-price" class="text-[#ff6a2a] font-black text-3xl">₹2999.00</span>
-                    <span id="price-offer" class="bg-[#122617] text-[#4ade80] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-[#4ade80]/20 tracking-wide">
-                        🔥 Limited-time offer
-                    </span>
+                <!-- Shadow Step Pricing Component -->
+                <div class="price-v5-wrapper reveal-cinematic">
+                    <div id="price-offer" class="price-v5-badge">🔥 Limited Time Offer</div>
+                    <span id="old-price" class="price-v5-old">₹3999.00</span>
+                    <span id="new-price" class="price-v5-new">₹2999.00</span>
                 </div>
 
                 <div class="flex flex-col sm:flex-row items-center gap-6 w-full justify-center mb-10 reveal-cinematic">
-                    <a href="#apply" class="btn-pill-primary">
-                        Apply for This Track <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    <a href="#apply" class="btn-zen-primary">
+                        Apply for This Track <i data-lucide="pen-tool" class="w-5 h-5"></i>
                     </a>
-                    <a href="#vertical-stepper" class="btn-pill-outline">
-                        <i data-lucide="graduation-cap" class="w-5 h-5"></i> What You'll Learn
+                    <a href="#vertical-stepper" class="btn-zen-outline">
+                        <i data-lucide="scroll" class="w-5 h-5"></i> What You'll Learn
                     </a>
                 </div>
             </div>
@@ -1389,7 +1247,20 @@
         lucide.createIcons();
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- 0. Dynamic Content Injection ---
+            
+            // For local preview without data.js
+            if (typeof COURSE_DATA === 'undefined') {
+                window.COURSE_DATA = {
+                    'mern': {
+                        hero: { title: "MASTER<br>THE MERN<br>STACK", tag: "プレミアムな選択" },
+                        overlay: { title: "PRODUCTION<br>LEVEL<br>SKILLS", tag: "戦士の道" },
+                        pricing: { oldPrice: "₹3999.00", newPrice: "₹2999.00", offer: "Limited-time offer" },
+                        curriculum: { stats: "Core<br>Essentials.<br><span id='stepper-highlight' class='text-[#cc0000]'>Master Skill.</span>", phases: [] }
+                    }
+                };
+            }
+
+            // --- 0. Dynamic Content Injection & Render ---
             function renderCourse() {
                 const params = new URLSearchParams(window.location.search);
                 const courseId = params.get('course') || 'mern';
@@ -1410,7 +1281,8 @@
                 // Update Pricing
                 document.getElementById('old-price').innerText = data.pricing.oldPrice;
                 document.getElementById('new-price').innerText = data.pricing.newPrice;
-                document.getElementById('price-offer').innerHTML = `🔥 ${data.pricing.offer}`;
+                const offerEl = document.getElementById('price-offer');
+                if (offerEl) offerEl.innerHTML = `🔥 ${data.pricing.offer}`;
 
                 // Update Curriculum Header
                 document.getElementById('curriculum-stats').innerHTML = data.curriculum.stats;
@@ -1462,10 +1334,67 @@
 
             renderCourse();
 
-            // Dismiss the transition loading screen now that content is injected
-            if (typeof completeTransition === 'function') {
-                completeTransition();
+            // --- 0.5 TRANSITION SPIN LOGIC ---
+            function executeTransitionSpin() {
+                const params = new URLSearchParams(window.location.search);
+                const targetCourseId = params.get('course') || 'mern';
+                const ul = document.getElementById('transition-list');
+                const listContainer = document.getElementById('transition-list-container');
+                
+                // Helper to clean course titles
+                const getCleanTitle = (courseKey) => {
+                    if (!COURSE_DATA[courseKey] || !COURSE_DATA[courseKey].hero) return courseKey.toUpperCase();
+                    return COURSE_DATA[courseKey].hero.title.replace(/<br>/g, ' ').replace('MASTER ', '');
+                };
+
+                const courseKeys = Object.keys(COURSE_DATA);
+                const targetKey = courseKeys.includes(targetCourseId) ? targetCourseId : courseKeys[0];
+                const otherKeys = courseKeys.filter(k => k !== targetKey);
+                
+                // Generate a sequence that cycles through all available courses from data.js
+                const spinSequence = [];
+                const numSpins = 3; // Spin through the whole collection 3 times
+                
+                for(let i=0; i<numSpins; i++) {
+                    // Randomize the non-target courses for visual variety
+                    const shuffled = [...otherKeys].sort(() => Math.random() - 0.5);
+                    shuffled.forEach(key => spinSequence.push(getCleanTitle(key)));
+                }
+                
+                // Ensure the ultimate target course lands exactly at the end
+                spinSequence.push(getCleanTitle(targetKey));
+
+                // Populate DOM list
+                spinSequence.forEach(text => {
+                    const li = document.createElement('li');
+                    li.textContent = text;
+                    ul.appendChild(li);
+                });
+
+                // Small timeout to allow DOM to render to calculate precise scrollHeight
+                setTimeout(() => {
+                    const maxScroll = listContainer.scrollHeight - listContainer.clientHeight;
+                    
+                    // Automate GSAP scrolling to spin to the absolute bottom perfectly
+                    gsap.to(listContainer, {
+                        scrollTop: maxScroll,
+                        duration: 3.5,
+                        ease: "power3.inOut",
+                        onComplete: () => {
+                            // Hold the final highlighted title for a moment, then fade out transition
+                            setTimeout(() => {
+                                document.getElementById('dojo-transition').classList.add('trans-exit');
+                                // Reveal main website seamlessly behind the fading overlay
+                                document.querySelector('main').style.visibility = 'visible';
+                            }, 800);
+                        }
+                    });
+                }, 50);
             }
+
+            // Start Spin Effect immediately
+            executeTransitionSpin();
+
 
             // --- 1. Premium FAQ Accordion Logic ---
             const faqItems = document.querySelectorAll('.faq-item');
@@ -1494,7 +1423,6 @@
             const scrollScreen = document.getElementById('scroll-screen');
             const scrollWaxSeal = document.getElementById('scroll-wax-seal');
             const scrollGlow = document.getElementById('scroll-glow');
-            const stepperHighlight = document.getElementById('stepper-highlight');
 
             let currentPhase = 0;
 
