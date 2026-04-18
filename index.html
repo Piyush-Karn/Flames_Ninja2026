@@ -4,22 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Dojo | Master the Hidden Arts</title>
+    <title>FLAMES | Master the Hidden Arts</title>
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:wght@300;400;600;800;900&family=Permanent+Marker&family=Noto+Sans+JP:wght@900&family=Dela+Gothic+One&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400;1,600&family=Permanent+Marker&family=Noto+Sans+JP:wght@900&family=Dela+Gothic+One&family=Playfair+Display:ital,wght@1,900&display=swap"
         rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#ff5500',
+                            dark: '#0c0c0c',
+                            card: '#131313',
+                            border: '#262626',
+                            textMuted: '#8b8b8b',
+                            textLight: '#cfcfcf'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
         :root {
-            --flame-orange: #ff6a2a;
+            --flame-orange: #ff5500;
             --bg-black: #0a0a0a;
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
             --border-dark: rgba(255, 255, 255, 0.08);
-            --ninja-red: #cc0000;
-
             /* --ninja-red deprecated in favor of --flame-orange */
         }
 
@@ -2053,6 +2074,299 @@
             filter: grayscale(1);
             z-index: 0;
         }
+
+        .footer-logo-glow {
+            filter: drop-shadow(0 0 10px rgba(255, 106, 42, 0.4));
+            animation: footerGlowPulse 4s infinite ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes footerGlowPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(255, 106, 42, 0.4));
+                opacity: 0.6;
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 106, 42, 0.9));
+                opacity: 1;
+            }
+        }
+
+        /* =====================================================
+           ARSENAL — REFINED WEAPON CARDS
+           ===================================================== */
+        .arsenal-header {
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .arsenal-header-underline {
+            width: 140px;
+            height: 4px;
+            background: var(--flame-orange);
+            margin-top: 10px;
+        }
+
+        .weapon-card {
+            background: linear-gradient(135deg, #151515 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            min-height: 240px;
+        }
+
+        .weapon-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .weapon-card:hover::before {
+            opacity: 1;
+        }
+
+        .weapon-card:hover {
+            border-color: rgba(255, 106, 42, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 106, 42, 0.1);
+            z-index: 10;
+        }
+
+        .weapon-card.featured {
+            grid-column: span 1;
+            grid-row: span 1;
+            padding: 24px;
+            background: linear-gradient(135deg, #181818 0%, #0d0d0d 100%);
+            border: 1px solid rgba(255, 106, 42, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .weapon-card.featured {
+                grid-column: span 2;
+                grid-row: span 2;
+                padding: 50px;
+            }
+        }
+
+        .rank-tag {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 9px;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .weapon-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured .weapon-title {
+            font-size: 1.5rem;
+            max-width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .featured .weapon-title {
+                font-size: 4rem;
+                max-width: 500px;
+            }
+        }
+
+        .weapon-desc {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .weapon-icon {
+            width: 32px;
+            height: 32px;
+            fill: var(--flame-orange);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-accent {
+            background: #d35400 !important;
+            border: none;
+        }
+
+        .highlight-accent .weapon-title,
+        .highlight-accent .weapon-desc,
+        .highlight-accent .rank-tag {
+            color: white;
+        }
+
+        .highlight-accent .weapon-icon {
+            fill: white;
+        }
+
+        /* =====================================================
+           UI CHIPS
+           ===================================================== */
+        .ui-chip {
+            background: rgba(255, 106, 42, 0.05);
+            border: 1px solid rgba(255, 106, 42, 0.2);
+            color: var(--flame-orange);
+            padding: 4px 10px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1;
+            position: relative;
+            white-space: nowrap;
+        }
+        .chip-alt {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+        .highlight-accent .ui-chip {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+        .highlight-accent .chip-alt {
+            background: rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.2);
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* =====================================================
+           BUTTONS V2
+           ===================================================== */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
+            flex-wrap: wrap;
+            padding-top: 15px;
+        }
+        .btn-action {
+            padding: 10px 20px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .btn-action.btn-primary {
+            background: var(--flame-orange);
+            color: #000;
+            border: 1px solid var(--flame-orange);
+        }
+        .btn-action.btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 106, 42, 0.3);
+            background: #ff8a5a;
+            border-color: #ff8a5a;
+        }
+        .btn-action.btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-action.btn-secondary:hover {
+            transform: translateY(-3px);
+            border-color: var(--flame-orange);
+            color: var(--flame-orange);
+            background: rgba(255, 106, 42, 0.05);
+        }
+        
+        /* Highlight Accent Buttons */
+        .highlight-accent .btn-action.btn-primary {
+            background: #fff;
+            color: #d35400;
+            border-color: #fff;
+        }
+        .highlight-accent .btn-action.btn-primary:hover {
+            background: #f8f8f8;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-color: #f8f8f8;
+        }
+        .highlight-accent .btn-action.btn-secondary {
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+        .highlight-accent .btn-action.btn-secondary:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .arsenal-header {
+                font-size: 2.2rem !important;
+            }
+
+            .weapon-card {
+                padding: 22px !important;
+                min-height: auto !important;
+            }
+
+            .weapon-card.featured {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+                padding: 24px !important;
+            }
+
+            .weapon-title {
+                font-size: 1.2rem !important;
+            }
+
+            .featured .weapon-title {
+                font-size: 1.5rem !important;
+                max-width: 100% !important;
+            }
+            
+            .btn-action {
+                flex: 1;
+                padding: 10px 12px;
+                font-size: 9px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .arsenal-header {
+                font-size: 1.8rem !important;
+            }
+        }
     </style>
 </head>
 
@@ -2073,7 +2387,7 @@
                     d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
             </svg>
         </div>
-        <p class="loader-subtitle">Shadow Dojo</p>
+        <p class="loader-subtitle">FLAMES</p>
         <div class="loader-progress-wrap">
             <div class="loader-progress-bar" id="loader-bar"></div>
         </div>
@@ -2109,13 +2423,13 @@
     <header class="fixed top-0 w-full z-50 px-3 py-2 md:px-10 md:py-5 flex justify-between items-center"
         style="transform: translateY(-100%); transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
         <div class="flex gap-4 opacity-40">
-            <a href="#" class="hover:text-[#ff6a2a] transition">
+            <a href="#" class="hover:text-[#ff5500] transition">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                 </svg>
             </a>
-            <a href="#" class="hover:text-[#ff6a2a] transition">
+            <a href="#" class="hover:text-[#ff5500] transition">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -2126,14 +2440,14 @@
             <a href="#intel" class="hover:text-white transition nav-link">Tactics</a>
             <a href="#transformation" class="hover:text-white transition nav-link">Academy</a>
             <a href="#" class="flex items-center gap-2">
-                <span class="text-[#ff6a2a] font-black japan-font text-xl">SHADOW</span>
+                <span class="text-[#ff5500] font-black japan-font text-xl">SHADOW</span>
             </a>
             <a href="#arsenal" class="hover:text-white transition nav-link">Path</a>
             <a href="#final-gate" class="hover:text-white transition nav-link">Summon</a>
         </nav>
         <div class="flex items-center gap-4">
             <button
-                class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff6a2a] pb-1 hover:text-[#ff6a2a] transition">Entrance</button>
+                class="text-[9px] md:text-[11px] font-black uppercase tracking-wider md:tracking-widest border-b-2 border-[#ff5500] pb-1 hover:text-[#ff5500] transition">Entrance</button>
             <div class="w-8 h-[2px] bg-white"></div>
         </div>
     </header>
@@ -2354,13 +2668,12 @@
     <!-- =====================================================
          ARSENAL / POWER SECTION
          ===================================================== -->
-    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden"
-        style="background-color: var(--bg-black);">
+    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden" style="background-color: var(--bg-black);">
         <div class="pattern-bg" style="opacity: 0.05;"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-10 md:mb-24 reveal-up">
-                <h2 class="arsenal-header text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">THE ARSENAL
+                <h2 class="arsenal-header cinzel-font text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">THE ARSENAL
                 </h2>
                 <div class="arsenal-header-underline mb-6"></div>
                 <div class="text-neutral-400 max-w-lg">
@@ -2370,19 +2683,27 @@
                 </div>
             </div>
 
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense auto-rows-[minmax(240px,auto)] gap-4 lg:gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense auto-rows-[minmax(240px,auto)] gap-4 lg:gap-5">
 
                 <!-- 1. MERN (HERO - 2x2) -->
-                <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale"
-                    onclick="window.location.href='course.html?course=mern'">
+                <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale">
                     <span class="rank-tag text-[var(--flame-orange)]">FEATURED</span>
                     <h3 class="weapon-title">FULL STACK <br> + GEN AI</h3>
-                    <p class="text-[12px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build
+                    
+                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
+                        <span class="ui-chip">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            45 DAYS
+                        </span>
+                        <span class="ui-chip chip-alt">ONLINE</span>
+                        <span class="ui-chip chip-alt">BEGINNER FRIENDLY</span>
+                    </div>
+
+                    <p class="text-[12px] text-[var(--flame-orange)] font-semibold mb-4 italic z-10 relative">Build
                         production-ready apps from day one</p>
                     <p class="weapon-desc">Build real-world MERN apps with AI and deploy like a developer.</p>
 
-                    <div class="mt-8 z-10 relative flex-grow mb-6">
+                    <div class="mt-4 z-10 relative flex-grow mb-6">
                         <div class="flex flex-wrap gap-x-6 gap-y-4 max-w-[340px]">
                             <div class="flex items-center gap-3 w-[150px]">
                                 <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
@@ -2403,74 +2724,87 @@
                         </div>
                     </div>
 
-                    <a href="#" class="deploy-link mt-auto inline-block z-10 relative"
-                        onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
+                    <div class="btn-group w-full">
+                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=mern'">Enroll Now</button>
+                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=mern'">View Details</button>
+                    </div>
                 </div>
 
                 <!-- 2. Bundle (WIDE ACCENT - 2x1) -->
-                <div class="weapon-card highlight-accent col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
-                    onclick="window.location.href='course.html?course=bundle'" style="transition-delay: 100ms;">
+                <div class="weapon-card highlight-accent col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale">
                     <span class="rank-tag text-white/70">FEATURED</span>
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 h-full">
-                        <div class="flex-1">
-                            <div
-                                class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
-                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-white" stroke-width="2.5">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <circle cx="12" cy="12" r="4" />
-                                    <line x1="22" x2="18" y1="12" y2="12" />
-                                    <line x1="6" x2="2" y1="12" y2="12" />
-                                    <line x1="12" x2="12" y1="6" y2="2" />
-                                    <line x1="12" x2="12" y1="22" y2="18" />
-                                </svg>
-                            </div>
-                            <h3 class="weapon-title mb-2 !text-2xl md:!text-3xl">COMPLETE PROGRAM <br><span
-                                    class="text-white/70 text-lg md:text-xl">(BUNDLE)</span></h3>
-                            <p
-                                class="text-[14px] text-[#ffe066] font-extrabold tracking-wide mt-1 mb-3 italic drop-shadow-md">
-                                Your absolute path to tech dominance</p>
-                            <p class="weapon-desc text-white/90 max-w-sm mt-0 m-0">Your complete path to becoming
-                                job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
-                        </div>
-                        <div class="mt-auto md:mt-0 flex items-end md:h-full z-10 relative">
-                            <a href="#" class="deploy-link text-white pt-4 md:pt-0 pb-2"
-                                onclick="event.preventDefault()">SEE FULL PATH <span>&rarr;</span></a>
-                        </div>
+                    
+                    <div class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-white" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="4" />
+                            <line x1="22" x2="18" y1="12" y2="12" />
+                            <line x1="6" x2="2" y1="12" y2="12" />
+                            <line x1="12" x2="12" y1="6" y2="2" />
+                            <line x1="12" x2="12" y1="22" y2="18" />
+                        </svg>
+                    </div>
+                    
+                    <h3 class="weapon-title mb-2 !text-2xl md:!text-3xl">COMPLETE PROGRAM <span class="text-white/70 text-lg md:text-xl">(BUNDLE)</span></h3>
+                    
+                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
+                        <span class="ui-chip">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            45 DAYS
+                        </span>
+                        <span class="ui-chip chip-alt">INTENSIVE</span>
+                    </div>
+
+                    <p class="text-[14px] text-[#ffe066] font-extrabold tracking-wide mt-1 mb-2 italic drop-shadow-md">
+                        Your absolute path to tech dominance</p>
+                    <p class="weapon-desc text-white/90 max-w-xl mt-0 m-0">Your complete path to becoming
+                        job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
+                        
+                    <div class="btn-group mt-auto pt-6 w-full">
+                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=bundle'">Join Bundle</button>
+                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=bundle'">Syllabus</button>
                     </div>
                 </div>
 
                 <!-- 3. AIML (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" onclick="window.location.href='course.html?course=aiml'"
-                    style="transition-delay: 200ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
                             <div class="weapon-icon">
                                 <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--flame-orange)]" stroke-width="2"
                                     style="fill:none;">
-                                    <path
-                                        d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
-                                    <path
-                                        d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+                                    <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                                    <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
                                     <path d="M15 13h4.5a2 2 0 0 1 0 4H15" />
                                     <path d="M9 13H4.5a2 2 0 0 0 0 4H9" />
                                 </svg>
                             </div>
                             <h3 class="weapon-title mb-2">AI & AGENTIC AI</h3>
+                            
+                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
+                                <span class="ui-chip">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    45 DAYS
+                                </span>
+                                <span class="ui-chip chip-alt">ADVANCED</span>
+                            </div>
+
                             <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Build
                                 intelligent, autonomous systems</p>
                             <p class="weapon-desc m-0">Work with LLMs and prompt engineering to create autonomous
                                 Agentic AI that can think, plan, and execute tasks. Ship intelligent applications like
                                 chatbots.</p>
                         </div>
-                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full"
-                            onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        <div class="btn-group pt-8 mt-8 w-full">
+                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=aiml'">Enroll Now</button>
+                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=aiml'">Curriculum</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 4. DSA (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" onclick="window.location.href='course.html?course=dsa'"
-                    style="transition-delay: 300ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
@@ -2481,69 +2815,92 @@
                                 </svg>
                             </div>
                             <h3 class="weapon-title text-xl mb-2">DSA WITH JAVA/C++</h3>
+                            
+                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
+                                <span class="ui-chip">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    45 DAYS
+                                </span>
+                                <span class="ui-chip chip-alt">INTERVIEW PREP</span>
+                            </div>
+
                             <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Crack
                                 coding interviews with confidence</p>
                             <p class="weapon-desc text-xs line-clamp-3 m-0">Master Java fundamentals, OOPs, and key
                                 syntax. Learn pattern-based problem solving for technical interviews.</p>
                         </div>
-                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM
-                            <span>&rarr;</span></a>
+                        <div class="btn-group w-full">
+                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=dsa'">Start Prep</button>
+                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=dsa'">Details</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 5. Django (WIDE - 2x1) -->
-                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
-                    onclick="window.location.href='course.html?course=django'" style="transition-delay: 400ms;">
+                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale">
                     <span class="rank-tag">PATH</span>
-                    <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
-                        <div class="weapon-icon shrink-0 mb-0">
-                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                            </svg>
-                        </div>
-                        <div class="flex-1 z-10 relative">
-                            <h3 class="weapon-title mb-2 text-2xl">FULL STACK WITH DJANGO</h3>
-                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build
-                                secure, scalable backend systems</p>
-                            <p class="weapon-desc m-0 max-w-lg">Build secure, scalable full-stack projects from scratch
-                                and seamlessly integrate AI into your systems.</p>
-                        </div>
-                        <div class="w-full sm:w-auto flex justify-end mt-4 sm:mt-0 z-10 relative">
-                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM
-                                <span>&rarr;</span></a>
-                        </div>
+                    
+                    <div class="weapon-icon mb-4">
+                        <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--flame-orange)]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="weapon-title mb-2 text-2xl">FULL STACK WITH DJANGO</h3>
+                    
+                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
+                        <span class="ui-chip">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            45 DAYS
+                        </span>
+                        <span class="ui-chip chip-alt">BACKEND</span>
+                    </div>
+
+                    <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build secure, scalable backend systems</p>
+                    <p class="weapon-desc m-0 max-w-xl">Build secure, scalable full-stack projects from scratch and seamlessly integrate AI into your systems.</p>
+                    
+                    <div class="btn-group mt-auto pt-6 w-full">
+                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=django'">Enroll Now</button>
+                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=django'">Syllabus</button>
                     </div>
                 </div>
 
                 <!-- 6. Data Analytics (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale" onclick="window.location.href='course.html?course=data'"
-                    style="transition-delay: 500ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
                             <div class="weapon-icon">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
                                 </svg>
                             </div>
                             <h3 class="weapon-title mb-2 border-b border-transparent">DATA ANALYTICS & TOOLS</h3>
+                            
+                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
+                                <span class="ui-chip">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    45 DAYS
+                                </span>
+                                <span class="ui-chip chip-alt">ANALYTICS</span>
+                            </div>
+
                             <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Turn data
                                 into real insights</p>
                             <p class="weapon-desc m-0">Discover insights and empower decisions. Master data analysis,
                                 effective visualization, and machine learning insights through real-world cases.</p>
                         </div>
-                        <a href="#" class="deploy-link mt-8 pt-6 border-t border-white/5 w-full"
-                            onclick="event.preventDefault()">VIEW PROGRAM <span>&rarr;</span></a>
+                        <div class="btn-group pt-8 mt-8 w-full">
+                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=data'">Start Learning</button>
+                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=data'">Details</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 7. Mobile App (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale" onclick="window.location.href='course.html?course=mobile'"
-                    style="transition-delay: 600ms;">
+                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
@@ -2554,6 +2911,15 @@
                                 </svg>
                             </div>
                             <h3 class="weapon-title text-xl mb-2">MOBILE APP + GEN AI</h3>
+                            
+                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
+                                <span class="ui-chip">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    45 DAYS
+                                </span>
+                                <span class="ui-chip chip-alt">MOBILE</span>
+                            </div>
+
                             <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Design and
                                 ship modern Android apps</p>
                             <p class="weapon-desc text-xs mb-4 m-0">Master Android development using Java.</p>
@@ -2564,45 +2930,51 @@
                                         Design</span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-[var(--ninja-red)] rounded-full"></span>
+                                    <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full"></span>
                                     <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">Database
                                         Mgt</span>
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="deploy-link mt-6" onclick="event.preventDefault()">VIEW PROGRAM
-                            <span>&rarr;</span></a>
+                        <div class="btn-group w-full">
+                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=mobile'">Build Apps</button>
+                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=mobile'">Syllabus</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 8. Offline Full Stack (WIDE - 2x1) -->
-                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale flex flex-col justify-between"
-                    onclick="window.location.href='course.html?course=offline'" style="transition-delay: 700ms;">
+                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale">
                     <span class="rank-tag">PATH</span>
-                    <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center h-full pt-4">
-                        <div class="weapon-icon shrink-0 mb-0">
-                            <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--ninja-red)]" stroke-width="2"
-                                style="fill:none;">
-                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-                                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
-                                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
-                                <path d="M10 6h4" />
-                                <path d="M10 10h4" />
-                                <path d="M10 14h4" />
-                                <path d="M10 18h4" />
-                            </svg>
-                        </div>
-                        <div class="flex-1 z-10 relative">
-                            <h3 class="weapon-title mb-2 text-2xl">OFFLINE FULL STACK (IN-OFFICE)</h3>
-                            <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience
-                                real-world office workflows</p>
-                            <p class="weapon-desc m-0 max-w-lg">Code in Office. Build Real Projects. Launch your career
-                                with practical exposure to workflows and REST APIs.</p>
-                        </div>
-                        <div class="w-full sm:w-auto flex justify-end mt-4 sm:mt-0 z-10 relative">
-                            <a href="#" class="deploy-link m-0 pb-2" onclick="event.preventDefault()">VIEW PROGRAM
-                                <span>&rarr;</span></a>
-                        </div>
+                    
+                    <div class="weapon-icon mb-4">
+                        <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--flame-orange)]" stroke-width="2" style="fill:none;">
+                            <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+                            <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                            <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
+                            <path d="M10 6h4" />
+                            <path d="M10 10h4" />
+                            <path d="M10 14h4" />
+                            <path d="M10 18h4" />
+                        </svg>
+                    </div>
+                    
+                    <h3 class="weapon-title mb-2 text-2xl">OFFLINE FULL STACK <span class="text-white/70 text-lg md:text-xl">(IN-OFFICE)</span></h3>
+                    
+                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
+                        <span class="ui-chip">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            45 DAYS
+                        </span>
+                        <span class="ui-chip chip-alt">OFFLINE BOOTCAMP</span>
+                    </div>
+
+                    <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience real-world office workflows</p>
+                    <p class="weapon-desc m-0 max-w-xl">Code in Office. Build Real Projects. Launch your career with practical exposure to workflows and REST APIs.</p>
+                    
+                    <div class="btn-group mt-auto pt-6 w-full">
+                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=offline'">Apply Now</button>
+                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=offline'">Bootcamp Info</button>
                     </div>
                 </div>
 
@@ -2621,7 +2993,7 @@
             <div class="reveal-up is-visible">
                 <span class="japan-font text-[#666] text-sm tracking-widest block mb-4">意志の進化</span>
                 <h2 class="cinzel-font text-3xl md:text-6xl font-black mb-4">THE REBIRTH</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto"></div>
+                <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff5500] to-transparent mx-auto"></div>
             </div>
         </div>
 
@@ -2655,7 +3027,7 @@
                         </div>
                         <p class="trans-desc opacity-80 mb-4">Strong in fundamentals. Confident in interviews. Ready to
                             step into the industry.</p>
-                        <p class="trans-desc font-black uppercase tracking-widest text-[#ff6a2a]">You don’t just learn —
+                        <p class="trans-desc font-black uppercase tracking-widest text-[#ff5500]">You don’t just learn —
                             you become job-ready.</p>
                     </div>
                 </div>
@@ -2670,9 +3042,9 @@
     <section id="faq">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center reveal-up">
-                <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">よくある質問</span>
+                <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">よくある質問</span>
                 <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4">DOJO INQUIRIES</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto"></div>
+                <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff5500] to-transparent mx-auto"></div>
             </div>
 
             <div class="faq-container">
@@ -2712,7 +3084,7 @@
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-content">
-                            Yes. Upon successful initiation, you gain lifetime access to the Shadow Dojo Network—an
+                            Yes. Upon successful initiation, you gain lifetime access to the FLAMES Network—an
                             elite network of disciples from top clans like IIT, LPU, and GLA.
                         </div>
                     </div>
@@ -2743,7 +3115,7 @@
          ===================================================== -->
     <section id="reviews">
         <div class="reviews-header-large reveal-up">
-            <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">戦士の証言</span>
+            <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">戦士の証言</span>
             <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4 uppercase">Read reviews, ride with confidence
             </h2>
             <div class="reviews-badge">
@@ -2956,16 +3328,21 @@
          ===================================================== -->
     <footer class="py-10 md:py-20 bg-[#050505] border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col items-center">
-            <div class="japan-font text-5xl md:text-6xl mb-10 text-neutral-800 footer-kanji cursor-pointer">影</div>
+            <div class="footer-logo-wrap w-12 h-14 mb-10 footer-logo-glow cursor-pointer">
+                <svg viewBox="0 0 448 512" class="footer-logo w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <path class="logo-outline" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                    <path class="logo-fill" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                </svg>
+            </div>
             <div
                 class="flex gap-4 md:gap-12 text-[10px] font-black uppercase tracking-[2px] md:tracking-[5px] text-[var(--text-secondary)]">
-                <a href="#" class="hover:text-[#ff6a2a] transition">Twitter</a>
-                <a href="#" class="hover:text-[#ff6a2a] transition">Discord</a>
-                <a href="#" class="hover:text-[#ff6a2a] transition">Academy</a>
+                <a href="#" class="hover:text-[#ff5500] transition">Twitter</a>
+                <a href="#" class="hover:text-[#ff5500] transition">Discord</a>
+                <a href="#" class="hover:text-[#ff5500] transition">Academy</a>
             </div>
             <p
                 class="mt-8 md:mt-12 text-[8px] md:text-[9px] text-[var(--text-secondary)] uppercase tracking-[0.15rem] md:tracking-[1rem] font-black">
-                Shadow Dojo Academy &copy; 2024
+                FLAMES 2026
             </p>
         </div>
     </footer>

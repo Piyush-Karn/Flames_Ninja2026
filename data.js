@@ -2,7 +2,7 @@ const COURSE_DATA = {
     "mern": {
         "hero": {
             "tag": "プレミアムな選択",
-            "title": "MASTER<br>THE MERN<br>STACK"
+            "title": "Full Stack<br>(MERN) with<br>Gen AI"
         },
         "overlay": {
             "tag": "戦士の道",
