@@ -2367,6 +2367,232 @@
                 font-size: 1.8rem !important;
             }
         }
+
+        /* =====================================================
+           9. HOW IT WORKS — RIBBON TIMELINE
+           ===================================================== */
+        #how-it-works .timeline-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #how-it-works #tl4-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 1500px;
+            height: 200px;
+        }
+
+        #how-it-works .tl-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        #how-it-works .ribbon-path {
+            fill: none;
+            stroke: url(#ribbonGrad);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 4000;
+            stroke-dashoffset: 4000;
+            filter: drop-shadow(0 0 10px rgba(255, 85, 0, 0.6));
+        }
+
+        #how-it-works .ribbon-path.drawn {
+            animation: drawRibbon 3.5s ease forwards;
+        }
+
+        @keyframes drawRibbon {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        #how-it-works .ribbon-spark {
+            offset-path: path("M 0,200 C 250,200 300,80 500,80 S 750,280 1000,280 S 1250,100 1500,160");
+            animation: sparkTravel 5s linear infinite;
+            opacity: 0;
+        }
+
+        #how-it-works .ribbon-spark.go {
+            opacity: 1;
+        }
+
+        @keyframes sparkTravel {
+            0% {
+                offset-distance: 0%;
+            }
+
+            100% {
+                offset-distance: 100%;
+            }
+        }
+
+        #how-it-works .ribbon-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        #how-it-works .gem {
+            width: 36px;
+            height: 36px;
+            background: #0a0a0a;
+            border: 2px solid var(--flame-orange);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            box-shadow: 0 0 15px rgba(255, 85, 0, 0.3);
+        }
+
+        #how-it-works .gem-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--flame-orange);
+            transform: rotate(-45deg);
+            transition: color 0.3s;
+        }
+
+        #how-it-works .ribbon-node:hover .gem {
+            transform: rotate(45deg) scale(1.2);
+            background: rgba(255, 85, 0, 0.1);
+            box-shadow: 0 0 25px rgba(255, 85, 0, 0.6);
+        }
+
+        #how-it-works .ribbon-node:hover .gem-text {
+            color: #fff;
+        }
+
+        #how-it-works .ribbon-card {
+            position: absolute;
+            width: 300px;
+            transform: translate(-50%, 0) scaleY(0);
+            transform-origin: top center;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #how-it-works .ribbon-card.above {
+            transform-origin: bottom center;
+        }
+
+        #how-it-works .ribbon-card.visible {
+            opacity: 1;
+            transform: translate(-50%, 0) scaleY(1);
+        }
+
+        #how-it-works .weapon-card {
+            background: linear-gradient(135deg, #151515 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            min-height: 150px;
+            overflow: hidden;
+        }
+
+        #how-it-works .weapon-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 85, 0, 0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #how-it-works .weapon-card:hover::before {
+            opacity: 1;
+        }
+
+        #how-it-works .weapon-card:hover {
+            border-color: rgba(255, 85, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 85, 0, 0.1);
+            transform: translateY(-6px);
+            z-index: 10;
+        }
+
+        #how-it-works .c-year {
+            font-size: 10px;
+            color: var(--flame-orange);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        #how-it-works .c-title {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 900;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        #how-it-works .c-text {
+            font-size: 0.85rem;
+            color: #888888;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        #how-it-works .c-icon {
+            color: var(--flame-orange);
+            float: right;
+            margin-left: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            #how-it-works .timeline-wrapper {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-left: 20px;
+            }
+
+            #how-it-works #tl4-wrap {
+                min-width: 1200px;
+            }
+
+            #how-it-works .ribbon-card {
+                width: 260px;
+            }
+
+            #how-it-works .weapon-card {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -2461,7 +2687,7 @@
             class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-80"></canvas>
         <div class="fire-glow-overlay"></div>
 
-        <div class="vertical-label jp-font">プレミアムな選択</div>
+        <div class="vertical-label jp-font">ONLY WORTHY</div>
 
         <div class="text-center z-20 px-3 md:px-0">
             <p class="text-[8px] md:text-[10px] font-bold uppercase tracking-[2px] md:tracking-[8px] text-[var(--text-secondary)] mb-6 hero-element"
@@ -2469,7 +2695,7 @@
                 Mastery through Discipline
             </p>
             <h1 class="hero-title japan-font hero-element" id="hero-title-main"
-                style="opacity:0; transform:translateY(40px);">FLAMES '26</h1>
+                style="opacity:0; transform:translateY(40px);">FLAMES <span class="text-white">'26</span></h1>
 
             <div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 hero-element"
                 style="opacity:0; transform:translateY(40px);">
@@ -2673,13 +2899,10 @@
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-10 md:mb-24 reveal-up">
-                <h2 class="arsenal-header cinzel-font text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">THE ARSENAL
-                </h2>
+                <h2 class="arsenal-header cinzel-font text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">Choose Your Track</h2>
                 <div class="arsenal-header-underline mb-6"></div>
                 <div class="text-neutral-400 max-w-lg">
-                    <p class="text-sm md:text-base leading-relaxed">Choose your path. Master your craft.<br>
-                        <span class="text-white font-bold">Train with focus. Build with purpose.</span>
-                    </p>
+                    <p class="text-sm md:text-base leading-relaxed">45 days. One track. One summer that actually counts.</p>
                 </div>
             </div>
 
@@ -2986,12 +3209,50 @@
     <div class="section-divider"></div>
 
     <!-- =====================================================
+         HOW IT WORKS — RIBBON TIMELINE
+         ===================================================== -->
+    <section id="how-it-works" class="py-24 bg-[#0a0a0a] relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-20 mb-24 reveal-up">
+            <span class="japan-font text-[#ff5500] text-[10px] md:text-sm tracking-widest block mb-4 uppercase">Timeline</span>
+            <h2 class="cinzel-font text-3xl md:text-5xl lg:text-6xl font-black mb-4 text-white uppercase">How It Works</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-[#ff5500] to-transparent"></div>
+        </div>
+
+        <div class="timeline-wrapper">
+            <div id="tl4-wrap">
+                <svg class="tl-svg" viewBox="0 0 1500 320" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#ff5500" />
+                            <stop offset="30%" stop-color="#ff8a5a" />
+                            <stop offset="60%" stop-color="#ff5500" />
+                            <stop offset="100%" stop-color="#cc4400" />
+                        </linearGradient>
+                        <filter id="spark-blur">
+                            <feGaussianBlur stdDeviation="2" />
+                        </filter>
+                    </defs>
+
+                    <path class="ribbon-path" d="M 0,200 C 250,200 300,80 500,80 S 750,280 1000,280 S 1250,100 1500,160" />
+
+                    <!-- Travelling sparkle circle -->
+                    <circle class="ribbon-spark" r="4" fill="#ffffff" filter="url(#spark-blur)" />
+                </svg>
+                <div id="tl4-cards"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- =====================================================
          BEFORE VS AFTER — THE REBIRTH
          ===================================================== -->
     <section id="transformation">
         <div class="trans-header text-center">
             <div class="reveal-up is-visible">
-                <span class="japan-font text-[#666] text-sm tracking-widest block mb-4">意志の進化</span>
+                <span class="japan-font text-[#666] text-sm tracking-widest block mb-4">EVOLUTION OF WILL</span>
                 <h2 class="cinzel-font text-3xl md:text-6xl font-black mb-4">THE REBIRTH</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff5500] to-transparent mx-auto"></div>
             </div>
@@ -3042,8 +3303,8 @@
     <section id="faq">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center reveal-up">
-                <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">よくある質問</span>
-                <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4">DOJO INQUIRIES</h2>
+                <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">FREQUENTLY ASKED</span>
+                <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4">COMMON INQUIRIES</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff5500] to-transparent mx-auto"></div>
             </div>
 
@@ -3115,7 +3376,7 @@
          ===================================================== -->
     <section id="reviews">
         <div class="reviews-header-large reveal-up">
-            <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">戦士の証言</span>
+            <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">WARRIOR TESTIMONIALS</span>
             <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4 uppercase">Read reviews, ride with confidence
             </h2>
             <div class="reviews-badge">
@@ -4112,6 +4373,128 @@
                 }
             });
         });
+
+        /* =====================================================
+           12. HOW IT WORKS — RIBBON TIMELINE LOGIC
+           ===================================================== */
+        (function () {
+            const tlData = [
+                {
+                    phase: 'Phase 01',
+                    title: 'PICK YOUR TRACK',
+                    text: 'Choose the path that matches your goal',
+                    icon: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 4H14C15.1046 4 16 4.89543 16 6V18C16 19.1046 15.1046 20 14 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4Z" fill="#2a0a00" stroke="#ff5500" stroke-width="1.5"/><path d="M16 6C16 4.89543 16.8954 4 18 4C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20C16.8954 20 16 19.1046 16 18" fill="#ff8a5a" stroke="#ff5500" stroke-width="1.5"/><line x1="8" y1="9" x2="12" y2="9" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="13" x2="10" y2="13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>'
+                },
+                {
+                    phase: 'Phase 02',
+                    title: 'FOLLOW DAILY TASKS',
+                    text: 'Show up every day. No skipping.',
+                    icon: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="transform: rotate(45deg);"><path d="M12 2L15 10L12 16L9 10L12 2Z" fill="#2a0a00" stroke="#ff5500" stroke-width="1.5" stroke-linejoin="round"/><rect x="11" y="16" width="2" height="4" fill="#ff8a5a" stroke="#ff5500" stroke-width="1.5"/><circle cx="12" cy="21.5" r="1.5" fill="none" stroke="#ffffff" stroke-width="1.5"/><line x1="12" y1="5" x2="12" y2="13" stroke="#ff8a5a" stroke-width="1.5"/></svg>'
+                },
+                {
+                    phase: 'Phase 03',
+                    title: 'BUILD PROJECTS',
+                    text: 'Real projects that solve real problems',
+                    icon: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#2a0a00" stroke="#ff5500" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="#ff8a5a" stroke="#ffffff" stroke-width="1.5"/></svg>'
+                },
+                {
+                    phase: 'Phase 04',
+                    title: 'BECOME JOB-READY',
+                    text: 'Walk out with a portfolio, not just notes',
+                    icon: '<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#2a0a00" stroke="#ff5500" stroke-width="1.5"/><rect x="5.5" y="8" width="13" height="6" rx="3" fill="#ff8a5a" stroke="#ff5500" stroke-width="1.5"/><circle cx="9" cy="11" r="1.5" fill="#ffffff"/><circle cx="15" cy="11" r="1.5" fill="#ffffff"/><path d="M20 10.5L23 9M20.5 12.5L23 14" stroke="#ff5500" stroke-width="1.5" stroke-linecap="round"/></svg>'
+                }
+            ];
+
+            const wrapper = document.getElementById('tl4-cards');
+            const wrapContainer = document.getElementById('tl4-wrap');
+            const pathEl = document.querySelector('#how-it-works .ribbon-path');
+            const sparkEl = document.querySelector('#how-it-works .ribbon-spark');
+
+            // Mathematical formula to track the stretched SVG bezier curve (1500px wide)
+            function ribbonPoint(t) {
+                if (t < 0.33) {
+                    const lt = t / 0.33;
+                    return { x: 0 + lt * 500, y: 200 + (80 - 200) * lt * lt };
+                } else if (t < 0.67) {
+                    const lt = (t - 0.33) / 0.34;
+                    return { x: 500 + lt * (1000 - 500), y: 80 + (280 - 80) * lt };
+                } else {
+                    const lt = (t - 0.67) / 0.33;
+                    return { x: 1000 + lt * (1500 - 1000), y: 280 + (160 - 280) * lt };
+                }
+            }
+
+            // Positions mapping to nodes along the curve (matching the 4 phases)
+            const ts = [0.12, 0.38, 0.62, 0.88];
+            const ribbonNodes = [];
+
+            ts.forEach((t, i) => {
+                const pt = ribbonPoint(t);
+                const xr = pt.x / 1500 * 100;
+                const yr = pt.y / 320 * 100;
+
+                // Determine strict alternation: Below, Above, Below, Above
+                const above = (i % 2 !== 0);
+
+                // Create Node (Diamond) with Number
+                const node = document.createElement('div');
+                node.className = 'ribbon-node';
+                node.style.cssText = `left:${xr}%; top:${yr}%; opacity:0; transition:opacity 0.5s ${0.4 + i * 0.3}s;`;
+                node.innerHTML = `<div class="gem"><span class="gem-text">0${i + 1}</span></div>`;
+                wrapper.appendChild(node);
+                ribbonNodes.push(node);
+
+                // Create Associated Card
+                const card = document.createElement('div');
+                card.className = `ribbon-card ${above ? 'above' : 'below'}`;
+
+                // Calculate top/bottom offset anchoring exactly to the node
+                if (above) {
+                    const bottomOffset = `calc(${100 - yr}% + 35px)`;
+                    card.style.cssText = `left:${xr}%; bottom:${bottomOffset}; transition:all 0.7s ${0.6 + i * 0.3}s;`;
+                } else {
+                    const topOffset = `calc(${yr}% + 35px)`;
+                    card.style.cssText = `left:${xr}%; top:${topOffset}; transition:all 0.7s ${0.6 + i * 0.3}s;`;
+                }
+
+                card.innerHTML = `
+                <div class="weapon-card">
+                  <span class="c-icon">${tlData[i].icon}</span>
+                  <div class="c-year">${tlData[i].phase}</div>
+                  <div class="c-title">${tlData[i].title}</div>
+                  <div class="c-text">${tlData[i].text}</div>
+                </div>
+              `;
+                wrapper.appendChild(card);
+            });
+
+            // ───── INTERSECTION OBSERVER FOR ANIMATION ─────
+            const obs = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    pathEl.classList.add('drawn');
+                    sparkEl.classList.add('go');
+
+                    setTimeout(() => {
+                        ribbonNodes.forEach((n, i) => setTimeout(() => n.style.opacity = '1', i * 220));
+                        document.querySelectorAll('#how-it-works .ribbon-card').forEach((c, i) => setTimeout(() => c.classList.add('visible'), 500 + i * 220));
+                    }, 1200);
+
+                    obs.disconnect();
+                }
+            }, { threshold: 0.3 });
+
+            if (wrapContainer) obs.observe(wrapContainer);
+
+            // ───── HORIZONTAL SCROLL WITH MOUSE WHEEL ─────
+            const scrollWrapper = document.querySelector('#how-it-works .timeline-wrapper');
+            scrollWrapper?.addEventListener('wheel', (e) => {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && window.innerWidth <= 768) {
+                    e.preventDefault();
+                    scrollWrapper.scrollLeft += e.deltaY * 1.5;
+                }
+            }, { passive: false });
+
+        })();
 
     </script>
 </body>
