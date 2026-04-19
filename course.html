@@ -663,11 +663,14 @@
 
     <main class="relative z-10 w-full">
 
-        <section id="mask-section" class="relative h-[250vh] bg-[#050505] z-[10]">
-            <div id="hero-inner"
-                class="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <section id="mask-section" class="relative h-screen bg-[#050505] z-[10] overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none z-0"
+                style="background: linear-gradient(to right, rgba(5,5,5,0.85), rgba(5,5,5,0.55)), url('./assets/samurai/shadow.png') center/cover no-repeat; opacity: 0.35; filter: grayscale(1);"></div>
 
-                <div class="absolute inset-0 flex flex-col items-center justify-center bg-[#050505] text-[#fff] p-6">
+            <div id="hero-inner"
+                class="h-screen w-full flex flex-col items-center justify-center overflow-hidden relative z-10">
+
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-[#fff] p-6">
                     <p id="hero-tag-jp"
                         class="text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase mb-6 text-[#ff6a2a] japan-font">
                         プレミアムな選択
@@ -678,41 +681,11 @@
                     </h2>
 
                     <div class="mt-12 flex flex-col sm:flex-row items-center gap-6">
-                        <a href="#apply" class="btn-shadowstep-primary">
-                            Apply Now <i data-lucide="sword" class="w-6 h-6"></i>
+                        <a href="#apply" class="btn-zen-primary">
+                            Apply Now <i data-lucide="pen-tool" class="w-5 h-5"></i>
                         </a>
-                        <a href="#vertical-stepper" class="btn-shadowstep-outline">
-                            Review Curriculum <i data-lucide="scroll" class="w-6 h-6"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div id="mask-overlay"
-                    class="absolute inset-0 flex flex-col items-center justify-center bg-[#cc0000] text-white p-6 will-change-clip"
-                    style="clip-path: inset(100% 0 0 0);">
-                    <!-- mobile-no-noise removes heavy SVG filter on small screens -->
-                    <div class="absolute inset-0 opacity-10 mobile-no-noise"
-                        style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E'); background-size: 200px;">
-                    </div>
-
-                    <p id="overlay-tag-jp"
-                        class="text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase mb-6 text-white/70 japan-font relative z-10">
-                        戦士の道
-                    </p>
-                    <h2 id="overlay-title"
-                        class="cinzel-font text-[14vw] md:text-[9vw] font-black leading-[0.85] text-center tracking-tighter uppercase text-white relative z-10 shadow-black drop-shadow-2xl">
-                        PRODUCTION<br>LEVEL<br>SKILLS
-                    </h2>
-
-                    <div class="mt-12 flex flex-col sm:flex-row items-center gap-6 relative z-10">
-                        <a href="#apply" class="btn-shadowstep-primary !bg-white !text-[#cc0000] !border-white"
-                            style="box-shadow: 7px 7px 0px #8b0000;">
-                            Apply Now <i data-lucide="sword" class="w-6 h-6"></i>
-                        </a>
-                        <a href="#vertical-stepper"
-                            class="btn-shadowstep-outline !bg-transparent !text-white !border-white"
-                            style="box-shadow: 7px 7px 0px #fff;">
-                            Review Curriculum <i data-lucide="scroll" class="w-6 h-6"></i>
+                        <a href="#vertical-stepper" class="btn-zen-outline">
+                            <i data-lucide="scroll" class="w-6 h-6"></i> Review Curriculum
                         </a>
                     </div>
                 </div>
@@ -723,9 +696,11 @@
         <section id="stats-section"
             class="relative w-full py-32 md:py-40 bg-[#0a0a0a] z-[20] overflow-hidden shadow-[0_-30px_100px_rgba(0,0,0,0.9)] border-t border-[#cc0000]/30"
             style="will-change: border-radius;">
+            <div class="absolute right-0 top-0 h-full w-1/2 pointer-events-none"
+                style="background: linear-gradient(to left, rgba(10,10,10,0.4), rgba(10,10,10,1)), url('./assets/samurai/shadow.png') right center/cover no-repeat; opacity: 0.25; filter: grayscale(1);"></div>
             <div class="pattern-bg"></div>
 
-            <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+            <div class="max-w-[1440px] mx-auto px-4 md:px-6 w-full relative z-10">
 
                 <div class="flex flex-col items-center text-center mb-20 reveal-cinematic">
                     <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">戦術的知能</span>
@@ -741,14 +716,14 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
 
-                    <div class="dojo-card p-8 md:p-10 flex flex-col justify-between min-h-[280px] md:col-span-4">
+                    <div class="dojo-card p-5 md:p-6 flex flex-col justify-between min-h-[200px] md:col-span-4">
                         <div class="relative z-10 flex flex-col justify-between h-full">
-                            <div class="flex items-start justify-between mb-8">
+                            <div class="flex items-start justify-between mb-5">
                                 <div
-                                    class="w-12 h-12 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
-                                    <i data-lucide="calendar" class="w-6 h-6 text-[#ff6a2a]"></i>
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
+                                    <i data-lucide="calendar" class="w-5 h-5 text-[#ff6a2a]"></i>
                                 </div>
                                 <div class="dojo-tag">INTENSIVE</div>
                             </div>
@@ -759,18 +734,18 @@
                                     <span class="hero-stat-num counter-value text-[#cc0000]" data-target="45">0</span>
                                     <span class="text-neutral-300 cinzel-font font-bold text-2xl">Days</span>
                                 </div>
-                                <p class="text-neutral-500 text-sm mt-3 leading-relaxed">Intensive, sprint-based
+                                <p class="text-neutral-500 text-sm mt-2 leading-relaxed">Intensive, sprint-based
                                     curriculum designed for rapid mastery.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dojo-card p-8 md:p-10 flex flex-col justify-between min-h-[280px] md:col-span-4">
+                    <div class="dojo-card p-5 md:p-6 flex flex-col justify-between min-h-[200px] md:col-span-4">
                         <div class="relative z-10 flex flex-col justify-between h-full">
-                            <div class="flex items-start justify-between mb-8">
+                            <div class="flex items-start justify-between mb-5">
                                 <div
-                                    class="w-12 h-12 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
-                                    <i data-lucide="radio" class="w-6 h-6 text-[#ff6a2a]"></i>
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
+                                    <i data-lucide="radio" class="w-5 h-5 text-[#ff6a2a]"></i>
                                 </div>
                                 <div class="dojo-tag bg-transparent border border-[#cc0000] text-[#ff6a2a]">
                                     <span class="w-1.5 h-1.5 bg-[#ff6a2a] rounded-full animate-pulse"></span> ACTIVE NOW
@@ -778,26 +753,26 @@
                             </div>
                             <div>
                                 <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">Mode</p>
-                                <span class="hero-stat-num text-white text-[2.5rem]">Live Online</span>
-                                <p class="text-neutral-500 text-sm mt-3 leading-relaxed">Real-time interactions via
+                                <span class="hero-stat-num text-white text-[2.2rem]">Live Online</span>
+                                <p class="text-neutral-500 text-sm mt-2 leading-relaxed">Real-time interactions via
                                     proprietary interface with live mentors.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dojo-card p-8 md:p-10 flex flex-col justify-between min-h-[280px] md:col-span-4">
+                    <div class="dojo-card p-5 md:p-6 flex flex-col justify-between min-h-[200px] md:col-span-4">
                         <div class="relative z-10 flex flex-col justify-between h-full">
-                            <div class="flex items-start justify-between mb-8">
+                            <div class="flex items-start justify-between mb-5">
                                 <div
-                                    class="w-12 h-12 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
-                                    <i data-lucide="swords" class="w-6 h-6 text-[#ff6a2a]"></i>
+                                    class="w-11 h-11 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
+                                    <i data-lucide="swords" class="w-5 h-5 text-[#ff6a2a]"></i>
                                 </div>
                             </div>
                             <div>
                                 <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">Mentorship
                                 </p>
-                                <span class="hero-stat-num text-white text-[2.2rem]">1-on-1 Sessions</span>
-                                <div class="flex items-center gap-3 mt-4">
+                                <span class="hero-stat-num text-white text-[1.9rem]">1-on-1 Sessions</span>
+                                <div class="flex items-center gap-3 mt-3">
                                     <div class="flex -space-x-2">
                                         <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop"
                                             class="w-8 h-8 rounded-full border-2 border-[#111] object-cover filter grayscale">
@@ -814,38 +789,48 @@
                         </div>
                     </div>
 
-                    <div class="dojo-card p-8 md:p-12 min-h-[200px] flex items-center md:col-span-8">
+                    <div class="dojo-card p-6 md:p-7 min-h-[170px] flex items-center md:col-span-8">
                         <div class="relative z-10 w-full">
                             <div
-                                class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10">
+                                class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-0 divide-y-0 md:divide-y-0 md:divide-x divide-white/10">
 
-                                <div class="flex items-start gap-4 md:pr-8 py-4 md:py-0">
-                                    <i data-lucide="monitor-play" class="w-8 h-8 text-[#cc0000] shrink-0"></i>
+                                <div class="flex items-start gap-3 md:pr-5 py-2 md:py-0">
+                                    <i data-lucide="monitor-play" class="w-7 h-7 text-[#cc0000] shrink-0"></i>
                                     <div>
-                                        <h4 class="text-white text-base font-bold mb-1 tracking-wider uppercase">Format
+                                        <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Format
                                         </h4>
-                                        <p class="text-neutral-500 text-sm leading-snug">Live sessions + lifetime
-                                            recordings access.</p>
+                                        <p class="text-neutral-500 text-xs leading-snug">Live sessions + lifetime
+                                            recordings.</p>
                                     </div>
                                 </div>
 
-                                <div class="flex items-start gap-4 md:px-8 py-4 md:py-0">
-                                    <i data-lucide="flame" class="w-8 h-8 text-[#ff6a2a] shrink-0"></i>
+                                <div class="flex items-start gap-3 md:px-5 py-2 md:py-0">
+                                    <i data-lucide="flame" class="w-7 h-7 text-[#ff6a2a] shrink-0"></i>
                                     <div>
-                                        <h4 class="text-white text-base font-bold mb-1 tracking-wider uppercase">Level
+                                        <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Level
                                         </h4>
-                                        <p class="text-neutral-500 text-sm leading-snug">Advanced mastery curriculum for
+                                        <p class="text-neutral-500 text-xs leading-snug">Advanced mastery for
                                             professionals.</p>
                                     </div>
                                 </div>
 
-                                <div class="flex items-start gap-4 md:pl-8 py-4 md:py-0">
-                                    <i data-lucide="award" class="w-8 h-8 text-[#cc0000] shrink-0"></i>
+                                <div class="flex items-start gap-3 md:px-5 py-2 md:py-0">
+                                    <i data-lucide="clipboard-check" class="w-7 h-7 text-[#ff6a2a] shrink-0"></i>
                                     <div>
-                                        <h4 class="text-white text-base font-bold mb-1 tracking-wider uppercase">
+                                        <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">
+                                            Assignments</h4>
+                                        <p class="text-neutral-500 text-xs leading-snug">Hands-on tasks after every
+                                            module.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3 md:pl-5 py-2 md:py-0">
+                                    <i data-lucide="award" class="w-7 h-7 text-[#cc0000] shrink-0"></i>
+                                    <div>
+                                        <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">
                                             Certified</h4>
-                                        <p class="text-neutral-500 text-sm leading-snug">Industry-recognized certificate
-                                            on completion.</p>
+                                        <p class="text-neutral-500 text-xs leading-snug">Industry-recognized
+                                            certificate.</p>
                                     </div>
                                 </div>
 
@@ -854,12 +839,12 @@
                     </div>
 
                     <div
-                        class="dojo-card dojo-card-featured p-10 flex flex-col items-center justify-center text-center min-h-[200px] md:col-span-4">
+                        class="dojo-card dojo-card-featured p-6 flex flex-col items-center justify-center text-center min-h-[170px] md:col-span-4">
                         <div class="relative z-10 flex flex-col items-center">
-                            <i data-lucide="target" class="w-12 h-12 text-[#ff6a2a] mb-4"></i>
+                            <i data-lucide="target" class="w-10 h-10 text-[#ff6a2a] mb-3"></i>
                             <p class="text-white/60 text-[10px] font-black tracking-[0.3em] uppercase mb-2">The Ultimate
                                 Outcome</p>
-                            <p class="cinzel-font text-white text-2xl font-black leading-tight uppercase">
+                            <p class="cinzel-font text-white text-xl font-black leading-tight uppercase">
                                 Portfolio-Ready<br>Project</p>
                         </div>
                     </div>
@@ -1222,25 +1207,54 @@
                 .phase-dot {
                     display: flex;
                     align-items: center;
-                    gap: 18px;
-                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    gap: 14px;
+                    padding: 10px 14px;
+                    border-radius: 8px;
+                    background: rgba(255, 255, 255, 0.02);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
                     cursor: pointer;
+                    user-select: none;
+                }
+
+                .phase-dot::after {
+                    content: '';
+                    width: 14px;
+                    height: 14px;
+                    margin-left: auto;
+                    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'/></svg>") no-repeat center / contain;
+                    opacity: 0.35;
+                    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .phase-dot:hover {
+                    background: rgba(255, 106, 42, 0.08);
+                    border-color: rgba(255, 106, 42, 0.35);
+                    transform: translateX(3px);
                 }
 
                 .phase-dot:hover .dot-label {
-                    color: #999;
-                    transform: translateX(5px);
+                    color: #fff;
                 }
 
-                .phase-dot.active:hover .dot-label {
-                    color: #fff;
+                .phase-dot:hover::after {
+                    opacity: 1;
+                    transform: translateX(3px);
+                }
+
+                .phase-dot.active {
+                    background: rgba(255, 106, 42, 0.12);
+                    border-color: rgba(255, 106, 42, 0.55);
+                }
+
+                .phase-dot.active:hover {
                     transform: none;
                 }
 
                 .phase-dot .dot-circle {
                     width: 10px;
                     height: 10px;
-                    border: 1.5px solid #2a2a2a;
+                    border: 1.5px solid #555;
                     transform: rotate(45deg);
                     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                     flex-shrink: 0;
@@ -1252,7 +1266,7 @@
                     font-weight: 800;
                     text-transform: uppercase;
                     letter-spacing: 0.12em;
-                    color: #333;
+                    color: #ccc;
                     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
                 }
 
@@ -1270,12 +1284,17 @@
                     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
                 }
 
+                .phase-dot.active::after {
+                    opacity: 1;
+                    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ff6a2a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'/></svg>") no-repeat center / contain;
+                }
+
                 .phase-dot.completed .dot-circle {
-                    border-color: #444;
+                    border-color: #666;
                 }
 
                 .phase-dot.completed .dot-label {
-                    color: #444;
+                    color: #888;
                 }
 
                 .screen-slide {
@@ -1411,10 +1430,6 @@
                     /* Lower height requirement to trigger scroll phases on mobile */
                     #vertical-stepper {
                         height: 320vh !important;
-                    }
-
-                    #mask-section {
-                        height: 180vh !important;
                     }
 
                     .scroll-paper {
@@ -1678,6 +1693,8 @@
 
         <section
             class="relative flex flex-col items-center justify-center w-full py-32 bg-[#050505] z-[50] overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none"
+                style="background: url('./assets/samurai/gate.png') center/cover no-repeat; opacity: 0.12; filter: grayscale(1);"></div>
             <div
                 class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%3Cpath d=%22M0 20h40v1H0z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3Cpath d=%22M20 0h1v40h-1z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3C/svg%3E')] opacity-[0.2]">
             </div>
@@ -1766,9 +1783,6 @@
 
                 document.getElementById('hero-tag-jp').innerHTML = data.hero.tag;
                 document.getElementById('hero-title').innerHTML = data.hero.title;
-
-                document.getElementById('overlay-tag-jp').innerHTML = data.overlay.tag;
-                document.getElementById('overlay-title').innerHTML = data.overlay.title;
 
                 document.getElementById('old-price').innerText = data.pricing.oldPrice;
                 document.getElementById('new-price').innerText = data.pricing.newPrice;
@@ -1942,8 +1956,6 @@
             let ticking = false;
             let currentPhase = 0;
 
-            const maskSection = document.getElementById('mask-section');
-            const maskOverlay = document.getElementById('mask-overlay');
             const curriculumSection = document.getElementById('vertical-stepper');
             const scrollScreen = document.getElementById('scroll-screen');
             const scrollWaxSeal = document.getElementById('scroll-wax-seal');
@@ -2031,33 +2043,14 @@
             }
 
             function updateScrollAnimations() {
-                // PHASE 1: READ ALL DOM POSITIONS (Prevents Thrashing)
-                let maskRect = null;
                 let currRect = null;
-
-                if (maskSection) maskRect = maskSection.getBoundingClientRect();
                 if (curriculumSection) currRect = curriculumSection.getBoundingClientRect();
-
-                // Calculate calculations in memory
-                let maskProgressToApply = null;
-                if (maskRect && maskRect.top < window.innerHeight && maskRect.bottom > 0) {
-                    const maskScrollableDistance = maskRect.height - window.innerHeight;
-                    if (maskScrollableDistance > 0) {
-                        let maskProgress = -maskRect.top / maskScrollableDistance;
-                        maskProgressToApply = Math.max(0, Math.min(1, maskProgress));
-                    }
-                }
 
                 let currProgressToApply = null;
                 if (currRect && currRect.top < window.innerHeight && currRect.bottom > 0) {
                     const scrollable = currRect.height - window.innerHeight;
                     let progress = -currRect.top / scrollable;
                     currProgressToApply = Math.max(0, Math.min(1, progress));
-                }
-
-                // PHASE 2: WRITE ALL DOM POSITIONS (Batched)
-                if (maskProgressToApply !== null && maskOverlay) {
-                    maskOverlay.style.clipPath = `inset(${100 - (maskProgressToApply * 100)}% 0 0 0)`;
                 }
 
                 if (currRect && currProgressToApply !== null && scrollScreen) {
@@ -2079,15 +2072,6 @@
 
             // --- GSAP INJECTIONS ---
             gsap.registerPlugin(ScrollTrigger);
-
-            ScrollTrigger.create({
-                trigger: "#mask-section",
-                start: "bottom bottom",
-                endTrigger: "#stats-section",
-                end: "top top",
-                pin: true,
-                pinSpacing: false
-            });
 
             gsap.to("#stats-section", {
                 borderTopLeftRadius: 0,

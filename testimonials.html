@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAMES | Testimonials</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Inter:ital,wght@0,300;0,400;0,600;0,800;0,900;1,400;1,600&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#ff5500',
+                            dark: '#0c0c0c',
+                            card: '#131313',
+                            border: '#262626',
+                            textMuted: '#8b8b8b',
+                            textLight: '#cfcfcf'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --flame-orange: #ff5500;
+            --bg-black: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --border-dark: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .japan-font {
+            font-family: 'Dela Gothic One', cursive;
+        }
+
+        .cinzel-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* =====================================================
+           SCROLL-BASED REVEAL CLASSES
+           ===================================================== */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =====================================================
+           USER REVIEWS — MODERN SPLIT LAYOUT
+           ===================================================== */
+        #reviews {
+            background: #050505;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            /* Ensuring it takes full screen height for demonstration */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .reviews-header-large {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .reviews-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            color: #888;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .trustpilot-icon {
+            color: #00b67a;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+        }
+
+        .trustpilot-star {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .reviews-grid {
+            max-width: 1600px; /* Increased from 1500px to allow more breathing room */
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 1400px) {
+            .reviews-grid {
+                grid-template-columns: 320px 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .reviews-grid {
+                display: block;
+            }
+
+            .reviews-sidebar {
+                margin-bottom: 60px;
+                text-align: center;
+            }
+
+            .reviews-nav {
+                justify-content: center;
+            }
+        }
+
+        .reviews-sidebar {
+            position: relative;
+        }
+
+        .quote-icon-large {
+            font-size: 100px;
+            color: var(--flame-orange);
+            opacity: 0.2;
+            font-family: serif;
+            line-height: 1;
+            margin-bottom: -20px;
+            margin-left: -10px;
+        }
+
+        .sidebar-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+
+        .reviews-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--flame-orange);
+            color: var(--flame-orange);
+        }
+
+        .nav-line {
+            width: 100px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .nav-line-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--flame-orange);
+            transition: width 0.3s ease;
+        }
+
+        /* Carousel Area */
+        .reviews-carousel {
+            overflow: hidden;
+            width: 100%;
+            padding: 30px 0;
+            /* Vertical safety buffer */
+            margin: -30px 0;
+            /* Offset the padding to maintain layout */
+            position: relative;
+            /* Fade effect for the right edge to make any overflow look intentional */
+            -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+            mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+        }
+
+        .reviews-track {
+            display: flex;
+            gap: 40px;
+            /* Increased gap for better framing */
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            will-change: transform;
+            padding-left: 5px;
+            /* Tiny starting offset to show first bubble tail */
+        }
+
+        .review-bubble {
+            width: 420px; /* Reduced from 500px so 2 cards fit perfectly on standard 1440p laptops */
+            max-width: 85vw;
+            /* Safety for smaller layouts */
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .bubble-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 50px 60px;
+            /* More internal breathing room */
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+            overflow: visible;
+            box-sizing: border-box;
+        }
+
+        .review-bubble:hover .bubble-content {
+            border-color: rgba(255, 106, 42, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-5px);
+        }
+
+        /* The Triangle Tail - Fixed Color to match bubble bg */
+        .bubble-content::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 45px;
+            width: 30px;
+            height: 30px;
+            background: #0d0d0d;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 25px;
+            color: #00b67a;
+        }
+
+        .star-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            filter: drop-shadow(0 0 5px rgba(0, 182, 122, 0.2));
+        }
+
+        .bubble-text {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .bubble-footer {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-left: 10px;
+        }
+
+        .reviewer-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255, 106, 42, 0.3);
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .reviewer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1);
+            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .review-bubble:hover .reviewer-avatar img {
+            filter: grayscale(0);
+        }
+
+        .reviewer-meta h4 {
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .reviewer-meta span {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .review-bubble {
+                min-width: calc(100vw - 80px);
+            }
+
+            .sidebar-title {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .review-card {
+                min-width: 100%;
+            }
+
+            .reviews-wrapper {
+                padding: 0 20px;
+            }
+
+            .carousel-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         USER REVIEWS — ECHOES OF MASTERY
+         ===================================================== -->
+    <section id="reviews">
+        <div class="reviews-header-large reveal-up">
+            <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">WARRIOR TESTIMONIALS</span>
+            <h2 class="cinzel-font text-3xl md:text-5xl font-black mb-4 uppercase">Read reviews, ride with confidence
+            </h2>
+            <div class="reviews-badge">
+                <span>4.2/5</span>
+                <div class="trustpilot-icon">
+                    <svg class="trustpilot-star" viewBox="0 0 20 20">
+                        <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                    </svg>
+                    Trustpilot
+                </div>
+                <span>Based on 5210 reviews</span>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="reviews-sidebar reveal-up">
+                <div class="quote-icon-large">“</div>
+                <h3 class="sidebar-title">What our students are saying</h3>
+
+                <div class="reviews-nav">
+                    <button class="nav-btn" id="rev-prev">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="nav-line">
+                        <div class="nav-line-active" id="rev-progress"></div>
+                    </div>
+                    <button class="nav-btn" id="rev-next">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reviews-carousel reveal-up">
+                <div class="reviews-track" id="rev-track">
+                    <!-- Review 1 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                            </div>
+                            <p class="bubble-text">"The AI Agent curriculum is unlike anything else. Building agents
+                                that actually solve LeetCode and automate my freelance work in Week 3 was mind-blowing."
+                            </p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=aryan" alt="Aryan">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>WARRIOR ARYAN</h4>
+                                <span>IIT BOMBAY · 1 week ago</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                            </div>
+                            <p class="bubble-text">"I came for the code, stayed for the clan. The networking with
+                                students from top colleges helped me land a referral at Google before the trial even
+                                ended."</p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=ishita" alt="Ishita">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>DISCIPLE ISHITA</h4>
+                                <span>NIT TRICHY · 10 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                            </div>
+                            <p class="bubble-text">"The 45-day trial is intense but worth every second. The 'Shadow
+                                System' architecture we built for our project now handles real-time data for 10k users."
+                            </p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=raghav" alt="Raghav">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>WARRIOR RAGHAV</h4>
+                                <span>BITS PILANI · 2 weeks ago</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="review-bubble">
+                        <div class="bubble-content">
+                            <div class="review-stars">
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                            </div>
+                            <p class="bubble-text">"Weaponized Next.js and Django are the perfect stack. Sensei's
+                                approach to clean, scalable architecture changed how I look at software forever."</p>
+                        </div>
+                        <div class="bubble-footer">
+                            <div class="reviewer-avatar">
+                                <img src="https://i.pravatar.cc/150?u=ananya" alt="Ananya">
+                            </div>
+                            <div class="reviewer-meta">
+                                <h4>DISCIPLE ANANYA</h4>
+                                <span>DTU DELHI · 1 month ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Scripts -->
+    <script>
+        // =====================================================
+        // SCROLL REVEAL ANIMATION OBSERVER
+        // =====================================================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.reveal-up').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // =====================================================
+        // REVIEWS CAROUSEL LOGIC — SEAMLESS INFINITE LOOP
+        // =====================================================
+        (function () {
+            const track = document.getElementById('rev-track');
+            const nextBtn = document.getElementById('rev-next');
+            const prevBtn = document.getElementById('rev-prev');
+            const progressLine = document.getElementById('rev-progress');
+
+            if (!track) return;
+
+            const cards = Array.from(track.children);
+            const cardCount = cards.length;
+            let index = 0;
+            let isTransitioning = false;
+            let autoRotateTimer = null;
+            const ROTATION_SPEED = 6000;
+
+            // Setup Clones for Seamless Loop
+            const firstClone = cards[0].cloneNode(true);
+            const lastClone = cards[cardCount - 1].cloneNode(true);
+
+            track.appendChild(firstClone);
+            track.insertBefore(lastClone, cards[0]);
+
+            // Adjust initial position (start at first real card)
+            const getCardWidth = () => {
+                const card = track.querySelector('.review-bubble');
+                // Capture the exact width + gap (40px)
+                return card.offsetWidth + 40;
+            };
+
+            const updateUI = (instant = false) => {
+                if (instant) track.style.transition = 'none';
+                else track.style.transition = 'transform 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
+
+                // Offset +1 because of the prepended lastClone
+                track.style.transform = `translateX(-${(index + 1) * getCardWidth()}px)`;
+
+                if (progressLine) {
+                    const realIndex = (index + cardCount) % cardCount;
+                    progressLine.style.width = `${((realIndex + 1) / cardCount) * 100}%`;
+                }
+
+                if (instant) {
+                    // Force reflow
+                    track.offsetHeight;
+                }
+            };
+
+            const next = () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                index++;
+                updateUI();
+            };
+
+            const prev = () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                index--;
+                updateUI();
+            };
+
+            track.addEventListener('transitionend', () => {
+                isTransitioning = false;
+
+                // Snap checks
+                if (index >= cardCount) {
+                    index = 0; // Jump to real first card
+                    updateUI(true);
+                } else if (index <= -1) {
+                    index = cardCount - 1; // Jump to real last card
+                    updateUI(true);
+                }
+            });
+
+            // Controls
+            nextBtn?.addEventListener('click', () => { next(); startAuto(); });
+            prevBtn?.addEventListener('click', () => { prev(); startAuto(); });
+
+            // Auto-rotation
+            const startAuto = () => {
+                stopAuto();
+                autoRotateTimer = setInterval(next, ROTATION_SPEED);
+            };
+            const stopAuto = () => clearInterval(autoRotateTimer);
+
+            track.addEventListener('mouseenter', stopAuto);
+            track.addEventListener('mouseleave', startAuto);
+
+            window.addEventListener('resize', () => updateUI(true));
+
+            // Init
+            updateUI(true);
+            startAuto();
+        })();
+    </script>
+</body>
+
+</html>

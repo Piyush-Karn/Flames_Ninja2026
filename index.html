@@ -1546,7 +1546,8 @@
         }
 
         .faq-container {
-            max-width: 800px;
+            max-width: 1200px;
+            width: 100%;
             margin: 60px auto 0;
             display: flex;
             flex-direction: column;
@@ -1647,6 +1648,11 @@
             padding: 120px 0;
             position: relative;
             overflow: hidden;
+            /* Ensuring it takes full screen height for demonstration */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .reviews-header-large {
@@ -1680,7 +1686,7 @@
         }
 
         .reviews-grid {
-            max-width: 1500px;
+            max-width: 1600px; /* Increased from 1500px to allow more breathing room */
             margin: 0 auto;
             padding: 0 40px;
             display: grid;
@@ -1784,6 +1790,9 @@
             margin: -30px 0;
             /* Offset the padding to maintain layout */
             position: relative;
+            /* Fade effect for the right edge to make any overflow look intentional */
+            -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+            mask-image: linear-gradient(to right, #000 85%, transparent 100%);
         }
 
         .reviews-track {
@@ -1797,8 +1806,7 @@
         }
 
         .review-bubble {
-            width: 500px;
-            /* Explicit width for better math */
+            width: 420px; /* Reduced from 500px so 2 cards fit perfectly on standard 1440p laptops */
             max-width: 85vw;
             /* Safety for smaller layouts */
             flex-shrink: 0;
@@ -2151,9 +2159,9 @@
 
         @media (min-width: 768px) {
             .weapon-card.featured {
-                grid-column: span 2;
-                grid-row: span 2;
-                padding: 50px;
+                grid-column: span 1;
+                grid-row: span 1;
+                padding: 40px;
             }
         }
 
@@ -2906,10 +2914,10 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row-dense auto-rows-[minmax(240px,auto)] gap-4 lg:gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 items-stretch">
 
-                <!-- 1. MERN (HERO - 2x2) -->
-                <div class="weapon-card featured col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 reveal-scale">
+                <!-- 1. MERN -->
+                <div class="weapon-card featured reveal-scale">
                     <span class="rank-tag text-[var(--flame-orange)]">FEATURED</span>
                     <h3 class="weapon-title">FULL STACK <br> + GEN AI</h3>
                     
@@ -2953,8 +2961,8 @@
                     </div>
                 </div>
 
-                <!-- 2. Bundle (WIDE ACCENT - 2x1) -->
-                <div class="weapon-card highlight-accent col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale">
+                <!-- 2. Bundle -->
+                <div class="weapon-card highlight-accent reveal-scale">
                     <span class="rank-tag text-white/70">FEATURED</span>
                     
                     <div class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
@@ -2982,15 +2990,36 @@
                         Your absolute path to tech dominance</p>
                     <p class="weapon-desc text-white/90 max-w-xl mt-0 m-0">Your complete path to becoming
                         job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
-                        
+
+                    <div class="mt-4 z-10 relative flex-grow mb-6">
+                        <div class="flex flex-wrap gap-x-6 gap-y-3 max-w-[340px]">
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">DSA Foundation</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Full Stack</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">AI Agents</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Mentorship</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="btn-group mt-auto pt-6 w-full">
                         <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=bundle'">Join Bundle</button>
                         <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=bundle'">Syllabus</button>
                     </div>
                 </div>
 
-                <!-- 3. AIML (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale">
+                <!-- 3. AIML -->
+                <div class="weapon-card reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
@@ -3018,6 +3047,27 @@
                             <p class="weapon-desc m-0">Work with LLMs and prompt engineering to create autonomous
                                 Agentic AI that can think, plan, and execute tasks. Ship intelligent applications like
                                 chatbots.</p>
+
+                            <div class="mt-5 z-10 relative">
+                                <div class="flex flex-wrap gap-x-6 gap-y-3">
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">LLMs</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Prompting</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">AI Agents</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Deployment</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="btn-group pt-8 mt-8 w-full">
                             <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=aiml'">Enroll Now</button>
@@ -3026,8 +3076,8 @@
                     </div>
                 </div>
 
-                <!-- 4. DSA (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale">
+                <!-- 4. DSA -->
+                <div class="weapon-card reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
@@ -3049,8 +3099,29 @@
 
                             <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Crack
                                 coding interviews with confidence</p>
-                            <p class="weapon-desc text-xs line-clamp-3 m-0">Master Java fundamentals, OOPs, and key
+                            <p class="weapon-desc text-xs m-0">Master Java fundamentals, OOPs, and key
                                 syntax. Learn pattern-based problem solving for technical interviews.</p>
+
+                            <div class="mt-5 z-10 relative">
+                                <div class="flex flex-wrap gap-x-6 gap-y-3">
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Java / C++</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">OOP Core</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Patterns</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Interview Prep</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="btn-group w-full">
                             <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=dsa'">Start Prep</button>
@@ -3059,8 +3130,8 @@
                     </div>
                 </div>
 
-                <!-- 5. Django (WIDE - 2x1) -->
-                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale">
+                <!-- 5. Django -->
+                <div class="weapon-card reveal-scale">
                     <span class="rank-tag">PATH</span>
                     
                     <div class="weapon-icon mb-4">
@@ -3083,15 +3154,36 @@
 
                     <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build secure, scalable backend systems</p>
                     <p class="weapon-desc m-0 max-w-xl">Build secure, scalable full-stack projects from scratch and seamlessly integrate AI into your systems.</p>
-                    
+
+                    <div class="mt-4 z-10 relative flex-grow mb-6">
+                        <div class="flex flex-wrap gap-x-6 gap-y-3 max-w-[340px]">
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Django Core</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">REST APIs</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Auth & Security</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">AI Integration</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="btn-group mt-auto pt-6 w-full">
                         <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=django'">Enroll Now</button>
                         <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=django'">Syllabus</button>
                     </div>
                 </div>
 
-                <!-- 6. Data Analytics (TALL - 1x2) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-2 reveal-scale">
+                <!-- 6. Data Analytics -->
+                <div class="weapon-card reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
@@ -3114,6 +3206,27 @@
                                 into real insights</p>
                             <p class="weapon-desc m-0">Discover insights and empower decisions. Master data analysis,
                                 effective visualization, and machine learning insights through real-world cases.</p>
+
+                            <div class="mt-5 z-10 relative">
+                                <div class="flex flex-wrap gap-x-6 gap-y-3">
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Data Analysis</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Visualization</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">ML Insights</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Real Cases</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="btn-group pt-8 mt-8 w-full">
                             <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=data'">Start Learning</button>
@@ -3122,8 +3235,8 @@
                     </div>
                 </div>
 
-                <!-- 7. Mobile App (STANDARD - 1x1) -->
-                <div class="weapon-card col-span-1 lg:col-span-1 lg:row-span-1 reveal-scale">
+                <!-- 7. Mobile App -->
+                <div class="weapon-card reveal-scale">
                     <span class="rank-tag">PATH</span>
                     <div class="flex flex-col h-full justify-between">
                         <div>
@@ -3145,17 +3258,26 @@
 
                             <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Design and
                                 ship modern Android apps</p>
-                            <p class="weapon-desc text-xs mb-4 m-0">Master Android development using Java.</p>
-                            <div class="space-y-2 mb-2 z-10 relative">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full"></span>
-                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">UI
-                                        Design</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full"></span>
-                                    <span class="text-[9px] text-zinc-300 font-bold uppercase tracking-wider">Database
-                                        Mgt</span>
+                            <p class="weapon-desc text-xs mb-4 m-0">Master Android development using Java with AI-powered features integrated into your apps.</p>
+
+                            <div class="mt-5 z-10 relative">
+                                <div class="flex flex-wrap gap-x-6 gap-y-3">
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">UI Design</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Database Mgt</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Gen AI</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 w-[140px]">
+                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Publishing</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3166,8 +3288,8 @@
                     </div>
                 </div>
 
-                <!-- 8. Offline Full Stack (WIDE - 2x1) -->
-                <div class="weapon-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1 reveal-scale">
+                <!-- 8. Offline Full Stack -->
+                <div class="weapon-card reveal-scale">
                     <span class="rank-tag">PATH</span>
                     
                     <div class="weapon-icon mb-4">
@@ -3194,7 +3316,28 @@
 
                     <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience real-world office workflows</p>
                     <p class="weapon-desc m-0 max-w-xl">Code in Office. Build Real Projects. Launch your career with practical exposure to workflows and REST APIs.</p>
-                    
+
+                    <div class="mt-4 z-10 relative flex-grow mb-6">
+                        <div class="flex flex-wrap gap-x-6 gap-y-3 max-w-[340px]">
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">In-Office</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Real Projects</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">REST APIs</span>
+                            </div>
+                            <div class="flex items-center gap-3 w-[150px]">
+                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
+                                <span class="text-xs text-white uppercase tracking-widest font-bold">Team Workflow</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="btn-group mt-auto pt-6 w-full">
                         <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=offline'">Apply Now</button>
                         <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=offline'">Bootcamp Info</button>
@@ -3398,8 +3541,7 @@
 
                 <div class="reviews-nav">
                     <button class="nav-btn" id="rev-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M15 18l-6-6 6-6" />
                         </svg>
                     </button>
@@ -3407,8 +3549,7 @@
                         <div class="nav-line-active" id="rev-progress"></div>
                     </div>
                     <button class="nav-btn" id="rev-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 18l6-6-6-6" />
                         </svg>
                     </button>
@@ -3421,21 +3562,11 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
                             </div>
                             <p class="bubble-text">"The AI Agent curriculum is unlike anything else. Building agents
                                 that actually solve LeetCode and automate my freelance work in Week 3 was mind-blowing."
@@ -3456,21 +3587,11 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
                             </div>
                             <p class="bubble-text">"I came for the code, stayed for the clan. The networking with
                                 students from top colleges helped me land a referral at Google before the trial even
@@ -3491,21 +3612,11 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
                             </div>
                             <p class="bubble-text">"The 45-day trial is intense but worth every second. The 'Shadow
                                 System' architecture we built for our project now handles real-time data for 10k users."
@@ -3526,21 +3637,11 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
-                                <svg class="star-icon" viewBox="0 0 20 20">
-                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
-                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
                             </div>
                             <p class="bubble-text">"Weaponized Next.js and Django are the perfect stack. Sensei's
                                 approach to clean, scalable architecture changed how I look at software forever."</p>
@@ -4280,7 +4381,7 @@
             let autoRotateTimer = null;
             const ROTATION_SPEED = 6000;
 
-            // 1. Setup Clones for Seamless Loop
+            // Setup Clones for Seamless Loop
             const firstClone = cards[0].cloneNode(true);
             const lastClone = cards[cardCount - 1].cloneNode(true);
 
