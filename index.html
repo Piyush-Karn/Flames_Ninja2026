@@ -815,161 +815,399 @@
         @media (min-width: 1024px) {
             .bento-grid {
                 grid-template-columns: repeat(3, 1fr);
-            }
+        }
+    }
+        
+             /* =====================================================
+           ARSENAL / PREMIUM CARDS
+           ===================================================== */
+        .cards-wrapper {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
         }
 
-        .weapon-card {
-            background: linear-gradient(135deg, #151515 0%, #0a0a0a 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 30px;
+        .card {
+            width: 600px;
+            height: 600px;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            position: relative;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            min-height: 240px;
+            justify-content: space-between;
+            padding: 50px;
+            /* Premium, buttery smooth custom bezier for float */
+            transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.7s ease;
+            will-change: transform, box-shadow;
             cursor: pointer;
+            background: #111111;
+            border: 1px solid #222;
         }
 
-        .weapon-card::before {
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            z-index: 10;
+        }
+
+        /* ─── GHOST INDEX NUMBERS ─── */
+        .course-number {
+            position: absolute;
+            top: 45px;
+            right: 15px;
+            font-size: 180px;
+            font-weight: 900;
+            color: #ffffff;
+            opacity: 0.025;
+            line-height: 1;
+            z-index: 0;
+            pointer-events: none;
+            transform: translate3d(15px, 0, 0);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            user-select: none;
+        }
+
+        .card:hover .course-number {
+            opacity: 0.06;
+            transform: translate3d(0, -8px, 0) scale(1.04);
+            color: #ea580c;
+        }
+
+        .card-orange .course-number {
+            color: #000000;
+            opacity: 0.05;
+        }
+
+        .card-orange:hover .course-number {
+            opacity: 0.09;
+            color: #000000;
+            transform: translate3d(0, -8px, 0) scale(1.04);
+        }
+
+        /* ─── CARD 1 – DARK ─── */
+        .card-dark:hover {
+            box-shadow: 
+                0 40px 80px -20px rgba(234, 88, 12, 0.3), 
+                0 0 0 1px rgba(234, 88, 12, 0.4),
+                inset 0 0 40px rgba(234, 88, 12, 0.05);
+            border-color: rgba(234, 88, 12, 0.4);
+        }
+
+        .card-dark::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 106, 42, 0.08), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle at top right, rgba(234, 88, 12, 0.15) 0%, transparent 70%);
+            transition: width 0.6s ease, height 0.6s ease, background 0.6s ease;
             pointer-events: none;
             z-index: 0;
         }
 
-        .weapon-card:hover::before {
-            opacity: 1;
+        .card-dark:hover::before {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle at top right, rgba(234, 88, 12, 0.22) 0%, transparent 70%);
         }
 
-        .weapon-card:hover {
-            border-color: rgba(255, 106, 42, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 106, 42, 0.1);
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
             z-index: 10;
         }
 
-        .weapon-card.featured {
-            grid-column: span 1;
-            grid-row: span 1;
-            padding: 24px;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)),
-                url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+        .card-dark::after {
+            background: linear-gradient(90deg, #ea580c, #f97316, #fdba74, transparent);
         }
 
-        @media (min-width: 768px) {
-            .weapon-card.featured {
-                grid-column: span 2;
-                grid-row: span 2;
-                padding: 50px;
-            }
+        /* ─── CARD 2 – ORANGE ─── */
+        .card-orange {
+            background: linear-gradient(135deg, #d35400 0%, #9a3412 100%);
+            border: 1px solid #9a3412;
         }
 
-        .weapon-tag {
-            background: var(--flame-orange);
-            color: white;
-            padding: 4px 12px;
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
+        .card-orange:hover {
+            box-shadow: 
+                0 40px 80px -20px rgba(211, 84, 0, 0.5), 
+                0 0 0 1px rgba(255, 255, 255, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .rank-tag {
+        .card-orange::before {
+            content: '';
             position: absolute;
-            top: 25px;
-            right: 30px;
-            font-size: 9px;
-            font-weight: 700;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 0;
         }
 
-        .weapon-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 1;
+        .card-orange::after {
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1), transparent);
         }
 
-        .featured .weapon-title {
-            font-size: 1.5rem;
-            max-width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .featured .weapon-title {
-                font-size: 4rem;
-                max-width: 500px;
-            }
-        }
-
-        .weapon-desc {
-            color: #888;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .deploy-link {
-            margin-top: auto;
-            color: var(--flame-orange);
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        /* ─── FEATURED BADGE ─── */
+        .featured-badge {
+            position: absolute;
+            top: 35px;
+            right: 35px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: gap 0.3s ease;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 7px 14px;
+            border-radius: 10px;
+            z-index: 20;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-dark .featured-badge {
+            color: #f97316;
+            border: 1px solid rgba(249, 115, 22, 0.45);
+            background: rgba(20, 20, 20, 0.7);
+        }
+
+        .card-orange .featured-badge {
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            animation: badgePulse 1.6s infinite;
+        }
+
+        .card-dark .badge-dot { background: #f97316; }
+        .card-orange .badge-dot { background: rgba(255, 255, 255, 1); }
+
+        @keyframes badgePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+
+        .card-top, .card-middle, .card-actions {
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
-        .deploy-link:hover {
-            gap: 18px;
+        .card-top {
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .weapon-icon {
+        .icon-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .card-dark .icon-box {
+            background: rgba(234, 88, 12, 0.14);
+            border: 1px solid rgba(234, 88, 12, 0.25);
+        }
+
+        .icon-box svg {
             width: 32px;
             height: 32px;
-            fill: var(--flame-orange);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
         }
 
-        .highlight-accent {
-            background: #d35400 !important;
+        .card-title {
+            font-size: 44px;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            min-height: 94px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: #ffffff;
+        }
+
+        .card-title .highlight { color: #f97316; }
+        .card-orange .card-title .highlight { color: rgba(255, 255, 255, 0.5); }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+
+        .card-dark .tag {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #aaa;
+        }
+
+        .card-orange .tag {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .tagline {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0;
+            color: #f97316;
+        }
+
+        .card-orange .tagline { color: rgba(0, 0, 0, 0.6); }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            flex-grow: 1;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            line-height: 1.5;
+        }
+
+        .card-dark .feature-list li { color: #ccc; }
+        .card-orange .feature-list li { color: #fff; }
+
+        .bullet-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .card-dark .bullet-dot { background: #f97316; }
+        .card-orange .bullet-dot { background: rgba(0, 0, 0, 0.4); }
+
+        .card-actions {
+            display: flex;
+            gap: 14px;
+            margin-top: auto;
+        }
+
+        .btn-card {
+            flex: 1;
+            padding: 16px;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-card-primary {
+            background: #ea580c;
+            color: #fff;
             border: none;
         }
 
-        .highlight-accent .weapon-title,
-        .highlight-accent .weapon-desc,
-        .highlight-accent .deploy-link,
-        .highlight-accent .rank-tag {
-            color: white;
+        .btn-card-primary:hover {
+            background: #f97316;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(234, 88, 12, 0.25);
         }
 
-        .highlight-accent .weapon-icon {
-            fill: white;
+        .btn-card-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .btn-card-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #555;
+        }
+
+
+        /* ─── SHINE EFFECT ─── */
+        .shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            transition: left 0.7s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .card:hover .shine {
+            left: 150%;
+        }
+
+        @media (max-width: 768px) {
+            .cards-wrapper {
+                gap: 24px;
+                padding: 0 20px;
+            }
+
+            .card {
+                width: 100%;
+                height: auto;
+                aspect-ratio: auto;
+                padding: 40px;
+                border-radius: 28px;
+            }
+
+            .card-title {
+                font-size: 32px;
+            }
         }
 
         /* =====================================================
@@ -1686,7 +1924,8 @@
         }
 
         .reviews-grid {
-            max-width: 1600px; /* Increased from 1500px to allow more breathing room */
+            max-width: 1600px;
+            /* Increased from 1500px to allow more breathing room */
             margin: 0 auto;
             padding: 0 40px;
             display: grid;
@@ -1806,7 +2045,8 @@
         }
 
         .review-bubble {
-            width: 420px; /* Reduced from 500px so 2 cards fit perfectly on standard 1440p laptops */
+            width: 420px;
+            /* Reduced from 500px so 2 cards fit perfectly on standard 1440p laptops */
             max-width: 85vw;
             /* Safety for smaller layouts */
             flex-shrink: 0;
@@ -2090,10 +2330,13 @@
         }
 
         @keyframes footerGlowPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 filter: drop-shadow(0 0 8px rgba(255, 106, 42, 0.4));
                 opacity: 0.6;
             }
+
             50% {
                 filter: drop-shadow(0 0 20px rgba(255, 106, 42, 0.9));
                 opacity: 1;
@@ -2252,20 +2495,23 @@
             position: relative;
             white-space: nowrap;
         }
+
         .chip-alt {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(255, 255, 255, 0.1);
             color: #ccc;
         }
+
         .highlight-accent .ui-chip {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
             color: white;
         }
+
         .highlight-accent .chip-alt {
             background: rgba(0, 0, 0, 0.1);
             border-color: rgba(0, 0, 0, 0.2);
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* =====================================================
@@ -2280,6 +2526,7 @@
             flex-wrap: wrap;
             padding-top: 15px;
         }
+
         .btn-action {
             padding: 10px 20px;
             font-size: 10px;
@@ -2294,44 +2541,51 @@
             white-space: nowrap;
             cursor: pointer;
         }
+
         .btn-action.btn-primary {
             background: var(--flame-orange);
             color: #000;
             border: 1px solid var(--flame-orange);
         }
+
         .btn-action.btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(255, 106, 42, 0.3);
             background: #ff8a5a;
             border-color: #ff8a5a;
         }
+
         .btn-action.btn-secondary {
             background: transparent;
             color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         .btn-action.btn-secondary:hover {
             transform: translateY(-3px);
             border-color: var(--flame-orange);
             color: var(--flame-orange);
             background: rgba(255, 106, 42, 0.05);
         }
-        
+
         /* Highlight Accent Buttons */
         .highlight-accent .btn-action.btn-primary {
             background: #fff;
             color: #d35400;
             border-color: #fff;
         }
+
         .highlight-accent .btn-action.btn-primary:hover {
             background: #f8f8f8;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             border-color: #f8f8f8;
         }
+
         .highlight-accent .btn-action.btn-secondary {
             border-color: rgba(255, 255, 255, 0.5);
             color: #fff;
         }
+
         .highlight-accent .btn-action.btn-secondary:hover {
             border-color: #fff;
             background: rgba(255, 255, 255, 0.1);
@@ -2362,7 +2616,7 @@
                 font-size: 1.5rem !important;
                 max-width: 100% !important;
             }
-            
+
             .btn-action {
                 flex: 1;
                 padding: 10px 12px;
@@ -2806,7 +3060,8 @@
             <div class="lg:col-span-5 reveal-up relative z-10">
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-10 h-[1px] bg-[var(--flame-orange)]"></span>
-                    <span class="text-[var(--flame-orange)] tracking-widest text-[10px] uppercase font-bold">Real World Learning
+                    <span class="text-[var(--flame-orange)] tracking-widest text-[10px] uppercase font-bold">Real World
+                        Learning
                         System</span>
                 </div>
                 <h2 class="cinzel-font text-2xl md:text-5xl lg:text-6xl font-black mb-6 md:mb-10 leading-none break-words text-white"
@@ -2902,448 +3157,320 @@
     <!-- =====================================================
          ARSENAL / POWER SECTION
          ===================================================== -->
-    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden" style="background-color: var(--bg-black);">
+    <section id="arsenal" class="py-16 px-4 md:py-40 md:px-10 relative overflow-hidden"
+        style="background-color: var(--bg-black);">
         <div class="pattern-bg" style="opacity: 0.05;"></div>
 
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="mb-10 md:mb-24 reveal-up">
-                <h2 class="arsenal-header cinzel-font text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">Choose Your Track</h2>
+                <h2
+                    class="arsenal-header cinzel-font text-3xl md:text-6xl lg:text-7xl italic text-white mb-4 uppercase">
+                    Choose Your Track</h2>
                 <div class="arsenal-header-underline mb-6"></div>
                 <div class="text-neutral-400 max-w-lg">
-                    <p class="text-sm md:text-base leading-relaxed">45 days. One track. One summer that actually counts.</p>
+                    <p class="text-sm md:text-base leading-relaxed">45 days. One track. One summer that actually counts.
+                    </p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 items-stretch">
-
-                <!-- 1. MERN -->
-                <div class="weapon-card featured reveal-scale">
-                    <span class="rank-tag text-[var(--flame-orange)]">FEATURED</span>
-                    <h3 class="weapon-title">FULL STACK <br> + GEN AI</h3>
-                    
-                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
-                        <span class="ui-chip">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            45 DAYS
-                        </span>
-                        <span class="ui-chip chip-alt">ONLINE</span>
-                        <span class="ui-chip chip-alt">BEGINNER FRIENDLY</span>
+            <div class="cards-wrapper">
+                <!-- 1. MERN + GEN AI -->
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">01</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        Featured
                     </div>
-
-                    <p class="text-[12px] text-[var(--flame-orange)] font-semibold mb-4 italic z-10 relative">Build
-                        production-ready apps from day one</p>
-                    <p class="weapon-desc">Build real-world MERN apps with AI and deploy like a developer.</p>
-
-                    <div class="mt-4 z-10 relative flex-grow mb-6">
-                        <div class="flex flex-wrap gap-x-6 gap-y-4 max-w-[340px]">
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">MERN Stack</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Deployment</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Gen AI</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Testing</span>
-                            </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
                         </div>
+                        <h3 class="card-title">FULL STACK <br> <span class="highlight">+ GEN AI</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">ONLINE</span>
+                            <span class="tag">BEGINNER FRIENDLY</span>
+                        </div>
+                        <p class="tagline">Build production-ready apps from day one</p>
                     </div>
 
-                    <div class="btn-group w-full">
-                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=mern'">Enroll Now</button>
-                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=mern'">View Details</button>
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> MERN STACK (MONGODB, EXPRESS, REACT, NODE)</li>
+                            <li><span class="bullet-dot"></span> GEN AI INTEGRATION (LLMS & PROMPT ENGINEERING)</li>
+                            <li><span class="bullet-dot"></span> PROJECT DEPLOYMENT & LIVE HOSTING</li>
+                            <li><span class="bullet-dot"></span> SOFTWARE TESTING FUNDAMENTALS</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=mern" class="btn-card btn-card-primary">Enroll Now</a>
+                        <a href="course.html?course=mern" class="btn-card btn-card-secondary">Details</a>
                     </div>
                 </div>
 
-                <!-- 2. Bundle -->
-                <div class="weapon-card highlight-accent reveal-scale">
-                    <span class="rank-tag text-white/70">FEATURED</span>
-                    
-                    <div class="weapon-icon mb-4 bg-black/30 w-12 h-12 flex items-center justify-center rounded-lg">
-                        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-none stroke-white" stroke-width="2.5">
-                            <circle cx="12" cy="12" r="10" />
-                            <circle cx="12" cy="12" r="4" />
-                            <line x1="22" x2="18" y1="12" y2="12" />
-                            <line x1="6" x2="2" y1="12" y2="12" />
-                            <line x1="12" x2="12" y1="6" y2="2" />
-                            <line x1="12" x2="12" y1="22" y2="18" />
-                        </svg>
+                <!-- 2. BUNDLE -->
+                <div class="card card-orange reveal-scale">
+                    <div class="course-number cinzel-font">02</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        Most Popular
                     </div>
-                    
-                    <h3 class="weapon-title mb-2 !text-2xl md:!text-3xl">COMPLETE PROGRAM <span class="text-white/70 text-lg md:text-xl">(BUNDLE)</span></h3>
-                    
-                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
-                        <span class="ui-chip">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            45 DAYS
-                        </span>
-                        <span class="ui-chip chip-alt">INTENSIVE</span>
-                    </div>
-
-                    <p class="text-[14px] text-[#ffe066] font-extrabold tracking-wide mt-1 mb-2 italic drop-shadow-md">
-                        Your absolute path to tech dominance</p>
-                    <p class="weapon-desc text-white/90 max-w-xl mt-0 m-0">Your complete path to becoming
-                        job-ready. Master DSA, Full Stack, and AI Agents in one structured program.</p>
-
-                    <div class="mt-4 z-10 relative flex-grow mb-6">
-                        <div class="flex flex-wrap gap-x-6 gap-y-3 max-w-[340px]">
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">DSA Foundation</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Full Stack</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">AI Agents</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-white rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Mentorship</span>
-                            </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2">
+                                <path d="m2 11 10 5 10-5M2 15l10 5 10-5M12 3 2 8l10 5 10-5z" />
+                            </svg>
                         </div>
+                        <h3 class="card-title">COMPLETE <br> <span class="highlight">PROGRAM</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">INTENSIVE</span>
+                        </div>
+                        <p class="tagline">Your absolute path to tech dominance</p>
                     </div>
 
-                    <div class="btn-group mt-auto pt-6 w-full">
-                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=bundle'">Join Bundle</button>
-                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=bundle'">Syllabus</button>
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> DJANGO & AI AGENTS INTEGRATION</li>
+                            <li><span class="bullet-dot"></span> ADVANCED AGENTIC WORKFLOWS</li>
+                            <li><span class="bullet-dot"></span> DATA STRUCTURES & ALGORITHMS (JAVA)</li>
+                            <li><span class="bullet-dot"></span> INDUSTRY-READY PORTFOLIO PROJECTS</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=bundle" class="btn-card btn-card-primary">Join Bundle</a>
+                        <a href="course.html?course=bundle" class="btn-card btn-card-secondary">Syllabus</a>
                     </div>
                 </div>
 
                 <!-- 3. AIML -->
-                <div class="weapon-card reveal-scale">
-                    <span class="rank-tag">PATH</span>
-                    <div class="flex flex-col h-full justify-between">
-                        <div>
-                            <div class="weapon-icon">
-                                <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--flame-orange)]" stroke-width="2"
-                                    style="fill:none;">
-                                    <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
-                                    <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
-                                    <path d="M15 13h4.5a2 2 0 0 1 0 4H15" />
-                                    <path d="M9 13H4.5a2 2 0 0 0 0 4H9" />
-                                </svg>
-                            </div>
-                            <h3 class="weapon-title mb-2">AI & AGENTIC AI</h3>
-                            
-                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
-                                <span class="ui-chip">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                    45 DAYS
-                                </span>
-                                <span class="ui-chip chip-alt">ADVANCED</span>
-                            </div>
-
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Build
-                                intelligent, autonomous systems</p>
-                            <p class="weapon-desc m-0">Work with LLMs and prompt engineering to create autonomous
-                                Agentic AI that can think, plan, and execute tasks. Ship intelligent applications like
-                                chatbots.</p>
-
-                            <div class="mt-5 z-10 relative">
-                                <div class="flex flex-wrap gap-x-6 gap-y-3">
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">LLMs</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Prompting</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">AI Agents</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Deployment</span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">03</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        High Demand
+                    </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <path d="M12 8V4m0 16v-4m8-4h-4M4 12h4m10.36-5.66-2.83 2.83M6.46 17.54l2.83-2.83m0-5.66L6.46 6.46m11.08 11.08-2.83-2.83" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
                         </div>
-                        <div class="btn-group pt-8 mt-8 w-full">
-                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=aiml'">Enroll Now</button>
-                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=aiml'">Curriculum</button>
+                        <h3 class="card-title">AI & <br> <span class="highlight">AGENTIC AI</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">ADVANCED</span>
                         </div>
+                        <p class="tagline">Build intelligent, autonomous systems</p>
+                    </div>
+
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> AI/ML FOUNDATIONS & CONCEPTS</li>
+                            <li><span class="bullet-dot"></span> GEN AI: LLMS & PROMPT ENGINEERING</li>
+                            <li><span class="bullet-dot"></span> AGENTIC AI (THINKING & PLANNING)</li>
+                            <li><span class="bullet-dot"></span> REAL-WORLD AI CHATBOTS & AGENTS</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=aiml" class="btn-card btn-card-primary">Enroll Now</a>
+                        <a href="course.html?course=aiml" class="btn-card btn-card-secondary">Curriculum</a>
                     </div>
                 </div>
 
                 <!-- 4. DSA -->
-                <div class="weapon-card reveal-scale">
-                    <span class="rank-tag">PATH</span>
-                    <div class="flex flex-col h-full justify-between">
-                        <div>
-                            <div class="weapon-icon mb-4">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
-                                </svg>
-                            </div>
-                            <h3 class="weapon-title text-xl mb-2">DSA WITH JAVA/C++</h3>
-                            
-                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
-                                <span class="ui-chip">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                    45 DAYS
-                                </span>
-                                <span class="ui-chip chip-alt">INTERVIEW PREP</span>
-                            </div>
-
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-3 italic">Crack
-                                coding interviews with confidence</p>
-                            <p class="weapon-desc text-xs m-0">Master Java fundamentals, OOPs, and key
-                                syntax. Learn pattern-based problem solving for technical interviews.</p>
-
-                            <div class="mt-5 z-10 relative">
-                                <div class="flex flex-wrap gap-x-6 gap-y-3">
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Java / C++</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">OOP Core</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Patterns</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Interview Prep</span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">04</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        Essential
+                    </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+                                <path d="M7 2v20M17 2v20M2 12h20M2 7h20M2 17h20"></path>
+                            </svg>
                         </div>
-                        <div class="btn-group w-full">
-                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=dsa'">Start Prep</button>
-                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=dsa'">Details</button>
+                        <h3 class="card-title">DSA WITH <br> <span class="highlight">JAVA/C++</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">INTERVIEW PREP</span>
                         </div>
+                        <p class="tagline">Crack coding interviews with confidence</p>
+                    </div>
+
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> JAVA FUNDAMENTALS & OOPS CONCEPTS</li>
+                            <li><span class="bullet-dot"></span> PATTERN-BASED PROBLEM SOLVING</li>
+                            <li><span class="bullet-dot"></span> LOGIC BUILDING FOR PLACEMENTS</li>
+                            <li><span class="bullet-dot"></span> MOCK INTERVIEW SIMULATIONS</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=dsa" class="btn-card btn-card-primary">Start Prep</a>
+                        <a href="course.html?course=dsa" class="btn-card btn-card-secondary">Details</a>
                     </div>
                 </div>
 
                 <!-- 5. Django -->
-                <div class="weapon-card reveal-scale">
-                    <span class="rank-tag">PATH</span>
-                    
-                    <div class="weapon-icon mb-4">
-                        <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--flame-orange)]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                        </svg>
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">05</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        Trending
                     </div>
-                    
-                    <h3 class="weapon-title mb-2 text-2xl">FULL STACK WITH DJANGO</h3>
-                    
-                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
-                        <span class="ui-chip">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            45 DAYS
-                        </span>
-                        <span class="ui-chip chip-alt">BACKEND</span>
-                    </div>
-
-                    <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Build secure, scalable backend systems</p>
-                    <p class="weapon-desc m-0 max-w-xl">Build secure, scalable full-stack projects from scratch and seamlessly integrate AI into your systems.</p>
-
-                    <div class="mt-4 z-10 relative flex-grow mb-6">
-                        <div class="flex flex-wrap gap-x-6 gap-y-3 max-w-[340px]">
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Django Core</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">REST APIs</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Auth & Security</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">AI Integration</span>
-                            </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                            </svg>
                         </div>
+                        <h3 class="card-title">FULL STACK <br> <span class="highlight">WITH DJANGO</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">BACKEND</span>
+                        </div>
+                        <p class="tagline">Build secure, scalable backend systems</p>
                     </div>
 
-                    <div class="btn-group mt-auto pt-6 w-full">
-                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=django'">Enroll Now</button>
-                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=django'">Syllabus</button>
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> DJANGO FRAMEWORK FROM SCRATCH</li>
+                            <li><span class="bullet-dot"></span> INTEGRATING AI INTO BACKEND LOGIC</li>
+                            <li><span class="bullet-dot"></span> COMPLETE FULL-STACK ECOSYSTEM</li>
+                            <li><span class="bullet-dot"></span> BEST PRACTICES FOR SECURITY & SCALE</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=django" class="btn-card btn-card-primary">Enroll Now</a>
+                        <a href="course.html?course=django" class="btn-card btn-card-secondary">Syllabus</a>
                     </div>
                 </div>
 
                 <!-- 6. Data Analytics -->
-                <div class="weapon-card reveal-scale">
-                    <span class="rank-tag">PATH</span>
-                    <div class="flex flex-col h-full justify-between">
-                        <div>
-                            <div class="weapon-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                                </svg>
-                            </div>
-                            <h3 class="weapon-title mb-2 border-b border-transparent">DATA ANALYTICS & TOOLS</h3>
-                            
-                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
-                                <span class="ui-chip">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                    45 DAYS
-                                </span>
-                                <span class="ui-chip chip-alt">ANALYTICS</span>
-                            </div>
-
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Turn data
-                                into real insights</p>
-                            <p class="weapon-desc m-0">Discover insights and empower decisions. Master data analysis,
-                                effective visualization, and machine learning insights through real-world cases.</p>
-
-                            <div class="mt-5 z-10 relative">
-                                <div class="flex flex-wrap gap-x-6 gap-y-3">
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Data Analysis</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Visualization</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">ML Insights</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Real Cases</span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">06</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        Fast Track
+                    </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
                         </div>
-                        <div class="btn-group pt-8 mt-8 w-full">
-                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=data'">Start Learning</button>
-                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=data'">Details</button>
+                        <h3 class="card-title">DATA <br> <span class="highlight">ANALYTICS</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">ANALYTICS</span>
                         </div>
+                        <p class="tagline">Turn data into real insights</p>
+                    </div>
+
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> DATA PROCESSING & CLEANING BASICS</li>
+                            <li><span class="bullet-dot"></span> EFFECTIVE DATA VISUALIZATION</li>
+                            <li><span class="bullet-dot"></span> INSIGHTS WITH MACHINE LEARNING</li>
+                            <li><span class="bullet-dot"></span> REAL-WORLD CASE STUDIES</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=data" class="btn-card btn-card-primary">Start Learning</a>
+                        <a href="course.html?course=data" class="btn-card btn-card-secondary">Details</a>
                     </div>
                 </div>
 
                 <!-- 7. Mobile App -->
-                <div class="weapon-card reveal-scale">
-                    <span class="rank-tag">PATH</span>
-                    <div class="flex flex-col h-full justify-between">
-                        <div>
-                            <div class="weapon-icon mb-4">
-                                <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
-                                </svg>
-                            </div>
-                            <h3 class="weapon-title text-xl mb-2">MOBILE APP + GEN AI</h3>
-                            
-                            <div class="flex gap-2 flex-wrap mb-3 z-10 relative">
-                                <span class="ui-chip">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                    45 DAYS
-                                </span>
-                                <span class="ui-chip chip-alt">MOBILE</span>
-                            </div>
-
-                            <p class="text-[11px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Design and
-                                ship modern Android apps</p>
-                            <p class="weapon-desc text-xs mb-4 m-0">Master Android development using Java with AI-powered features integrated into your apps.</p>
-
-                            <div class="mt-5 z-10 relative">
-                                <div class="flex flex-wrap gap-x-6 gap-y-3">
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">UI Design</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Database Mgt</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Gen AI</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 w-[140px]">
-                                        <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                        <span class="text-xs text-white uppercase tracking-widest font-bold">Publishing</span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">07</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        New Release
+                    </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <rect x="5" y="2" width="14" height="20" rx="2" />
+                                <path d="m15 7 2 2m0-2-2 2M12 18h.01" />
+                            </svg>
                         </div>
-                        <div class="btn-group w-full">
-                            <button class="btn-action btn-primary flex-1 w-full" onclick="window.location.href='course.html?course=mobile'">Build Apps</button>
-                            <button class="btn-action btn-secondary flex-1 w-full" onclick="window.location.href='course.html?course=mobile'">Syllabus</button>
+                        <h3 class="card-title">MOBILE APP <br> <span class="highlight">+ GEN AI</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">MOBILE</span>
                         </div>
+                        <p class="tagline">Design and ship modern Android apps</p>
+                    </div>
+
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> ANDROID STUDIO & ARCHITECTURE</li>
+                            <li><span class="bullet-dot"></span> UI DESIGN WITH MATERIAL INTERFACE</li>
+                            <li><span class="bullet-dot"></span> LIFECYCLE & STATE MANAGEMENT</li>
+                            <li><span class="bullet-dot"></span> LOCAL DATABASE (ROOM/SQLITE)</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=android" class="btn-card btn-card-primary">Build Apps</a>
+                        <a href="course.html?course=android" class="btn-card btn-card-secondary">Syllabus</a>
                     </div>
                 </div>
 
                 <!-- 8. Offline Full Stack -->
-                <div class="weapon-card reveal-scale">
-                    <span class="rank-tag">PATH</span>
-                    
-                    <div class="weapon-icon mb-4">
-                        <svg viewBox="0 0 24 24" class="fill-none stroke-[var(--flame-orange)]" stroke-width="2" style="fill:none;">
-                            <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-                            <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
-                            <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" />
-                            <path d="M10 6h4" />
-                            <path d="M10 10h4" />
-                            <path d="M10 14h4" />
-                            <path d="M10 18h4" />
-                        </svg>
+                <div class="card card-dark reveal-scale">
+                    <div class="course-number cinzel-font">08</div>
+                    <div class="featured-badge">
+                        <div class="badge-dot"></div>
+                        Bootcamp
                     </div>
-                    
-                    <h3 class="weapon-title mb-2 text-2xl">OFFLINE FULL STACK <span class="text-white/70 text-lg md:text-xl">(IN-OFFICE)</span></h3>
-                    
-                    <div class="flex gap-2 flex-wrap mb-4 z-10 relative">
-                        <span class="ui-chip">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            45 DAYS
-                        </span>
-                        <span class="ui-chip chip-alt">OFFLINE BOOTCAMP</span>
-                    </div>
-
-                    <p class="text-[13px] text-[var(--flame-orange)] font-semibold mt-1 mb-2 italic">Experience real-world office workflows</p>
-                    <p class="weapon-desc m-0 max-w-xl">Code in Office. Build Real Projects. Launch your career with practical exposure to workflows and REST APIs.</p>
-
-                    <div class="mt-4 z-10 relative flex-grow mb-6">
-                        <div class="flex flex-wrap gap-x-6 gap-y-3 max-w-[340px]">
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">In-Office</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Real Projects</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">REST APIs</span>
-                            </div>
-                            <div class="flex items-center gap-3 w-[150px]">
-                                <span class="w-1.5 h-1.5 bg-[var(--flame-orange)] rounded-full shrink-0"></span>
-                                <span class="text-xs text-white uppercase tracking-widest font-bold">Team Workflow</span>
-                            </div>
+                    <div class="card-top">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
                         </div>
+                        <h3 class="card-title">OFFLINE <br> <span class="highlight">FULL STACK</span></h3>
+                        <div class="tags">
+                            <span class="tag">45 DAYS</span>
+                            <span class="tag">OFFLINE BOOTCAMP</span>
+                        </div>
+                        <p class="tagline">Experience real-world workflows</p>
                     </div>
 
-                    <div class="btn-group mt-auto pt-6 w-full">
-                        <button class="btn-action btn-primary w-full sm:w-auto" onclick="window.location.href='course.html?course=offline'">Apply Now</button>
-                        <button class="btn-action btn-secondary w-full sm:w-auto" onclick="window.location.href='course.html?course=offline'">Bootcamp Info</button>
+                    <div class="card-middle">
+                        <ul class="feature-list">
+                            <li><span class="bullet-dot"></span> MERN STACK IN A LIVE OFFICE SETTING</li>
+                            <li><span class="bullet-dot"></span> PRACTICAL OFFICE EXPOSURE & WORKFLOWS</li>
+                            <li><span class="bullet-dot"></span> GENAI INTEGRATION WITH OPENAI SDKS</li>
+                            <li><span class="bullet-dot"></span> CORPORATE FE STANDARDS & REST APIS</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="course.html?course=offline" class="btn-card btn-card-primary">Apply Now</a>
+                        <a href="course.html?course=offline" class="btn-card btn-card-secondary">Info</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -3356,8 +3483,10 @@
          ===================================================== -->
     <section id="how-it-works" class="py-24 bg-[#0a0a0a] relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 relative z-20 mb-24 reveal-up">
-            <span class="japan-font text-[#ff5500] text-[10px] md:text-sm tracking-widest block mb-4 uppercase">Timeline</span>
-            <h2 class="cinzel-font text-3xl md:text-5xl lg:text-6xl font-black mb-4 text-white uppercase">How It Works</h2>
+            <span
+                class="japan-font text-[#ff5500] text-[10px] md:text-sm tracking-widest block mb-4 uppercase">Timeline</span>
+            <h2 class="cinzel-font text-3xl md:text-5xl lg:text-6xl font-black mb-4 text-white uppercase">How It Works
+            </h2>
             <div class="w-20 h-1 bg-gradient-to-r from-[#ff5500] to-transparent"></div>
         </div>
 
@@ -3376,7 +3505,8 @@
                         </filter>
                     </defs>
 
-                    <path class="ribbon-path" d="M 0,200 C 250,200 300,80 500,80 S 750,280 1000,280 S 1250,100 1500,160" />
+                    <path class="ribbon-path"
+                        d="M 0,200 C 250,200 300,80 500,80 S 750,280 1000,280 S 1250,100 1500,160" />
 
                     <!-- Travelling sparkle circle -->
                     <circle class="ribbon-spark" r="4" fill="#ffffff" filter="url(#spark-blur)" />
@@ -3541,7 +3671,8 @@
 
                 <div class="reviews-nav">
                     <button class="nav-btn" id="rev-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <path d="M15 18l-6-6 6-6" />
                         </svg>
                     </button>
@@ -3549,7 +3680,8 @@
                         <div class="nav-line-active" id="rev-progress"></div>
                     </div>
                     <button class="nav-btn" id="rev-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <path d="M9 18l6-6-6-6" />
                         </svg>
                     </button>
@@ -3562,11 +3694,21 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
                             <p class="bubble-text">"The AI Agent curriculum is unlike anything else. Building agents
                                 that actually solve LeetCode and automate my freelance work in Week 3 was mind-blowing."
@@ -3587,11 +3729,21 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
                             <p class="bubble-text">"I came for the code, stayed for the clan. The networking with
                                 students from top colleges helped me land a referral at Google before the trial even
@@ -3612,11 +3764,21 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
                             <p class="bubble-text">"The 45-day trial is intense but worth every second. The 'Shadow
                                 System' architecture we built for our project now handles real-time data for 10k users."
@@ -3637,11 +3799,21 @@
                     <div class="review-bubble">
                         <div class="bubble-content">
                             <div class="review-stars">
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
-                                <svg class="star-icon" viewBox="0 0 20 20"><path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" /></svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
+                                <svg class="star-icon" viewBox="0 0 20 20">
+                                    <path d="M10 0l2.5 6.5H19l-5 4 2 6.5-6-4-6 4 2-6.5-5-4h6.5z" />
+                                </svg>
                             </div>
                             <p class="bubble-text">"Weaponized Next.js and Django are the perfect stack. Sensei's
                                 approach to clean, scalable architecture changed how I look at software forever."</p>
@@ -3692,8 +3864,10 @@
         <div class="max-w-7xl mx-auto px-4 md:px-10 flex flex-col items-center">
             <div class="footer-logo-wrap w-12 h-14 mb-10 footer-logo-glow cursor-pointer">
                 <svg viewBox="0 0 448 512" class="footer-logo w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                    <path class="logo-outline" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
-                    <path class="logo-fill" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                    <path class="logo-outline"
+                        d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                    <path class="logo-fill"
+                        d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
                 </svg>
             </div>
             <div
