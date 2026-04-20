@@ -31,7 +31,7 @@
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
             --border-dark: rgba(255, 255, 255, 0.08);
-            --ninja-red: #cc0000;
+            --ninja-red: #ff6a2a;
 
             /* Transition Effect Variables */
             --trans-bg: #050505;
@@ -91,7 +91,7 @@
             position: absolute;
             width: 60vh;
             height: 60vh;
-            background: radial-gradient(circle, rgba(204, 0, 0, 0.04) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(255, 106, 42, 0.06) 0%, transparent 60%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -492,15 +492,15 @@
         }
 
         .dojo-card:hover {
-            border-color: rgba(204, 0, 0, 0.5);
+            border-color: rgba(255, 106, 42, 0.5);
             transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(204, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 106, 42, 0.1);
             z-index: 10;
         }
 
         .dojo-card-featured {
             background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)),
-                url('https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop');
+                url('./assets/ninja/cyber_mask.png');
             background-size: cover;
             background-position: center;
             border-color: rgba(255, 106, 42, 0.2);
@@ -640,7 +640,7 @@
     </style>
 </head>
 
-<body class="selection:bg-red-500/30">
+<body class="selection:bg-orange-500/30">
 
     <div id="dojo-transition">
         <canvas id="transition-particles"></canvas>
@@ -658,14 +658,14 @@
 
     <div class="fixed inset-0 z-0 pointer-events-none">
         <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#ff6a2a]/5 rounded-full blur-[150px]"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#cc0000]/5 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#ff6a2a]/5 rounded-full blur-[150px]"></div>
     </div>
 
     <main class="relative z-10 w-full">
 
         <section id="mask-section" class="relative h-screen bg-[#050505] z-[10] overflow-hidden">
             <div class="absolute inset-0 pointer-events-none z-0"
-                style="background: linear-gradient(to right, rgba(5,5,5,0.85), rgba(5,5,5,0.55)), url('./assets/samurai/shadow.png') center/cover no-repeat; opacity: 0.35; filter: grayscale(1);"></div>
+                style="background: linear-gradient(to top, rgba(5,5,5,0.95), rgba(5,5,5,0.5), rgba(5,5,5,0.85)), url('./assets/ninja/darkninjabackground.jpg') center/cover no-repeat; opacity: 0.8;"></div>
 
             <div id="hero-inner"
                 class="h-screen w-full flex flex-col items-center justify-center overflow-hidden relative z-10">
@@ -673,7 +673,7 @@
                 <div class="absolute inset-0 flex flex-col items-center justify-center text-[#fff] p-6">
                     <p id="hero-tag-jp"
                         class="text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase mb-6 text-[#ff6a2a] japan-font">
-                        プレミアムな選択
+                        ULTIMATE SELECTION
                     </p>
                     <h2 id="hero-title"
                         class="cinzel-font text-[14vw] md:text-[9vw] font-black leading-[0.85] text-center tracking-tighter uppercase text-white drop-shadow-2xl">
@@ -694,25 +694,22 @@
         </section>
 
         <section id="stats-section"
-            class="relative w-full py-32 md:py-40 bg-[#0a0a0a] z-[20] overflow-hidden shadow-[0_-30px_100px_rgba(0,0,0,0.9)] border-t border-[#cc0000]/30"
+            class="relative w-full py-32 md:py-40 bg-[#0a0a0a] z-[20] overflow-hidden shadow-[0_-30px_100px_rgba(0,0,0,0.9)] border-t border-[#ff6a2a]/30"
             style="will-change: border-radius;">
             <div class="absolute right-0 top-0 h-full w-1/2 pointer-events-none"
-                style="background: linear-gradient(to left, rgba(10,10,10,0.4), rgba(10,10,10,1)), url('./assets/samurai/shadow.png') right center/cover no-repeat; opacity: 0.25; filter: grayscale(1);"></div>
+                style="background: linear-gradient(to left, rgba(10,10,10,0.4), rgba(10,10,10,1)), url('./assets/ninja/hero_shadow.png') right center/cover no-repeat; opacity: 0.25; filter: grayscale(0.5);"></div>
             <div class="pattern-bg"></div>
 
             <div class="max-w-[1440px] mx-auto px-4 md:px-6 w-full relative z-10">
 
-                <div class="flex flex-col items-center text-center mb-20 reveal-cinematic">
-                    <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">戦術的知能</span>
-                    <h2
-                        class="cinzel-font text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1] tracking-tighter mb-6 uppercase">
-                        Elevate Your<br>Design Logic
+                <div class="flex flex-col items-start text-left mb-16 reveal-cinematic max-w-5xl">
+                    <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.3em] block mb-4 uppercase">TACTICAL INTELLIGENCE</span>
+                    <h2 class="cinzel-font text-4xl md:text-5xl lg:text-5xl font-black text-white leading-tight tracking-tighter mb-6 uppercase">
+                        What's Included
                     </h2>
-                    <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto mb-8">
-                    </div>
-                    <p class="text-lg text-neutral-400 font-light max-w-2xl leading-relaxed mb-12">
-                        A comprehensive, mentorship-led journey designed for architects transitioning to elite digital
-                        product systems. No more tutorials. Just focused building.
+                    <div class="w-24 h-1 bg-gradient-to-r from-[#ff6a2a] to-transparent mb-8"></div>
+                    <p class="text-lg md:text-xl text-neutral-400 font-light leading-relaxed">
+                        Everything you need to ship a real project — in one program.
                     </p>
                 </div>
 
@@ -731,7 +728,7 @@
                                 <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">Duration
                                 </p>
                                 <div class="flex items-baseline gap-3">
-                                    <span class="hero-stat-num counter-value text-[#cc0000]" data-target="45">0</span>
+                                    <span class="hero-stat-num counter-value text-[#ff6a2a]" data-target="45">0</span>
                                     <span class="text-neutral-300 cinzel-font font-bold text-2xl">Days</span>
                                 </div>
                                 <p class="text-neutral-500 text-sm mt-2 leading-relaxed">Intensive, sprint-based
@@ -747,7 +744,7 @@
                                     class="w-11 h-11 flex items-center justify-center rounded-lg bg-black/50 border border-white/10">
                                     <i data-lucide="radio" class="w-5 h-5 text-[#ff6a2a]"></i>
                                 </div>
-                                <div class="dojo-tag bg-transparent border border-[#cc0000] text-[#ff6a2a]">
+                                <div class="dojo-tag bg-transparent border border-[#ff6a2a] text-[#ff6a2a]">
                                     <span class="w-1.5 h-1.5 bg-[#ff6a2a] rounded-full animate-pulse"></span> ACTIVE NOW
                                 </div>
                             </div>
@@ -774,9 +771,11 @@
                                 <span class="hero-stat-num text-white text-[1.9rem]">1-on-1 Sessions</span>
                                 <div class="flex items-center gap-3 mt-3">
                                     <div class="flex -space-x-2">
-                                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100&auto=format&fit=crop"
+                                        <img src="./assets/ninja/sensei_1.png"
                                             class="w-8 h-8 rounded-full border-2 border-[#111] object-cover filter grayscale">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop"
+                                        <img src="./assets/ninja/sensei_2.png"
+                                            class="w-8 h-8 rounded-full border-2 border-[#111] object-cover filter grayscale">
+                                        <img src="./assets/ninja/sensei_3.png"
                                             class="w-8 h-8 rounded-full border-2 border-[#111] object-cover filter grayscale">
                                         <div
                                             class="w-8 h-8 rounded-full bg-neutral-900 border-2 border-[#111] flex items-center justify-center text-[10px] font-bold text-neutral-400">
@@ -795,7 +794,7 @@
                                 class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-0 divide-y-0 md:divide-y-0 md:divide-x divide-white/10">
 
                                 <div class="flex items-start gap-3 md:pr-5 py-2 md:py-0">
-                                    <i data-lucide="monitor-play" class="w-7 h-7 text-[#cc0000] shrink-0"></i>
+                                    <i data-lucide="monitor-play" class="w-7 h-7 text-[#ff6a2a] shrink-0"></i>
                                     <div>
                                         <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Format
                                         </h4>
@@ -825,7 +824,7 @@
                                 </div>
 
                                 <div class="flex items-start gap-3 md:pl-5 py-2 md:py-0">
-                                    <i data-lucide="award" class="w-7 h-7 text-[#cc0000] shrink-0"></i>
+                                    <i data-lucide="award" class="w-7 h-7 text-[#ff6a2a] shrink-0"></i>
                                     <div>
                                         <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">
                                             Certified</h4>
@@ -1024,10 +1023,10 @@
                 }
 
                 .replica-vol {
-                    color: #9b1c1c;
-                    border: 1px solid #9b1c1c;
+                    color: #b84c0c;
+                    border: 1px solid #b84c0c;
                     padding: 4px 12px;
-                    font-family: 'Noto Serif JP', serif;
+                    font-family: 'Inter', sans-serif;
                     font-size: 1.1rem;
                     font-weight: 800;
                     display: inline-block;
@@ -1057,17 +1056,17 @@
                 }
 
                 .replica-stamp-core {
-                    background-color: #9b1c1c;
+                    background-color: #b84c0c;
                     color: #f1e9d8;
                     font-family: 'Inter', sans-serif;
                     font-weight: 900;
                     font-size: 0.8rem;
                     padding: 2px 6px;
-                    border: 2px solid #5a0c0c;
+                    border: 2px solid #5c2405;
                     border-radius: 3px;
                     letter-spacing: 0.1em;
                     transform: rotate(-2deg) translateY(-2px);
-                    box-shadow: 0 0 4px rgba(155, 28, 28, 0.4);
+                    box-shadow: 0 0 4px rgba(184, 76, 12, 0.4);
                 }
 
                 .replica-section {
@@ -1083,11 +1082,11 @@
                     top: 5px;
                     bottom: -5px;
                     width: 4px;
-                    background-color: #9b1c1c;
+                    background-color: #b84c0c;
                 }
 
                 .replica-section-title {
-                    font-family: 'Noto Serif JP', 'Cinzel', serif;
+                    font-family: 'Inter', 'Cinzel', serif;
                     font-size: 2rem;
                     font-weight: 900;
                     color: #111;
@@ -1097,7 +1096,7 @@
                 }
 
                 .replica-section-list {
-                    font-family: 'Noto Serif JP', serif;
+                    font-family: 'Inter', sans-serif;
                     font-size: 1.15rem;
                     font-weight: 700;
                     color: #222;
@@ -1108,15 +1107,15 @@
                     align-self: flex-end;
                     margin-top: 10px;
                     margin-right: 15px;
-                    border: 2px solid #9b1c1c;
+                    border: 2px solid #b84c0c;
                     padding: 3px;
                     transform: rotate(-4deg);
                     opacity: 0.9;
                 }
 
                 .replica-stamp-master-inner {
-                    border: 1px solid #9b1c1c;
-                    color: #9b1c1c;
+                    border: 1px solid #b84c0c;
+                    color: #b84c0c;
                     font-family: 'Inter', sans-serif;
                     font-weight: 900;
                     font-size: 0.75rem;
@@ -1134,12 +1133,12 @@
                     height: 55px;
                     z-index: 10;
                     border-radius: 50%;
-                    background: radial-gradient(circle at 35% 35%, #e63c2e, #a30e0e, #660000);
+                    background: radial-gradient(circle at 35% 35%, #ff6a2a, #8a3809, #5c2405);
                     box-shadow:
                         0 6px 12px rgba(0, 0, 0, 0.7),
                         inset 0 2px 5px rgba(255, 255, 255, 0.4),
                         inset 0 -2px 5px rgba(0, 0, 0, 0.5),
-                        0 0 15px rgba(204, 0, 0, 0.5);
+                        0 0 15px rgba(255, 106, 42, 0.5);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -1178,7 +1177,7 @@
                     width: 14px;
                     height: 16px;
                     border-radius: 50%;
-                    background: radial-gradient(circle at 40% 40%, #e63c2e, #8b0000);
+                    background: radial-gradient(circle at 40% 40%, #ff6a2a, #8a3809);
                     transform: rotate(15deg);
                     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3);
                 }
@@ -1537,11 +1536,11 @@
                 <div class="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12 lg:gap-20">
 
                     <div class="w-full md:w-5/12 flex flex-col justify-center py-20">
-                        <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">カリキュラム</span>
+                        <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">THE CURRICULUM</span>
                         <h3 id="curriculum-stats"
                             class="cinzel-font text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-6 uppercase">
                             Core<br>Essentials.<br><span id="stepper-highlight"
-                                class="text-[#cc0000] transition-colors duration-700">Master Skill.</span>
+                                class="text-[#ff6a2a] transition-colors duration-700">Master Skill.</span>
                         </h3>
                         <p class="text-base text-neutral-400 font-light max-w-sm leading-relaxed mb-8">
                             Scroll to unroll the curriculum and see exactly what skills you'll master in each phase.
@@ -1589,10 +1588,10 @@
 
         <section
             class="relative flex flex-col items-center justify-center w-full min-h-screen py-24 bg-[#080808] z-[40]">
-            <div class="max-w-4xl mx-auto px-6 w-full flex flex-col items-center">
+            <div class="max-w-7xl mx-auto px-6 w-full flex flex-col items-center">
 
                 <div class="text-center mb-16 reveal-cinematic">
-                    <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">よくある質問</span>
+                    <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">FREQUENTLY ASKED QUESTIONS</span>
                     <h2 class="cinzel-font text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase">
                         COMMON INQUIRIES
                     </h2>
@@ -1691,10 +1690,10 @@
             </div>
         </section>
 
-        <section
+        <section id="apply"
             class="relative flex flex-col items-center justify-center w-full py-32 bg-[#050505] z-[50] overflow-hidden">
             <div class="absolute inset-0 pointer-events-none"
-                style="background: url('./assets/samurai/gate.png') center/cover no-repeat; opacity: 0.12; filter: grayscale(1);"></div>
+                style="background: url('./assets/ninja/dojo_temple.png') center/cover no-repeat; opacity: 0.15;"></div>
             <div
                 class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%3Cpath d=%22M0 20h40v1H0z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3Cpath d=%22M20 0h1v40h-1z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3C/svg%3E')] opacity-[0.2]">
             </div>
@@ -1704,7 +1703,7 @@
 
             <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center relative z-10">
                 <div class="flex flex-col items-center mb-6 reveal-cinematic">
-                    <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.4em] block mb-2">究極の道</span>
+                    <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.4em] block mb-2">THE ULTIMATE PATH</span>
                     <h2
                         class="cinzel-font text-4xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center break-words max-w-[90vw]">
                         FORGE YOUR<br>
@@ -1766,9 +1765,9 @@
                 window.COURSE_DATA = {
                     'mern': {
                         hero: { title: "MASTER<br>THE MERN<br>STACK", tag: "プレミアムな選択" },
-                        overlay: { title: "PRODUCTION<br>LEVEL<br>SKILLS", tag: "戦士の道" },
+                        overlay: { title: "PRODUCTION<br>LEVEL<br>SKILLS", tag: "WARRIORS PATH" },
                         pricing: { oldPrice: "₹3999.00", newPrice: "₹2999.00", offer: "Limited-time offer" },
-                        curriculum: { stats: "Core<br>Essentials.<br><span id='stepper-highlight' class='text-[#cc0000]'>Master Skill.</span>", phases: [] }
+                        curriculum: { stats: "Core<br>Essentials.<br><span id='stepper-highlight' class='text-[#ff6a2a]'>Master Skill.</span>", phases: [] }
                     }
                 };
             }

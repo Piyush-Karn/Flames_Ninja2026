@@ -1,11 +1,11 @@
 const COURSE_DATA = {
     "mern": {
         "hero": {
-            "tag": "プレミアムな選択",
+            "tag": "ULTIMATE SELECTION",
             "title": "Full Stack<br>(MERN) with<br>Gen AI"
         },
         "overlay": {
-            "tag": "戦士の道",
+            "tag": "WARRIORS PATH",
             "title": "PRODUCTION<br>LEVEL<br>SKILLS"
         },
         "curriculum": {
@@ -56,11 +56,11 @@ const COURSE_DATA = {
     },
     "bundle": {
         "hero": {
-            "tag": "究極のマスター",
+            "tag": "ULTIMATE MASTER",
             "title": "BUNDLE OFFER<br>(DSA+ WEBD)"
         },
         "overlay": {
-            "tag": "全知の境地",
+            "tag": "OMNISCIENT STATE",
             "title": "DSA + FULL STACK<br>+ AI AGENT"
         },
         "curriculum": {
@@ -97,11 +97,11 @@ const COURSE_DATA = {
     },
     "aiml": {
         "hero": {
-            "tag": "人工知能",
+            "tag": "ARTIFICIAL INTELLIGENCE",
             "title": "AI &<br>AGENTIC AI<br>MASTERCLASS"
         },
         "overlay": {
-            "tag": "知能の進化",
+            "tag": "EVOLUTION OF INTELLIGENCE",
             "title": "FUTURE<br>BUILT<br>BY AI"
         },
         "curriculum": {
@@ -133,11 +133,11 @@ const COURSE_DATA = {
     },
     "dsa": {
         "hero": {
-            "tag": "アルゴリズム",
+            "tag": "ALGORITHM",
             "title": "MASTER DSA<br>WITH<br>JAVA/C++"
         },
         "overlay": {
-            "tag": "論理の研磨",
+            "tag": "REFINED LOGIC",
             "title": "INTERVIEW<br>READY<br>LOGIC"
         },
         "curriculum": {
@@ -170,11 +170,11 @@ const COURSE_DATA = {
     },
     "django": {
         "hero": {
-            "tag": "バックエンドマスター",
+            "tag": "BACKEND MASTER",
             "title": "FULL STACK<br>WITH DJANGO<br>& AI AGENTS"
         },
         "overlay": {
-            "tag": "堅牢な構築",
+            "tag": "ROBUST ARCHITECTURE",
             "title": "BACKEND TO<br>INTELLIGENT<br>APPS"
         },
         "curriculum": {
@@ -206,11 +206,11 @@ const COURSE_DATA = {
     },
     "data": {
         "hero": {
-            "tag": "データ分析",
+            "tag": "DATA ANALYTICS",
             "title": "DATA ANALYTICS<br>& INDUSTRY<br>TOOLS"
         },
         "overlay": {
-            "tag": "情報の洞察",
+            "tag": "DATA INSIGHTS",
             "title": "DISCOVER<br>INSIGHTS &<br>DECISIONS"
         },
         "curriculum": {
@@ -242,11 +242,11 @@ const COURSE_DATA = {
     },
     "mobile": {
         "hero": {
-            "tag": "モバイルマスター",
+            "tag": "MOBILE MASTER",
             "title": "MOBILE APP<br>DEVELOPMENT<br>+ AI"
         },
         "overlay": {
-            "tag": "掌中の宇宙",
+            "tag": "UNIVERSAL ACCESS",
             "title": "MOBILE<br>FIRST<br>ENGINEER"
         },
         "curriculum": {
@@ -278,11 +278,11 @@ const COURSE_DATA = {
     },
     "offline": {
         "hero": {
-            "tag": "対面研修",
+            "tag": "IN-PERSON TRAINING",
             "title": "FULL STACK<br>(OFFLINE)<br>WITH GEN AI"
         },
         "overlay": {
-            "tag": "現場の力",
+            "tag": "PRACTICAL EXPERIENCE",
             "title": "CODE IN<br>OFFICE &<br>BUILD PROJECTS"
         },
         "curriculum": {
