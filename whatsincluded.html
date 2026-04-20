@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Included - Tactical Intelligence</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600;800;900&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050505; /* Matches surrounding page background */
+        }
+        .japan-font { font-family: 'Dela Gothic One', cursive; }
+        .cinzel-font { font-family: 'Cinzel', serif; }
+        
+        /* Updated Dojo Card to match the sleek reference image */
+        .dojo-card {
+            background: #0c0c0c;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        
+        /* Inner subtle radial glow */
+        .dojo-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 106, 42, 0.05), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* The signature glowing orange bottom border */
+        .dojo-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6a2a 0%, rgba(255,106,42,0.1) 80%);
+            opacity: 0.6;
+            transition: all 0.4s ease;
+            z-index: 10;
+        }
+
+        .dojo-card:hover::before {
+            opacity: 1;
+        }
+
+        .dojo-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 10px 20px rgba(255, 106, 42, 0.05);
+            z-index: 20;
+        }
+
+        .dojo-card:hover::after {
+            opacity: 1;
+            box-shadow: 0 -2px 15px rgba(255, 106, 42, 0.5);
+        }
+        
+        .dojo-card-featured {
+            background: linear-gradient(135deg, #180b05 0%, #0c0c0c 100%);
+            border-color: rgba(255, 106, 42, 0.2);
+        }
+
+        .dojo-card-featured::after {
+            background: linear-gradient(90deg, #ff6a2a 0%, #ff8a5a 100%);
+            opacity: 1;
+        }
+
+        .dojo-card-featured:hover {
+            border-color: rgba(255, 106, 42, 0.4);
+            box-shadow: 0 20px 50px rgba(255, 106, 42, 0.15);
+        }
+
+        /* Updated tags to match pill badges in reference */
+        .dojo-tag {
+            background: #151515;
+            color: #a1a1aa;
+            padding: 6px 14px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .dojo-tag.active {
+            color: #ff6a2a;
+            border-color: rgba(255, 106, 42, 0.3);
+            background: rgba(255, 106, 42, 0.05);
+        }
+        
+        .hero-stat-num {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .counter-value {
+            font-feature-settings: 'tnum';
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="stats-section" class="relative w-full py-32 md:py-40 bg-[#050505] z-[20] overflow-hidden border-t border-[#ff6a2a]/20">
+        <!-- Background Decor -->
+        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at center, rgba(15,10,5,0.4) 0%, #050505 85%); opacity: 0.6;"></div>
+        
+        <div class="max-w-[1440px] mx-auto px-4 md:px-6 w-full relative z-10">
+
+            <!-- Section Header -->
+            <div class="flex flex-col items-start text-left mb-16 max-w-5xl">
+                <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.3em] block mb-4 uppercase">TACTICAL INTELLIGENCE</span>
+                <h2 class="cinzel-font text-4xl md:text-5xl lg:text-5xl font-black text-white leading-tight tracking-tighter mb-6 uppercase">
+                    What's Included
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-[#ff6a2a] to-transparent mb-8"></div>
+                <p class="text-lg md:text-xl text-neutral-400 font-light leading-relaxed">
+                    Everything you need to ship a real project — in one program.
+                </p>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+
+                <!-- Duration Card -->
+                <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
+                    <i data-lucide="calendar" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex items-start justify-between mb-5">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff6a2a]/20 shadow-inner">
+                                <i data-lucide="calendar" class="w-6 h-6 text-[#ff6a2a]"></i>
+                            </div>
+                            <div class="dojo-tag">INTENSIVE</div>
+                        </div>
+                        <div>
+                            <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-1">Duration</p>
+                            <div class="flex items-baseline gap-3">
+                                <span class="hero-stat-num counter-value text-white" data-target="45">0</span>
+                                <span class="text-[#ff6a2a] cinzel-font font-black text-2xl">Days</span>
+                            </div>
+                            <p class="text-neutral-400 text-sm mt-2 leading-relaxed">Intensive, sprint-based curriculum designed for rapid mastery.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mode Card -->
+                <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
+                    <i data-lucide="wifi" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex items-start justify-between mb-5">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff6a2a]/20 shadow-inner">
+                                <i data-lucide="radio" class="w-6 h-6 text-[#ff6a2a]"></i>
+                            </div>
+                            <div class="dojo-tag active">
+                                <span class="w-2 h-2 bg-[#ff6a2a] rounded-full animate-pulse"></span> ACTIVE NOW
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-1">Mode</p>
+                            <span class="hero-stat-num text-white text-[2.4rem]">Live Online</span>
+                            <p class="text-neutral-400 text-sm mt-2 leading-relaxed">Real-time interactions via proprietary interface with live mentors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentorship Card -->
+                <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
+                    <i data-lucide="swords" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex items-start justify-between mb-5">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff6a2a]/20 shadow-inner">
+                                <i data-lucide="swords" class="w-6 h-6 text-[#ff6a2a]"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-1">Mentorship</p>
+                            <span class="hero-stat-num text-white text-[2rem]">1-on-1 Sessions</span>
+                            <div class="flex items-center gap-3 mt-2">
+                                <div class="flex -space-x-2">
+                                    <div class="w-8 h-8 rounded-full bg-[#111] border-2 border-[#1c1c1c]"></div>
+                                    <div class="w-8 h-8 rounded-full bg-[#151515] border-2 border-[#1c1c1c]"></div>
+                                    <div class="w-8 h-8 rounded-full bg-[#1a0f0a] border-2 border-[#ff6a2a]/30 flex items-center justify-center text-[10px] font-bold text-[#ff6a2a]">+24</div>
+                                </div>
+                                <span class="text-neutral-400 text-xs font-bold uppercase tracking-wider">Industry Veterans</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Feature Row -->
+                <div class="dojo-card p-6 md:p-7 min-h-[140px] flex items-center md:col-span-8">
+                    <div class="relative z-10 w-full">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y-0 md:divide-y-0 md:divide-x divide-white/5">
+
+                            <div class="relative flex items-start gap-4 md:pr-6 py-2 md:py-0 group/item">
+                                <i data-lucide="monitor-play" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
+                                    <i data-lucide="monitor-play" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="relative z-10 pt-1">
+                                    <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Format</h4>
+                                    <p class="text-neutral-500 text-xs leading-relaxed">Live sessions + lifetime recordings.</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start gap-4 md:px-6 py-2 md:py-0 group/item">
+                                <i data-lucide="flame" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
+                                    <i data-lucide="flame" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="relative z-10 pt-1">
+                                    <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Level</h4>
+                                    <p class="text-neutral-500 text-xs leading-relaxed">Advanced mastery for professionals.</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start gap-4 md:px-6 py-2 md:py-0 group/item">
+                                <i data-lucide="clipboard-check" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
+                                    <i data-lucide="clipboard-check" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="relative z-10 pt-1">
+                                    <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Assignments</h4>
+                                    <p class="text-neutral-500 text-xs leading-relaxed">Hands-on tasks after every module.</p>
+                                </div>
+                            </div>
+
+                            <div class="relative flex items-start gap-4 md:pl-6 py-2 md:py-0 group/item">
+                                <i data-lucide="award" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
+                                    <i data-lucide="award" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="relative z-10 pt-1">
+                                    <h4 class="text-white text-sm font-bold mb-1 tracking-wider uppercase">Certified</h4>
+                                    <p class="text-neutral-500 text-xs leading-relaxed">Industry-recognized certificate.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outcome Card -->
+                <div class="dojo-card dojo-card-featured p-6 md:p-7 flex flex-col items-center justify-center text-center min-h-[140px] md:col-span-4 group">
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#ff6a2a]/10 border border-[#ff6a2a]/30 mb-3">
+                            <i data-lucide="target" class="w-5 h-5 text-[#ff6a2a]"></i>
+                        </div>
+                        <p class="text-white/60 text-[10px] font-black tracking-[0.3em] uppercase mb-2">The Ultimate Outcome</p>
+                        <p class="cinzel-font text-white text-xl font-black leading-tight uppercase">Portfolio-Ready<br>Project</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Logic for Number Animation -->
+        <script>
+            (function () {
+                const counters = document.querySelectorAll('.counter-value[data-target]');
+                const counterObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            const target = +el.dataset.target;
+                            const duration = 1800;
+                            const start = performance.now();
+                            function tick(now) {
+                                const elapsed = now - start;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const eased = 1 - Math.pow(1 - progress, 4);
+                                el.textContent = Math.floor(eased * target);
+                                if (progress < 1) requestAnimationFrame(tick);
+                                else el.textContent = target;
+                            }
+                            requestAnimationFrame(tick);
+                            counterObserver.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                counters.forEach(c => counterObserver.observe(c));
+            })();
+        </script>
+    </section>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

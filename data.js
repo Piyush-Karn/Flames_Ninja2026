@@ -9,7 +9,7 @@ const COURSE_DATA = {
             "title": "PRODUCTION<br>LEVEL<br>SKILLS"
         },
         "curriculum": {
-            "stats": "11 Modules.<br>4 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Zero Fluff.</span>",
+            "stats": "11 Modules.<br>4 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Zero Fluff.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -64,7 +64,7 @@ const COURSE_DATA = {
             "title": "DSA + FULL STACK<br>+ AI AGENT"
         },
         "curriculum": {
-            "stats": "3 Core Topics.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Full Dominance.</span>",
+            "stats": "3 Core Topics.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Full Dominance.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -105,7 +105,7 @@ const COURSE_DATA = {
             "title": "FUTURE<br>BUILT<br>BY AI"
         },
         "curriculum": {
-            "stats": "12 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Pure Intelligence.</span>",
+            "stats": "12 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Pure Intelligence.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -141,7 +141,7 @@ const COURSE_DATA = {
             "title": "INTERVIEW<br>READY<br>LOGIC"
         },
         "curriculum": {
-            "stats": "5 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Efficient Logic.</span>",
+            "stats": "5 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Efficient Logic.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -178,7 +178,7 @@ const COURSE_DATA = {
             "title": "BACKEND TO<br>INTELLIGENT<br>APPS"
         },
         "curriculum": {
-            "stats": "4 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Smart Backend.</span>",
+            "stats": "4 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Smart Backend.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -214,7 +214,7 @@ const COURSE_DATA = {
             "title": "DISCOVER<br>INSIGHTS &<br>DECISIONS"
         },
         "curriculum": {
-            "stats": "4 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Data Driven.</span>",
+            "stats": "4 Modules.<br>2 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Data Driven.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -250,7 +250,7 @@ const COURSE_DATA = {
             "title": "MOBILE<br>FIRST<br>ENGINEER"
         },
         "curriculum": {
-            "stats": "12 Modules.<br>4 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">Native Power.</span>",
+            "stats": "12 Modules.<br>4 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">Native Power.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
@@ -286,7 +286,7 @@ const COURSE_DATA = {
             "title": "CODE IN<br>OFFICE &<br>BUILD PROJECTS"
         },
         "curriculum": {
-            "stats": "7 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#cc0000] transition-colors duration-700\">In-Office Mastery.</span>",
+            "stats": "7 Modules.<br>3 Phases.<br><span id=\"stepper-highlight\" class=\"text-[#ff6a2a] transition-colors duration-700\">In-Office Mastery.</span>",
             "phases": [
                 {
                     "tag": "Phase One",
