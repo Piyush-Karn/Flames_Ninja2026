@@ -256,7 +256,7 @@
                     else if (progress >= 0.25 && progress <= 0.75) p = 1;
                     else p = 1 - ((progress - 0.75) / 0.25);
 
-                    if (!window._rebirthState) window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
+                    if (!window._rebirthState) window._rebirthState = { lastP: -1, lastFull: null, lastScaling: null, lastNav: null };
 
                     if (Math.abs(p - window._rebirthState.lastP) > 0.003) {
                         window._rebirthState.lastP = p;
@@ -269,9 +269,15 @@
                         const scaleVal = Math.round((1 + (maxScale - 1) * easeP) * 1000) / 1000;
                         DOM.compSlider.style.transform = `scale(${scaleVal}) translate3d(0,0,0)`;
 
-                        // Toggle is-fullscreen EARLY (at 5%) to kill expensive box-shadow,
-                        // border-radius, and pseudo-element paints before heavy scaling kicks in
-                        const isFull = easeP > 0.05;
+                        // Kill box-shadow early (5%) for performance
+                        const isScaling = easeP > 0.05;
+                        if (isScaling !== window._rebirthState.lastScaling) {
+                            window._rebirthState.lastScaling = isScaling;
+                            DOM.compSlider.classList.toggle('is-scaling', isScaling);
+                        }
+
+                        // Remove laptop frame only when nearly fullscreen (95%)
+                        const isFull = easeP >= 0.95;
                         if (isFull !== window._rebirthState.lastFull) {
                             window._rebirthState.lastFull = isFull;
                             DOM.compSlider.classList.toggle('is-fullscreen', isFull);
@@ -289,8 +295,9 @@
                     if (window._rebirthState?.lastFull !== null) {
                         DOM.compSlider.style.transform = '';
                         DOM.compSlider.classList.remove('is-fullscreen');
+                        DOM.compSlider.classList.remove('is-scaling');
                         if (DOM.header) DOM.header.style.transform = '';
-                        window._rebirthState = { lastP: -1, lastFull: null, lastNav: null };
+                        window._rebirthState = { lastP: -1, lastFull: null, lastScaling: null, lastNav: null };
                     }
                 }
 
