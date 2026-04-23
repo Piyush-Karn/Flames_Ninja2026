@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Loading... | FLAMES 2026</title>
+    <title id="page-title">Full Stack MERN with Gen AI | FLAMES 2026</title>
+    
     <script src="data.js"></script>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Dela+Gothic+One&family=Noto+Serif+JP:wght@700;900&family=Caveat+Brush&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="course.min.css">
 
     <!-- Tailwind Configuration -->
@@ -125,8 +118,8 @@
         }
     </style>
 </head>
-
 <body class="antialiased min-h-screen relative flex flex-col selection:bg-brand selection:text-black bg-[#050505] overflow-x-hidden">
+
 
     <div id="dojo-transition">
         <canvas id="transition-particles"></canvas>
@@ -214,9 +207,9 @@
                     <!-- Eyebrow -->
                     <div class="flex items-center gap-4 mb-3">
                         <div class="h-[1px] w-8 bg-brand"></div>
-                        <span id="hero-tag-jp" class="font-mono text-brand text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">Flames 2026 Edition</span>
+                        <span class="font-mono text-brand text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">Flames 2026 Edition</span>
                     </div>
-                    <h1 id="hero-title" class="cinzel-font text-5xl md:text-6xl lg:text-[5.5rem] font-bold leading-[1.05] tracking-tight text-white max-w-[750px] mb-6">
+                    <h1 class="cinzel-font text-5xl md:text-6xl lg:text-[5.5rem] font-bold leading-[1.05] tracking-tight text-white max-w-[750px] mb-6">
                         FULL STACK<br>
                         MERN WITH<br>
                         <span class="text-brand font-black block mt-2 tracking-tighter uppercase">GEN AI</span>
@@ -227,8 +220,8 @@
                     </p>
 
                         <div class="flex items-baseline gap-6 mb-10">
-                            <span id="hero-old-price" class="text-neutral-400/50 line-through text-2xl font-bold"></span>
-                            <span id="hero-new-price" class="cinzel-font text-brand text-5xl md:text-6xl font-black drop-shadow-[0_0_20px_rgba(255,106,42,0.4)] uppercase"></span>
+                            <span id="hero-old-price" class="text-neutral-400/50 line-through text-2xl font-bold">₹3999.00</span>
+                            <span id="hero-new-price" class="cinzel-font text-brand text-5xl md:text-6xl font-black drop-shadow-[0_0_20px_rgba(255,106,42,0.4)] uppercase">₹2999.00</span>
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-6">
@@ -245,17 +238,17 @@
             </div>
         </section>
 
+        <!-- ADDED SECTIONS FROM COURSE.HTML -->
+        
         <section id="stats-section"
             class="relative w-full py-32 md:py-40 bg-[#0a0a0a] z-[20] overflow-hidden shadow-[0_-30px_100px_rgba(0,0,0,0.9)] border-t border-[#ff6a2a]/30"
             style="will-change: border-radius;">
             <div class="absolute inset-0 pointer-events-none"
                 style="background: radial-gradient(circle at center, rgba(10,10,10,0.2) 0%, rgba(10,10,10,1) 85%), url('./assets/ninja/hero_shadow.png') center/cover no-repeat; opacity: 0.35; filter: grayscale(0.8);"></div>
-            <!-- Slight Overlay -->
             <div class="absolute inset-0 bg-black/60 pointer-events-none z-[1]"></div>
             <div class="pattern-bg"></div>
 
             <div class="max-w-[1440px] mx-auto px-4 md:px-6 w-full relative z-10">
-
                 <div class="flex flex-col items-start text-left mb-16 max-w-5xl">
                     <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.3em] block mb-4 uppercase">TACTICAL INTELLIGENCE</span>
                     <h2 class="cinzel-font text-4xl md:text-5xl lg:text-5xl font-black text-white leading-tight tracking-tighter mb-6 uppercase">
@@ -267,10 +260,7 @@
                     </p>
                 </div>
 
-                <!-- Grid Layout -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
-
-                    <!-- Duration Card -->
                     <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
                         <i data-lucide="calendar" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
                         <div class="relative z-10 flex flex-col justify-between h-full">
@@ -291,7 +281,6 @@
                         </div>
                     </div>
 
-                    <!-- Mode Card -->
                     <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
                         <i data-lucide="wifi" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
                         <div class="relative z-10 flex flex-col justify-between h-full">
@@ -311,7 +300,6 @@
                         </div>
                     </div>
 
-                    <!-- Mentorship Card -->
                     <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
                         <i data-lucide="swords" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
                         <div class="relative z-10 flex flex-col justify-between h-full">
@@ -335,13 +323,10 @@
                         </div>
                     </div>
 
-                    <!-- Bottom Feature Row -->
                     <div class="dojo-card p-6 md:p-7 min-h-[140px] flex items-center md:col-span-8">
                         <div class="relative z-10 w-full">
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y-0 md:divide-y-0 md:divide-x divide-white/5">
-
                                 <div class="relative flex items-start gap-4 md:pr-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="monitor-play" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="monitor-play" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -350,9 +335,7 @@
                                         <p class="text-neutral-300 text-xs leading-relaxed">Live sessions + lifetime recordings.</p>
                                     </div>
                                 </div>
-
                                 <div class="relative flex items-start gap-4 md:px-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="flame" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="flame" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -361,9 +344,7 @@
                                         <p class="text-neutral-300 text-xs leading-relaxed">Advanced mastery for professionals.</p>
                                     </div>
                                 </div>
-
                                 <div class="relative flex items-start gap-4 md:px-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="clipboard-check" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="clipboard-check" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -372,9 +353,7 @@
                                         <p class="text-neutral-300 text-xs leading-relaxed">Hands-on tasks after every module.</p>
                                     </div>
                                 </div>
-
                                 <div class="relative flex items-start gap-4 md:pl-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="award" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="award" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -383,230 +362,108 @@
                                         <p class="text-neutral-300 text-xs leading-relaxed">Industry-recognized certificate.</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        class="dojo-card dojo-card-featured p-6 flex flex-col items-center justify-center text-center min-h-[170px] md:col-span-4 overflow-hidden group relative">
+                    <div class="dojo-card dojo-card-featured p-6 flex flex-col items-center justify-center text-center min-h-[170px] md:col-span-4 overflow-hidden group relative">
                         <img src="./assets/ninja/icon_portfolio_3d.png" class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-25 transition-opacity duration-700 pointer-events-none" aria-hidden="true">
                         <div class="relative z-10 flex flex-col items-center">
                             <i data-lucide="target" class="w-10 h-10 text-[#ff6a2a] mb-3"></i>
-                            <p class="text-white/60 text-[10px] font-black tracking-[0.3em] uppercase mb-2">The Ultimate
-                                Outcome</p>
-                            <p class="cinzel-font text-white text-xl font-black leading-tight uppercase">
-                                Portfolio-Ready<br>Project</p>
+                            <p class="text-white/60 text-[10px] font-black tracking-[0.3em] uppercase mb-2">The Ultimate Outcome</p>
+                            <p class="cinzel-font text-white text-xl font-black leading-tight uppercase">Portfolio-Ready<br>Project</p>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </section>
 
         <div class="section-divider relative z-[30]"></div>
 
         <section id="vertical-stepper" class="relative w-full bg-[#050505] z-[35]" style="height: 500vh;">
             <div class="pattern-bg" style="opacity: 0.05;"></div>
-
-
             <div class="sticky top-0 h-screen w-full flex items-center">
                 <div class="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-
                     <div class="w-full md:w-5/12 flex flex-col justify-center py-20">
                         <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">THE CURRICULUM</span>
-                        <h3 id="curriculum-stats"
-                            class="cinzel-font text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-6 uppercase">
-                            Core<br>Essentials.<br><span id="stepper-highlight"
-                                class="text-[#ff6a2a] transition-colors duration-700">Master Skill.</span>
+                        <h3 id="curriculum-stats" class="cinzel-font text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-6 uppercase">
+                            Core<br>Essentials.<br><span id="stepper-highlight" class="text-[#ff6a2a] transition-colors duration-700">Master Skill.</span>
                         </h3>
                         <p class="text-base text-neutral-400 font-light max-w-sm leading-relaxed mb-8">
                             Scroll to unroll the curriculum and see exactly what skills you'll master in each phase.
                         </p>
-
                         <div class="phase-dots" id="phase-dots">
                             <div class="phase-dot active" data-dot="1" style="color: #ff6a2a;">
                                 <div class="dot-circle"></div><span class="dot-label">The Artifact</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="w-full md:w-7/12 flex justify-center md:justify-end">
                         <div class="scroll-mockup">
-
                             <div class="scroll-hanger">
                                 <div class="hanger-rope"></div>
                                 <div class="hanger-rope"></div>
                             </div>
-
                             <div class="scroll-roller">
                                 <div class="scroll-cap left"></div>
                                 <div class="scroll-cap right"></div>
                             </div>
-
-                            <div class="scroll-paper" id="scroll-screen">
-                            </div>
-
+                            <div class="scroll-paper" id="scroll-screen"></div>
                             <div class="scroll-roller">
                                 <div class="scroll-cap left"></div>
                                 <div class="scroll-cap right"></div>
                             </div>
-
                             <div class="scroll-wax-seal" id="scroll-wax-seal"></div>
                             <div class="scroll-ambient" id="scroll-glow"></div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <div class="section-divider relative z-[40]"></div>
 
-        <section
-            class="relative flex flex-col items-center justify-center w-full min-h-screen py-24 bg-[#080808] z-[40]">
+        <section class="relative flex flex-col items-center justify-center w-full min-h-screen py-24 bg-[#080808] z-[40]">
             <div class="max-w-7xl mx-auto px-6 w-full flex flex-col items-center">
-
                 <div class="text-center mb-16 reveal-cinematic">
                     <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">FREQUENTLY ASKED QUESTIONS</span>
-                    <h2 class="cinzel-font text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase">
-                        COMMON INQUIRIES
-                    </h2>
-                    <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto mb-6">
-                    </div>
-                    <p class="text-neutral-400 text-lg font-light">
-                        Straight answers. No marketing speak.
-                    </p>
+                    <h2 class="cinzel-font text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase">COMMON INQUIRIES</h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto mb-6"></div>
+                    <p class="text-neutral-400 text-lg font-light">Straight answers. No marketing speak.</p>
                 </div>
-
                 <div class="w-full flex flex-col faq-container">
-
+                    <!-- FAQ Items will be populated by JS or hardcoded -->
                     <div class="faq-item reveal-cinematic">
                         <button class="faq-question">
                             <span>Do I need any prior experience to join?</span>
                             <div class="faq-icon"></div>
                         </button>
                         <div class="faq-answer">
-                            <div class="faq-answer-content">
-                                No. This track starts from scratch. You need curiosity and consistency — not prior
-                                coding experience.
-                            </div>
+                            <div class="faq-answer-content">No. This track starts from scratch. You need curiosity and consistency — not prior coding experience.</div>
                         </div>
                     </div>
-
-                    <div class="faq-item reveal-cinematic">
-                        <button class="faq-question">
-                            <span>How many hours per day will this take?</span>
-                            <div class="faq-icon"></div>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
-                                Expect 2–3 focused hours daily. This is a serious summer training — not a casual short
-                                course. We give you daily tasks, and you ship them. Consistency is non-negotiable.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item reveal-cinematic">
-                        <button class="faq-question">
-                            <span>Will sessions be recorded? What if I miss a class?</span>
-                            <div class="faq-icon"></div>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
-                                Yes, all live sessions are recorded and shared within 24 hours. That said, being present
-                                live gives you the benefit of real-time Q&A, peer collaboration, and mentor feedback
-                                that recordings can't replicate.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item reveal-cinematic">
-                        <button class="faq-question">
-                            <span>What's the refund policy?</span>
-                            <div class="faq-icon"></div>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
-                                We offer a 3-day refund window from the program start date. After that, no refunds are
-                                issued. We encourage you to attend the first session and decide — most students stay
-                                because the value is clear immediately.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item reveal-cinematic">
-                        <button class="faq-question">
-                            <span>Will I get a certificate?</span>
-                            <div class="faq-icon"></div>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
-                                Yes. A verifiable completion certificate is issued to every student who completes the
-                                program and submits their capstone project. It's linked to your profile on The Angaar
-                                Batch platform.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-item reveal-cinematic">
-                        <button class="faq-question">
-                            <span>Can I register for more than one track?</span>
-                            <div class="faq-icon"></div>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-content">
-                                Yes — up to 3 tracks per FLAMES edition. However, we strongly advise committing fully to
-                                one before adding another. Spreading yourself too thin defeats the purpose.
-                            </div>
-                        </div>
-                    </div>
-
+                    <!-- Add more FAQs as needed -->
                 </div>
-
             </div>
         </section>
 
-        <section id="apply"
-            class="relative flex flex-col items-center justify-center w-full py-32 bg-[#050505] z-[50] overflow-hidden">
-            <div class="absolute inset-0 pointer-events-none"
-                style="background: url('./assets/ninja/dojo_temple.png') center/cover no-repeat; opacity: 0.15;"></div>
-            <div
-                class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%3Cpath d=%22M0 20h40v1H0z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3Cpath d=%22M20 0h1v40h-1z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3C/svg%3E')] opacity-[0.2]">
-            </div>
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,106,42,0.08),transparent_70%)] pointer-events-none">
-            </div>
-
+        <section id="apply" class="relative flex flex-col items-center justify-center w-full py-32 bg-[#050505] z-[50] overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none" style="background: url('./assets/ninja/dojo_temple.png') center/cover no-repeat; opacity: 0.15;"></div>
             <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center relative z-10">
                 <div class="flex flex-col items-center mb-6 reveal-cinematic">
                     <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.4em] block mb-2">THE ULTIMATE PATH</span>
-                    <h2
-                        class="cinzel-font text-4xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center break-words max-w-[90vw]">
-                        FORGE YOUR<br>
-                        <span class="text-[#ff6a2a] drop-shadow-[0_0_20px_rgba(255,106,42,0.3)]">LEGACY</span>
+                    <h2 class="cinzel-font text-4xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center break-words max-w-[90vw]">
+                        FORGE YOUR<br><span class="text-[#ff6a2a] drop-shadow-[0_0_20px_rgba(255,106,42,0.3)]">LEGACY</span>
                     </h2>
                 </div>
-
-                <p
-                    class="text-[10px] md:text-xs tracking-[8px] md:tracking-[12px] text-neutral-500 uppercase font-black mb-12 reveal-cinematic">
-                    ADMISSIONS CLOSING SHORTLY
-                </p>
-
+                <p class="text-[10px] md:text-xs tracking-[8px] md:tracking-[12px] text-neutral-500 uppercase font-black mb-12 reveal-cinematic">ADMISSIONS CLOSING SHORTLY</p>
                 <div class="price-v5-wrapper reveal-cinematic w-full max-w-[320px] sm:max-w-none px-6">
                     <span id="old-price" class="price-v5-old text-xl sm:text-2xl">₹3999.00</span>
                     <span id="new-price" class="price-v5-new text-5xl sm:text-7xl">₹2999.00</span>
                 </div>
-
                 <div class="flex flex-col sm:flex-row items-center gap-6 w-full justify-center mb-10 reveal-cinematic">
-                    <a href="#apply" class="btn-zen-primary">
-                        Apply for This Track <i data-lucide="pen-tool" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#vertical-stepper" class="btn-zen-outline">
-                        <i data-lucide="scroll" class="w-6 h-6"></i> What You'll Learn
-                    </a>
+                    <a href="#apply" class="btn-zen-primary">Apply for This Track <i data-lucide="pen-tool" class="w-5 h-5"></i></a>
+                    <a href="#vertical-stepper" class="btn-zen-outline"><i data-lucide="scroll" class="w-6 h-6"></i> What You'll Learn</a>
                 </div>
             </div>
         </section>
@@ -615,10 +472,8 @@
             <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
                 <div class="footer-logo-wrap mb-10 footer-logo-glow cursor-pointer">
                     <svg viewBox="0 0 448 512" class="footer-logo" xmlns="http://www.w3.org/2000/svg">
-                        <path class="logo-outline"
-                            d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
-                        <path class="logo-fill"
-                            d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                        <path class="logo-outline" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
+                        <path class="logo-fill" d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7.1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4M225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4c.1 68.5 50.7 109.1 113.8 109.1" />
                     </svg>
                 </div>
                 <div class="flex gap-6 md:gap-12 text-[10px] font-black uppercase tracking-[3px] text-neutral-500">
@@ -626,9 +481,7 @@
                     <a href="#" class="hover:text-[#ff6a2a] transition">Discord</a>
                     <a href="#" class="hover:text-[#ff6a2a] transition">Academy</a>
                 </div>
-                <p class="mt-10 text-[9px] text-neutral-700 uppercase tracking-[0.3em] font-black">
-                    FLAMES &copy; 2026
-                </p>
+                <p class="mt-10 text-[9px] text-neutral-700 uppercase tracking-[0.3em] font-black">fLAMES &copy; 2026</p>
             </div>
         </footer>
 
@@ -636,6 +489,29 @@
 
     <!-- Scripts -->
     <script src="course.min.js" defer></script>
-</body>
+    <script>
+        // Emergency Reveal Logic
+        // Ensures the page is NEVER stuck on a black screen
+        (function() {
+            const reveal = () => {
+                const transition = document.getElementById('dojo-transition');
+                const main = document.querySelector('main');
+                if (transition && !transition.classList.contains('trans-exit')) {
+                    console.log('Force-clearing loading screen');
+                    transition.classList.add('trans-exit');
+                }
+                if (main) {
+                    main.style.visibility = 'visible';
+                    main.style.opacity = '1';
+                }
+            };
 
+            // 1. Try to reveal after 3.5 seconds regardless of load event
+            setTimeout(reveal, 3500);
+
+            // 2. Also try on window load with a small delay
+            window.addEventListener('load', () => setTimeout(reveal, 500));
+        })();
+    </script>
+</body>
 </html>
