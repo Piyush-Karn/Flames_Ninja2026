@@ -31,7 +31,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            DEFAULT: '#ff6a2a', 
+                            DEFAULT: '#ff5500', 
                             dark: '#e05a20', 
                         },
                         dark: {
@@ -84,7 +84,7 @@
 
         /* Subject Glow behind Ninja */
         .subject-glow {
-            background: radial-gradient(circle at 75% 50%, rgba(255, 106, 42, 0.08) 0%, transparent 50%);
+            background: radial-gradient(circle at 75% 50%, rgba(255, 85, 0, 0.08) 0%, transparent 50%);
             pointer-events: none;
             mix-blend-mode: screen;
         }
@@ -96,7 +96,7 @@
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 106, 42, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
         }
 
         /* Secondary Button Hover */
@@ -222,7 +222,7 @@
 
                         <div class="flex items-baseline gap-6 mb-10">
                             <span id="hero-old-price" class="text-neutral-400/50 line-through text-2xl font-bold"></span>
-                            <span id="hero-new-price" class="cinzel-font text-brand text-5xl md:text-6xl font-black drop-shadow-[0_0_20px_rgba(255,106,42,0.4)] uppercase"></span>
+                            <span id="hero-new-price" class="cinzel-font text-brand text-5xl md:text-6xl font-black drop-shadow-[0_0_20px_rgba(255,85,0,0.4)] uppercase"></span>
                         </div>
 
                         <div class="flex flex-col sm:flex-row gap-6">
@@ -240,7 +240,7 @@
         </section>
 
         <section id="stats-section"
-            class="relative w-full py-32 md:py-40 bg-[#0a0a0a] z-[20] overflow-hidden shadow-[0_-30px_100px_rgba(0,0,0,0.9)] border-t border-[#ff6a2a]/30"
+            class="relative w-full py-32 md:py-40 bg-[#0a0a0a] z-[20] overflow-hidden shadow-[0_-30px_100px_rgba(0,0,0,0.9)] border-t border-[#ff5500]/30"
             style="will-change: border-radius;">
             <div class="absolute inset-0 pointer-events-none"
                 style="background: radial-gradient(circle at center, rgba(10,10,10,0.2) 0%, rgba(10,10,10,1) 85%), url('./assets/ninja/hero_shadow.png') center/cover no-repeat; opacity: 0.35; filter: grayscale(0.8);"></div>
@@ -251,11 +251,11 @@
             <div class="max-w-[1440px] mx-auto px-4 md:px-6 w-full relative z-10">
 
                 <div class="flex flex-col items-start text-left mb-16 max-w-5xl">
-                    <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.3em] block mb-4 uppercase">TACTICAL INTELLIGENCE</span>
+                    <span class="japan-font text-[#ff5500] text-sm tracking-[0.3em] block mb-4 uppercase">TACTICAL INTELLIGENCE</span>
                     <h2 class="cinzel-font text-4xl md:text-5xl lg:text-5xl font-black text-white leading-tight tracking-tighter mb-6 uppercase">
                         What's Included
                     </h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-[#ff6a2a] to-transparent mb-8"></div>
+                    <div class="w-24 h-1 bg-gradient-to-r from-[#ff5500] to-transparent mb-8"></div>
                     <p class="text-lg md:text-xl text-neutral-400 font-light leading-relaxed">
                         Everything you need to ship a real project — in one program.
                     </p>
@@ -266,11 +266,11 @@
 
                     <!-- Duration Card -->
                     <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
-                        <i data-lucide="calendar" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
+                        <i data-lucide="calendar" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff5500] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
                         <div class="relative z-10 flex flex-col justify-between h-full">
                             <div class="flex items-start justify-between mb-5">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff6a2a]/20 shadow-inner">
-                                    <i data-lucide="calendar" class="w-6 h-6 text-[#ff6a2a]"></i>
+                                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff5500]/20 shadow-inner">
+                                    <i data-lucide="calendar" class="w-6 h-6 text-[#ff5500]"></i>
                                 </div>
                                 <div class="dojo-tag">INTENSIVE</div>
                             </div>
@@ -278,7 +278,7 @@
                                 <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-1">Duration</p>
                                 <div class="flex items-baseline gap-3">
                                     <span class="hero-stat-num counter-value text-white" data-target="45">0</span>
-                                    <span class="text-[#ff6a2a] cinzel-font font-black text-2xl">Days</span>
+                                    <span class="text-[#ff5500] cinzel-font font-black text-2xl">Days</span>
                                 </div>
                                 <p class="text-neutral-300 text-sm mt-2 leading-relaxed">Intensive, sprint-based curriculum designed for rapid mastery.</p>
                             </div>
@@ -287,14 +287,14 @@
 
                     <!-- Mode Card -->
                     <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
-                        <i data-lucide="wifi" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
+                        <i data-lucide="wifi" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff5500] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
                         <div class="relative z-10 flex flex-col justify-between h-full">
                             <div class="flex items-start justify-between mb-5">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff6a2a]/20 shadow-inner">
-                                    <i data-lucide="radio" class="w-6 h-6 text-[#ff6a2a]"></i>
+                                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff5500]/20 shadow-inner">
+                                    <i data-lucide="radio" class="w-6 h-6 text-[#ff5500]"></i>
                                 </div>
                                 <div class="dojo-tag active">
-                                    <span class="w-2 h-2 bg-[#ff6a2a] rounded-full animate-pulse"></span> ACTIVE NOW
+                                    <span class="w-2 h-2 bg-[#ff5500] rounded-full animate-pulse"></span> ACTIVE NOW
                                 </div>
                             </div>
                             <div>
@@ -307,11 +307,11 @@
 
                     <!-- Mentorship Card -->
                     <div class="dojo-card p-6 md:p-7 flex flex-col justify-between min-h-[190px] md:col-span-4 group">
-                        <i data-lucide="swords" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff6a2a] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
+                        <i data-lucide="swords" class="absolute -top-6 -right-6 w-40 h-40 text-[#ff5500] opacity-[0.02] group-hover:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover:rotate-0 group-hover:scale-110 pointer-events-none z-0"></i>
                         <div class="relative z-10 flex flex-col justify-between h-full">
                             <div class="flex items-start justify-between mb-5">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff6a2a]/20 shadow-inner">
-                                    <i data-lucide="swords" class="w-6 h-6 text-[#ff6a2a]"></i>
+                                <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#1a0f0a] border border-[#ff5500]/20 shadow-inner">
+                                    <i data-lucide="swords" class="w-6 h-6 text-[#ff5500]"></i>
                                 </div>
                             </div>
                             <div>
@@ -321,7 +321,7 @@
                                     <div class="flex -space-x-2">
                                         <div class="w-8 h-8 rounded-full bg-[#111] border-2 border-[#1c1c1c]"></div>
                                         <div class="w-8 h-8 rounded-full bg-[#151515] border-2 border-[#1c1c1c]"></div>
-                                        <div class="w-8 h-8 rounded-full bg-[#1a0f0a] border-2 border-[#ff6a2a]/30 flex items-center justify-center text-[10px] font-bold text-[#ff6a2a]">+24</div>
+                                        <div class="w-8 h-8 rounded-full bg-[#1a0f0a] border-2 border-[#ff5500]/30 flex items-center justify-center text-[10px] font-bold text-[#ff5500]">+24</div>
                                     </div>
                                     <span class="text-neutral-300 text-xs font-bold uppercase tracking-wider">Industry Veterans</span>
                                 </div>
@@ -335,7 +335,7 @@
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y-0 md:divide-y-0 md:divide-x divide-white/5">
 
                                 <div class="relative flex items-start gap-4 md:pr-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="monitor-play" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                    <i data-lucide="monitor-play" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff5500] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="monitor-play" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -346,7 +346,7 @@
                                 </div>
 
                                 <div class="relative flex items-start gap-4 md:px-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="flame" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                    <i data-lucide="flame" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff5500] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="flame" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -357,7 +357,7 @@
                                 </div>
 
                                 <div class="relative flex items-start gap-4 md:px-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="clipboard-check" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                    <i data-lucide="clipboard-check" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff5500] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform -rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="clipboard-check" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -368,7 +368,7 @@
                                 </div>
 
                                 <div class="relative flex items-start gap-4 md:pl-6 py-2 md:py-0 group/item">
-                                    <i data-lucide="award" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff6a2a] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
+                                    <i data-lucide="award" class="absolute -top-4 -right-2 w-24 h-24 text-[#ff5500] opacity-[0.02] group-hover/item:opacity-[0.06] transition-all duration-500 transform rotate-12 group-hover/item:rotate-0 group-hover/item:scale-110 pointer-events-none -z-10"></i>
                                     <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#151515] border border-white/5 shrink-0 relative z-10">
                                         <i data-lucide="award" class="w-5 h-5 text-white"></i>
                                     </div>
@@ -386,7 +386,7 @@
                         class="dojo-card dojo-card-featured p-6 flex flex-col items-center justify-center text-center min-h-[170px] md:col-span-4 overflow-hidden group relative">
                         <img src="./assets/ninja/icon_portfolio_3d.png" class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-25 transition-opacity duration-700 pointer-events-none" aria-hidden="true">
                         <div class="relative z-10 flex flex-col items-center">
-                            <i data-lucide="target" class="w-10 h-10 text-[#ff6a2a] mb-3"></i>
+                            <i data-lucide="target" class="w-10 h-10 text-[#ff5500] mb-3"></i>
                             <p class="text-white/60 text-[10px] font-black tracking-[0.3em] uppercase mb-2">The Ultimate
                                 Outcome</p>
                             <p class="cinzel-font text-white text-xl font-black leading-tight uppercase">
@@ -409,18 +409,18 @@
                 <div class="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-center gap-12 lg:gap-20">
 
                     <div class="w-full md:w-5/12 flex flex-col justify-center py-20">
-                        <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">THE CURRICULUM</span>
+                        <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">THE CURRICULUM</span>
                         <h3 id="curriculum-stats"
                             class="cinzel-font text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-6 uppercase">
                             Core<br>Essentials.<br><span id="stepper-highlight"
-                                class="text-[#ff6a2a] transition-colors duration-700">Master Skill.</span>
+                                class="text-[#ff5500] transition-colors duration-700">Master Skill.</span>
                         </h3>
                         <p class="text-base text-neutral-400 font-light max-w-sm leading-relaxed mb-8">
                             Scroll to unroll the curriculum and see exactly what skills you'll master in each phase.
                         </p>
 
                         <div class="phase-dots" id="phase-dots">
-                            <div class="phase-dot active" data-dot="1" style="color: #ff6a2a;">
+                            <div class="phase-dot active" data-dot="1" style="color: #ff5500;">
                                 <div class="dot-circle"></div><span class="dot-label">The Artifact</span>
                             </div>
                         </div>
@@ -464,11 +464,11 @@
             <div class="max-w-7xl mx-auto px-6 w-full flex flex-col items-center">
 
                 <div class="text-center mb-16 reveal-cinematic">
-                    <span class="japan-font text-[#ff6a2a] text-sm tracking-widest block mb-4">FREQUENTLY ASKED QUESTIONS</span>
+                    <span class="japan-font text-[#ff5500] text-sm tracking-widest block mb-4">FREQUENTLY ASKED QUESTIONS</span>
                     <h2 class="cinzel-font text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase">
                         COMMON INQUIRIES
                     </h2>
-                    <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff6a2a] to-transparent mx-auto mb-6">
+                    <div class="w-20 h-1 bg-gradient-to-r from-transparent via-[#ff5500] to-transparent mx-auto mb-6">
                     </div>
                     <p class="text-neutral-400 text-lg font-light">
                         Straight answers. No marketing speak.
@@ -571,16 +571,16 @@
                 class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%3Cpath d=%22M0 20h40v1H0z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3Cpath d=%22M20 0h1v40h-1z%22 fill=%22rgba(255,255,255,0.02)%22/%3E%3C/svg%3E')] opacity-[0.2]">
             </div>
             <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,106,42,0.08),transparent_70%)] pointer-events-none">
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,85,0,0.08),transparent_70%)] pointer-events-none">
             </div>
 
             <div class="max-w-3xl mx-auto px-6 text-center flex flex-col items-center relative z-10">
                 <div class="flex flex-col items-center mb-6 reveal-cinematic">
-                    <span class="japan-font text-[#ff6a2a] text-sm tracking-[0.4em] block mb-2">THE ULTIMATE PATH</span>
+                    <span class="japan-font text-[#ff5500] text-sm tracking-[0.4em] block mb-2">THE ULTIMATE PATH</span>
                     <h2
                         class="cinzel-font text-4xl md:text-8xl font-black text-white leading-[0.85] tracking-tighter uppercase text-center break-words max-w-[90vw]">
                         FORGE YOUR<br>
-                        <span class="text-[#ff6a2a] drop-shadow-[0_0_20px_rgba(255,106,42,0.3)]">LEGACY</span>
+                        <span class="text-[#ff5500] drop-shadow-[0_0_20px_rgba(255,85,0,0.3)]">LEGACY</span>
                     </h2>
                 </div>
 
@@ -616,9 +616,9 @@
                     </svg>
                 </div>
                 <div class="flex gap-6 md:gap-12 text-[10px] font-black uppercase tracking-[3px] text-neutral-500">
-                    <a href="#" class="hover:text-[#ff6a2a] transition">Twitter</a>
-                    <a href="#" class="hover:text-[#ff6a2a] transition">Discord</a>
-                    <a href="#" class="hover:text-[#ff6a2a] transition">Academy</a>
+                    <a href="#" class="hover:text-[#ff5500] transition">Twitter</a>
+                    <a href="#" class="hover:text-[#ff5500] transition">Discord</a>
+                    <a href="#" class="hover:text-[#ff5500] transition">Academy</a>
                 </div>
                 <p class="mt-10 text-[9px] text-neutral-700 uppercase tracking-[0.3em] font-black">
                     FLAMES &copy; 2026
