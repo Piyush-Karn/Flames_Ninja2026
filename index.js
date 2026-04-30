@@ -747,6 +747,32 @@
             track.addEventListener('mouseenter', stopAuto);
             track.addEventListener('mouseleave', startAuto);
 
+            // Touch swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const SWIPE_THRESHOLD = 50;
+
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAuto();
+            }, { passive: true });
+
+            track.addEventListener('touchmove', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            track.addEventListener('touchend', () => {
+                const swipeDistance = touchStartX - touchEndX;
+                if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+                    if (swipeDistance > 0) {
+                        next(); // Swiped left → next
+                    } else {
+                        prev(); // Swiped right → prev
+                    }
+                }
+                startAuto();
+            }, { passive: true });
+
             window.addEventListener('resize', () => updateUI(true));
 
             // Init
